@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* overflow: hidden; */
+}
+
+/* #region loader */
+.loader-container {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 120px;
+  height: 120px;
+}
+
+.loader img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
