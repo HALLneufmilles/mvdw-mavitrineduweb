@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="/style.css" /> -->
+
+    <!-- Preload de l'élément <img> de la section "hero". Voir L'utilisation de srcset dans la balise <img> "bateaumarin..." de "hero" -->
+    <link
+      rel="preload"
+      as="image"
+      href="/21-bateaumarinutilise2-800.png"
+      imagesrcset="/21-bateaumarinutilise2-800.png 800w, /21-bateaumarinutilise2-1400.png 1024w"
+      imagesizes="100vw"
+    />
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>MaVitrineDuWeb</title>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+      /* Loader plein écran au-dessus de tout le contenu */
+      /* .loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      } */
+      /* Cache le loader une fois que le contenu est prêt */
+      /* .loader-container.hidden {
+        opacity: 0;
+        visibility: hidden;
+      } */
+    </style>
+    <script type="module" crossorigin src="/assets/index-DZ52c1D0.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-prsjz3Qr.css">
+  </head>
+  <body>
+    <div class="loader-container">
+      <div class="loader">
+        <img src="/logo-mavitrineduweb-500.png" alt="" />
+        <span class="loader-span"></span>
+      </div>
+    </div>
+    <header>
+      <!-- https://www.youtube.com/watch?v=r5QAGkoF6O8&list=PLqm86YkewF6SYMNqk_d_yFdDNDJrtEpLF&index=5 -->
+      <nav class="side-nav">
+        <ul class="nav-container">
+          <li class="link-item">
+            <a href="#hero-section" class="links">Home</a>
+          </li>
+          <li class="link-item">
+            <a href="#services" class="links">Services</a>
+          </li>
+          <li class="link-item">
+            <a href="#etapes" class="links">Etapes</a>
+          </li>
+          <li class="link-item">
+            <a href="#prix" class="links">Prix</a>
+          </li>
+          <li class="link-item">
+            <a href="#themes" class="links">Thèmes</a>
+          </li>
+          <li class="link-item">
+            <a href="#contacts" class="links">Contact</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div id="hero-section">
+        <div class="hero">
+          <div id="particles-js"></div>
+          <!-- L'image sélectionnée sera préloadée. Voir <link rel="preload"> dans <head> -->
+          <!-- Pour voir les img utilisées par le navigateur: DevTool / Network / filtre img. -->
+          <img
+            src="/21-bateaumarinutilise2-800.png"
+            srcset="/21-bateaumarinutilise2-800.png 800w, /21-bateaumarinutilise2-1400.png 1024w"
+            sizes="100vw"
+            alt="Overlay"
+            class="overlay-image"
+          />
+          <div class="gauche">
+            <img src="/22-TextWhitNonFendu2-800.png" alt="Text White" />
+            <div id="text1" class="text"></div>
+            <div id="text2" class="text"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- présentation -->
+      <section>
+        <div class="presentation">
+          <h1 class="hye-title" data-hye="MVDW">Votre <br />site web <br />personnalisé</h1>
+          <p class="hye-propos">
+            Envie d’un site web qui reflète votre personnalité ou l’image unique de votre entreprise ?<br />
+            <br />
+            <span>MaVitrineDuWeb</span> est votre partenaire de confiance pour concrétiser votre projet en ligne.<br />
+            <br />Tranquillité d’esprit totale, <span>MaVitrineDuWeb</span> ne s'arrête pas à la mise en ligne de votre
+            projet et propose un an de support technique gratuit.
+          </p>
+        </div>
+      </section>
+      <!-- Texte défilant Techno -->
+      <div class="messagedefilant">
+        <div
+          data-text="- JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE"
+        >
+          <span
+            >- JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT -
+            CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP
+            - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API -
+            NODEJS - CMS -VUEJS - MONGODB - FIREBASE</span
+          >
+        </div>
+      </div>
+      <!-- Section Services -->
+      <section id="services">
+        <div class="services-flex">
+          <h1 class="services-title" data-services="services">Services</h1>
+          <div class="container-services">
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (2).png" alt="" />
+              </div>
+              <h2>Portfolio / CV</h2>
+              <p>
+                Création de portfolios ou CV conçus pour mettre en valeur vos compétences et réalisations de manière
+                professionnelle et percutante. Que vous soyez étudiant ou professionnel, optez pour une solution qui
+                capte l'attention des recruteurs et reflète fidèlement votre parcours et vos ambitions.
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (1).png" alt="" />
+              </div>
+              <h2>Site Vitirine</h2>
+              <p>
+                Nous réalisons des sites vitrine qui valorisent votre activité et captent l’attention de votre audience
+                cible. Que vous soyez une entreprise ou un indépendant, notre service vous assure une présence en ligne
+                efficace, en phase avec l’identité de votre marque.
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (4).png" alt="" />
+              </div>
+              <h2>E-commerce</h2>
+              <p>
+                Réalisation de sites e-commerce optimisés pour maximiser vos ventes en ligne. Que vous soyez une
+                entreprise ou un entrepreneur, vous bénéficierez d'une plateforme performante, adaptée à vos besoins, et
+                reflétant l'essence de votre marque
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (5).png" alt="" />
+              </div>
+              <h2>Blog</h2>
+              <p>
+                Création de blogs qui mettent en valeur votre contenu et favorisent l'engagement de votre audience. Que
+                vous soyez écrivain, expert ou passionné, vous serez en mesure de partager vos idées et votre expertise.
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (6).png" alt="" />
+              </div>
+              <h2>Développement Sur Mesure</h2>
+              <p>
+                Développement sur mesure, conçu pour répondre précisément à vos besoins spécifiques. Que vous ayez des
+                exigences uniques ou des idées innovantes, une solutions personnalisées vous sera proposée afin de
+                s'adaptent parfaitement à votre projet.
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (7).png" alt="" />
+              </div>
+              <h2>Référencement Naturel</h2>
+              <p>
+                Référencement naturel, conçu pour améliorer votre visibilité en ligne et attirer un trafic qualifié.
+                Augmentez votre présence sur les moteurs de recherche avec une stratégie SEO personnalisées.
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (8).png" alt="" />
+              </div>
+              <h2>Photo / Vidéo</h2>
+              <br />
+              <p>
+                Production photo et vidéo conçue pour capturer l'essence de votre marque et raconter votre histoire de
+                manière percutante.
+              </p>
+            </div>
+            <div class="card">
+              <div class="div-img-service">
+                <img src="/pngegg (9).png" alt="" />
+              </div>
+              <h2>Mobile</h2>
+              <br />
+              <p>
+                Compatible avec iPhone et Android, une PWA permet à vos clients d'utiliser votre site web de manière
+                similaire à une application mobile, avec des fonctionnalités avancées telles que les alertes
+                instantanées, l'accès hors ligne et l'ajout d'une icône de raccourci. Tout cela sans supporter les coûts
+                importants liés à leur développement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Texte défilant services -->
+      <div class="messagedefilant">
+        <div
+          class="invert"
+          data-text="- PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE"
+        >
+          <span
+            >- PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE -
+            PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE -
+            PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE</span
+          >
+        </div>
+      </div>
+      <!-- Section Etapes -->
+      <section id="etapes">
+        <div class="stape-section">
+          <div class="stape-container">
+            <div class="stape-card">
+              <div class="stape-div">
+                <h1 class="title-stape" data-text="etape 1">etape 1</h1>
+              </div>
+              <h2>Découverte</h2>
+              <p>
+                Avant de commencer votre projet, nous nous assurerons d'échanger sur toute l'étendue des besoins. Cette
+                approche nous garantira d'être parfaitement aligné et de partager une vision commune du projet.
+              </p>
+            </div>
+            <div class="stape-card">
+              <div class="stape-div">
+                <h1 class="title-stape" data-text="etape 2">etape 2</h1>
+              </div>
+              <h2>Planification</h2>
+              <p>
+                Lors de la réunion de lancement, nous validerons les aspects visuels et fonctionnels. Nous définirons
+                les étapes de développement afin d'établir des jalons clés du projet. Cela aboutira à un plan
+                stratégique en adéquation avec vos besoins prioritaires.
+              </p>
+            </div>
+            <div class="stape-card">
+              <div class="stape-div">
+                <h1 class="title-stape" data-text="etape 3">etape 3</h1>
+              </div>
+              <h2>Développement</h2>
+              <p>
+                la conception commence, donnant vie à votre projet. Les documents seront révisés ensembles jusqu'à ce
+                qu'ils répondent pleinement à vos objectifs.
+              </p>
+            </div>
+            <div class="stape-card">
+              <div class="stape-div">
+                <h1 class="title-stape" data-text="etape 4">etape 4</h1>
+              </div>
+              <h2>Livraison</h2>
+              <p>
+                Des contrôles rigoureux et des tests approfondis seront effectués pour assurer la qualité du projet. Une
+                fois ces étapes franchies, le projet finalisé vous sera présenté. Après votre approbation, votre site
+                Web sera mis en ligne.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- section Prix -->
+      <section id="prix">
+        <!-- <div class="section-prix"> -->
+        <div class="pricing">
+          <div class="pricing-headline">
+            <p>Faites votre choix.</p>
+            <h1>Formules & Prix</h1>
+          </div>
+          <div class="pricing-boxes">
+            <!-- Basic Plan Box -->
+            <div class="pricing-box formule">
+              <div>
+                <div class="pricing-box-title">
+                  <h6>RAPIDE</h6>
+                  <h4>PORTFOLIO - CV</h4>
+                  <p>Conçu pour mettre en valeur vos compétences et réalisations.</p>
+                  <h3>À PARTIR DE</h3>
+                  <p class="price">499 €</p>
+                  <!-- <hr /> -->
+                </div>
+
+                <div class="pricing-box-features">
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Nbr pages: 2</p>
+                    </div>
+                    <!-- <p>Manage and grow your social media presence</p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Designées</p>
+                    </div>
+                    <!-- <p>Optimize your website for improved search rankings</p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Template Fourni</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Responsive Design</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Formulaire Contact</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Formulaire Inscription</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>100% des droits de propriété</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-pricing">
+                <!-- onclick="window.location.href='contact.html'" -->
+
+                COMMENCER
+              </button>
+            </div>
+
+            <!-- Pro Plan Box -->
+            <div class="pricing-box formule">
+              <div>
+                <div class="pricing-box-title">
+                  <h6>POPULAIRE</h6>
+                  <h4>SITE VITRINE - BLOG</h4>
+                  <p>Valorisent votre activité et captez l’attention de votre audience cible.</p>
+                  <h3>À PARTIR DE</h3>
+                  <p class="price">999€</p>
+                  <!-- <hr /> -->
+                </div>
+
+                <div class="pricing-box-features">
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Nbr pages: 10</p>
+                    </div>
+                    <!-- <p>Manage and grow your social media presence</p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Designées</p>
+                    </div>
+                    <!-- <p>Optimize your website for improved search rankings</p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Template Fourni</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Template Exclusif</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Responsive Design</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Formulaire Contact</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Formulaire Inscription</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>CMS</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Réseaux Sociaux</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>SEO Naturel</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>100% des droits de propriété</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                </div>
+              </div>
+              <button class="btn-pricing">
+                <!-- onclick="window.location.href='contact.html'" -->
+                COMMENCER
+              </button>
+            </div>
+
+            <!-- Premium Plan Box -->
+            <div class="pricing-box formule">
+              <div>
+                <div class="pricing-box-title">
+                  <h6>COMPLET</h6>
+                  <h4>E-COMMERCE</h4>
+                  <p>Sites e-commerce optimisé pour maximiser vos ventes en ligne.</p>
+                  <h3>À PARTIR DE</h3>
+                  <p class="price">1,499€</p>
+                  <!-- <hr /> -->
+                </div>
+
+                <div class="pricing-box-features">
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Nbr pages: > 10</p>
+                    </div>
+                    <!-- <p>Manage and grow your social media presence</p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Designées</p>
+                    </div>
+                    <!-- <p>Optimize your website for improved search rankings</p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Template Fourni</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Template Exclusif</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Responsive Design</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Formulaire Contact</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Formulaire Inscription</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>CMS</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Réseaux Sociaux</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>SEO Optimisé</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Mobile PWA</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>Technologie VueJS</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                  <div class="feature">
+                    <div class="feature-title">
+                      <div class="circle">
+                        <i class="fa-solid fa-check"></i>
+                      </div>
+                      <p>100% des droits de propriété</p>
+                    </div>
+                    <!-- <p>
+                  Monthly creation and distribution of engaging blog posts or
+                  articles
+                </p> -->
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-pricing" id="btn-premium">
+                <!-- onclick="window.location.href='contact.html'" -->
+
+                COMMENCER
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </section>
+      <!-- Section Thèmes -->
+      <section id="themes">
+        <h1 class="themes-title" data-themes="thèmes">thèmes</h1>
+        <div class="row">
+          <a href="https://atomic-template.framer.website/" class="card-img-slide">
+            <h2 class="title">Vitrine Produits<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <!-- Utilisation de Lazysizes avec la classe "lazyload" -->
+              <img
+                data-sizes="auto"
+                data-src="/1-atomic-300.jpg"
+                data-srcset="/1-atomic-800.jpg 800w, /1-atomic-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web - Portfolio project product showcase"
+              />
+            </div>
+          </a>
+          <a href="https://codinginpublic.dev/projects/parallax-landing-page/" class="card-img-slide">
+            <h2 class="title">Blog voyages<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/2-codingin-300.jpg"
+                data-srcset="/2-codingin-800.jpg 800w, /2-codingin-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web - project travel blog"
+              />
+            </div>
+          </a>
+          <a href="https://simple-tourism-organization.netlify.app/" class="card-img-slide">
+            <h2 class="title">Evènements<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/3-simple-tourism-300.jpg"
+                data-srcset="/3-simple-tourism-800.jpg 800w, /3-simple-tourism-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web - project travel event"
+              />
+            </div>
+          </a>
+          <a href="https://yash-srivastav16.github.io/Tour-Project/" class="card-img-slide">
+            <h2 class="title">Tour opérators<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/4-yash-300.jpg"
+                data-srcset="/4-yash-800.jpg 800w, /4-yash-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web project travel tour"
+              />
+            </div>
+          </a>
+          <a href="" class="card-img-slide">
+            <h2 class="title">Services<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/5-styleout-300.jpg"
+                data-srcset="/5-styleout-800.jpg 800w, /5-styleout-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web project services"
+              />
+            </div>
+          </a>
+          <a href="https://keerti1924.github.io/E-Learning-Website-HTML-CSS/index.html" class="card-img-slide">
+            <h2 class="title">Éducation<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/6-keetri-300.jpg"
+                data-srcset="/6-keetri-800.jpg 800w, //6-keetri-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web project education"
+              />
+            </div>
+          </a>
+          <a href="https://mavitrineduweb.vercel.app/" class="card-img-slide">
+            <h2 class="title">Portfolio<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/7-portfolio-300.jpg"
+                data-srcset="/7-portfolio-800.jpg 800w, /7-portfolio-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web project portfolio"
+              />
+            </div>
+          </a>
+          <a href="https://ecom-modern.onrender.com/index.html" class="card-img-slide">
+            <h2 class="title">E-commerce<br /></h2>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="div-img-theme">
+              <img
+                data-size="auto"
+                data-src="/8-clothing-300.jpg"
+                data-srcset="/8-clothing-800.jpg 800w, /8-clothing-300.jpg 300w"
+                class="lazyload"
+                alt="Ma Vitrine Du Web project e-commerce"
+              />
+            </div>
+          </a>
+        </div>
+      </section>
+      <!-- Section SKILLS -->
+      <section id="competences">
+        <div class="skills">
+          <h1 class="skill-title" data-text="SKILLS">SKILLS</h1>
+          <div class="skills-container">
+            <div class="skill-card">
+              <img src="\html.png" alt="" class="skill-image" />
+              <p class="skill-name">HTML</p>
+            </div>
+            <div class="skill-card">
+              <img src="\css.png" alt="" class="skill-image" />
+              <p class="skill-name">CSS</p>
+            </div>
+            <div class="skill-card">
+              <img src="\javascript.png" alt="" class="skill-image" />
+              <p class="skill-name">Javascript</p>
+            </div>
+            <div class="skill-card">
+              <img src="\vuejs.png" alt="" class="skill-image" />
+              <p class="skill-name">VueJS</p>
+            </div>
+            <div class="skill-card">
+              <img src="\reactjs.png" alt="" class="skill-image" />
+              <p class="skill-name">React JS</p>
+            </div>
+            <div class="skill-card">
+              <img src="\nodejs.png" alt="" class="skill-image" />
+              <p class="skill-name">Node JS</p>
+            </div>
+            <div class="skill-card">
+              <img src="\webflow-icon.png" alt="" class="skill-image" />
+              <p class="skill-name">Webflow</p>
+            </div>
+            <div class="skill-card">
+              <img src="\firebase.png" alt="" class="skill-image" />
+              <p class="skill-name">Firebase</p>
+            </div>
+            <div class="skill-card">
+              <img src="\AWS Services 175.png" alt="" class="skill-image" />
+              <p class="skill-name">AWS</p>
+            </div>
+            <div class="skill-card">
+              <img src="\threejs-icon.png" alt="" class="skill-image" />
+              <p class="skill-name">ThreeJS</p>
+            </div>
+            <div class="skill-card">
+              <img src="\stripe.png" alt="" class="skill-image" />
+              <p class="skill-name">Stripe</p>
+            </div>
+            <div class="skill-card">
+              <img src="\tailwind2.png" alt="" class="skill-image" />
+              <p class="skill-name">Tailwind</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contacts">
+        <div class="contact-form">
+          <h1>Parlons de votre projet</h1>
+          <p>N'hésitez pas à me laisser un message, je prendrai contact avec vous très rapidement.</p>
+
+          <!-- <form action="https://api.web3forms.com/submit" method="POST"> -->
+          <form id="contact-form" onsubmit="event.preventDefault(); sendMail();">
+            <input type="text" id="user_name" name="user_name" placeholder="Nom" autocomplete="off" required />
+            <input type="text" id="contact_number" name="contact_number" placeholder="Téléphone" autocomplete="off" />
+            <input type="email" id="user_email" name="user_email" placeholder="Email" autocomplete="off" required />
+            <input type="text" id="subject" name="subject" placeholder="Sujet" autocomplete="off" required />
+            <textarea id="message" name="message" cols="30" rows="10" placeholder="Votre message" required></textarea>
+            <button type="submit" class="submit-form-btn">Envoyer</button>
+          </form>
+          <div class="div-phone footer-links-container">
+            <img src="/phone-blanc-fond-t.png" alt="logo société" class="logo" />
+            <p class="footer-text">06 63 20 85 31</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- #endregion footer -->
+    <footer id="footer">
+      <!-- https://www.youtube.com/watch?v=Y636LRWBdo8&t=21s -->
+      <div class="compagny-info">
+        <img src="/22-TextWhitNonFendu2-300.png" alt="logo société" class="logo" />
+      </div>
+      <div class="useful-links footer-links-container">
+        <a href="#hero-section" class="footer-links">Home</a>
+        <a href="#services" class="footer-links">services</a>
+        <a href="#prix" class="footer-links">Formules</a>
+      </div>
+      <p class="copyright">Policy Privacy</p>
+
+      <p class="copyright">Copyright 2024 © by MaVitrineDuWeb</p>
+      <p class="copyright">All right reserved.</p>
+    </footer>
+    <!-- #endregion footer -->
+    <script>
+      // Exemple pour retirer le loader après 1 seconde
+      // setTimeout(() => {
+      //   document.querySelector(".loader-container").classList.add("hidden");
+      // }, 1000);
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  </body>
+</html>
