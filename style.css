@@ -1018,15 +1018,20 @@ section {
 }
 
 .btn-pricing {
+  display: inline-block;
   width: 80%;
   height: 40px;
+  line-height: 40px; /* Aligne verticalement le texte */
+  text-align: center;
   cursor: pointer;
-  border: 1.2px solid var(--border-pricing-btn);
+  border: 1.2px solid black;
   border-radius: 18px;
-  background-color: var(--background-pricing-btn);
-  color: var(--color-pricing-btn);
-  font-size: 20px;
+  background-color: white;
+  color: #494848;
+  font-size: 1.1rem;
   font-weight: 550;
+  text-transform: capitalize;
+  text-decoration: none; /* Supprime le soulignement de l'élément <a> */
   transition: all 0.3s ease-in-out;
   margin: 0 auto;
 }
@@ -1229,7 +1234,7 @@ section {
 }
 
 .skill-card:nth-child(12):hover .skill-name {
-  background: #2fc2c9;
+  background: #499d4b;
 }
 
 .skill-card:hover .skill-image {
