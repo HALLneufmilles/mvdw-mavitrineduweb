@@ -422,6 +422,14 @@ section {
   position: relative;
 }
 
+.hye-title2 {
+  font-size: 1rem;
+  padding: 2vh 1vw;
+  opacity: 0.9;
+  color: #fff;
+  font-style: italic;
+}
+
 .hye-title::after {
   position: absolute;
   content: attr(data-hye);
@@ -791,8 +799,10 @@ section {
   transition: background-color 0.7s ease;
 }
 
-.stape-card h2 {
-  margin: 0 0 20px 0;
+.stape-card h3 {
+  /* margin: 0 0 20px 0; */
+  margin: 5px 0 30px;
+  font-size: 1.5rem;
 }
 
 .stape-card p {
@@ -805,7 +815,7 @@ section {
   text-align: center;
   color: var(--primary-text-color);
   font-size: 2.4rem;
-  font-weight: 300;
+  font-weight: 600;
   text-transform: uppercase;
   position: relative;
 }
@@ -822,8 +832,8 @@ section {
   width: 100%;
 }
 
-.stape-div h1 {
-  padding: 10px 0;
+.stape-div h2 {
+  padding: 20px 0;
 }
 
 /* @media (min-width: 430px) {
@@ -900,7 +910,7 @@ section {
   color: var(--pricing-headline-p);
 }
 
-.pricing-headline h1 {
+.pricing-headline h2 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 23px;
@@ -1301,7 +1311,7 @@ section {
   position: relative;
   text-align: center;
   color: var(--primary-text-color);
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 900;
   /* margin-bottom: 40px; */
   margin: 50px auto 40px auto;
@@ -1316,7 +1326,7 @@ section {
   left: 50%;
   transform: translate(-50%, -70%);
   opacity: 0.3;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 900;
   width: 100%;
   z-index: 0;
@@ -1330,7 +1340,7 @@ section {
   margin: 0 auto;
 }
 
-h2.title,
+h3.title,
 label {
   color: var(--primary-text-color);
   text-decoration: none;
@@ -1494,7 +1504,7 @@ form {
   background-color: var(--background-color);
 }
 
-.contact-form h1 {
+.contact-form h2 {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--primary-text-color);

@@ -357,3 +357,35 @@ window.sendMail = function () {
       console.log("afetr catch params:", params);
     });
 };
+
+//  fonction à utiliser uniquement pour afficher puis copier/coller la date dans <meta property="og:updated_time" content="2024-09-27T18:43:17+02:00" /> avant chaque grosse mise à jour pour le SEO.
+// https://chatgpt.com/share/66f6e0dc-aa90-800d-80bf-96f8c4ae9340
+// function formatISODate(date) {
+//   const timezoneOffset = -date.getTimezoneOffset();
+//   const diff = timezoneOffset >= 0 ? "+" : "-";
+//   const pad = (num) => String(num).padStart(2, "0");
+
+//   const hours = pad(Math.floor(Math.abs(timezoneOffset) / 60));
+//   const minutes = pad(Math.abs(timezoneOffset) % 60);
+
+//   return (
+//     date.getFullYear() +
+//     "-" +
+//     pad(date.getMonth() + 1) +
+//     "-" +
+//     pad(date.getDate()) +
+//     "T" +
+//     pad(date.getHours()) +
+//     ":" +
+//     pad(date.getMinutes()) +
+//     ":" +
+//     pad(date.getSeconds()) +
+//     diff +
+//     hours +
+//     ":" +
+//     minutes
+//   );
+// }
+
+// const updatedTime = formatISODate(new Date());
+// console.log(updatedTime);
