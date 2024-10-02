@@ -64,6 +64,43 @@ document.addEventListener("DOMContentLoaded", function () {
   //   heroSection.style.visibility = "visible";
   // }
 
+  function showVoletBoxs() {
+    // On contrôle l'existence de l'élément 'footer'
+    const footer = document.querySelector("#footer");
+    if (!footer) {
+      console.error("L'élément #footer n'existe pas dans le DOM.");
+      return; // Quitte la fonction si l'élément n'existe pas
+    }
+
+    // Sélection de tous les éléments avec la classe .box
+    const boxElements = document.querySelectorAll(".box");
+
+    // Fonction de rappel pour l'observer
+    const handleBoxesVisibility = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          boxElements.forEach((box) => {
+            box.style.opacity = "1";
+            box.style.visibility = "visible";
+          });
+        } else {
+          boxElements.forEach((box) => {
+            box.style.opacity = "0";
+            box.style.visibility = "hidden";
+          });
+        }
+      });
+    };
+
+    // Création de l'observer avec un threshold de 0.1 (10%)
+    const observer = new IntersectionObserver(handleBoxesVisibility, {
+      threshold: 0.9,
+    });
+
+    // Observer le footer
+    observer.observe(footer);
+  }
+
   // Fonction pour initialiser Particles.js
   function initializeParticles() {
     particlesJS("particles-js", {
@@ -324,6 +361,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Image préchargée, initialisation des particules et inversion des couleurs");
       initializeParticles();
       handleColorInversion();
+      showVoletBoxs();
     })
     .catch((error) => {
       console.error("Une erreur s'est produite :", error);

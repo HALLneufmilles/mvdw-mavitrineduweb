@@ -51,15 +51,23 @@ body {
 body * {
   transition: background-color 1s ease, color 0.2s ease;
 }
+
 #accueil {
   padding: 0;
 }
+
+header {
+  position: relative;
+  z-index: 10;
+}
+
 main {
   max-width: 3200px;
   background-color: var(--background-color);
-  /* background-color: grey; */
   padding: 5px 2vw;
   margin: 0 auto;
+  position: relative;
+  z-index: 10;
 }
 
 section {
@@ -92,7 +100,7 @@ section {
   width: 200px;
   height: 500px;
   position: fixed;
-  z-index: 5;
+  z-index: 15;
   top: 0;
   right: -200px;
   padding: 100px 0 0 0;
@@ -154,7 +162,7 @@ section {
   transition: 0.5s;
   cursor: pointer;
   background-color: #3b3b3b;
-  z-index: 5;
+  z-index: 15;
   border-radius: 5px;
 }
 
@@ -193,7 +201,7 @@ section {
 
 /* #endregion navbar */
 /* #region loader */
-.loader-container {
+/* .loader-container {
   position: fixed;
   z-index: 999;
   top: 0;
@@ -205,10 +213,9 @@ section {
   justify-content: center;
   align-items: center;
   transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-}
+} */
 
-.loader-container.hidden {
-  /* opacity + visibility permettent de faire un display: none; tout en donnant la possibilité de faire une animation sur la disparition de l'élément */
+/* .loader-container.hidden {
   opacity: 0;
   visibility: hidden;
 }
@@ -222,7 +229,6 @@ section {
   width: 100%;
   height: auto;
   object-fit: cover;
-  /* border-radius: 10px; */
 }
 
 .loader-span {
@@ -235,9 +241,9 @@ section {
   background: #000000;
   box-sizing: border-box;
   animation: shadowExpandX 1s linear infinite alternate;
-}
+} */
 
-@keyframes shadowExpandX {
+/* @keyframes shadowExpandX {
   0% {
     box-shadow: 0 0, 0 0;
     color: rgba(255, 255, 255, 0.2);
@@ -246,7 +252,7 @@ section {
     box-shadow: -24px 0, 24px 0;
     color: rgba(0, 0, 0, 0.8);
   }
-}
+} */
 
 /* --------------------------------------- */
 /* #endregion loader */
@@ -267,7 +273,7 @@ section {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  z-index: 0;
+  z-index: 10;
   position: relative;
   /* Afin de pouvoir positionner la div.overlay-img */
   /* opacity: 0; */
@@ -282,7 +288,7 @@ section {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 11;
 }
 
 .overlay-image {
@@ -292,7 +298,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
+  z-index: 11;
   pointer-events: none;
 }
 
@@ -304,7 +310,7 @@ section {
   margin: 0 auto 25vh auto;
   /* margin: 0 5vw 5vh 0; */
   /* width: 50vw; On laisse la largeur flexible pour s'adapter à son contenu. */
-  z-index: 2;
+  z-index: 12;
   /* le text doit resté au premier plan. */
 }
 
@@ -642,7 +648,7 @@ section {
   /* margin-bottom: 40px; */
   margin: 50px auto 40px auto;
   text-transform: uppercase;
-  z-index: 1;
+  z-index: 11;
 }
 
 .services-title::before {
@@ -655,7 +661,7 @@ section {
   font-size: 3rem;
   font-weight: 900;
   width: 100%;
-  z-index: 0;
+  z-index: 10;
 }
 
 .container-services {
@@ -898,9 +904,10 @@ section {
   display: flex;
   flex-direction: column;
   text-align: start;
-  z-index: 1;
+  z-index: 11;
   padding: 0 5vw 0 0;
 }
+
 .pricing-headline p {
   font-size: 2rem;
   font-weight: bold;
@@ -934,7 +941,7 @@ section {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  z-index: 11;
   margin: 5px 0;
 }
 
@@ -992,7 +999,7 @@ section {
 }
 
 .pricing-box-features {
-  z-index: 1;
+  z-index: 11;
 }
 
 .feature {
@@ -1115,7 +1122,7 @@ section {
   /* margin-bottom: 40px; */
   margin: 20px auto 40px auto;
   text-transform: uppercase;
-  z-index: 1;
+  z-index: 11;
 }
 
 .skill-title::before {
@@ -1128,7 +1135,7 @@ section {
   font-size: 4rem;
   font-weight: 900;
   width: 100%;
-  z-index: 0;
+  z-index: 10;
 }
 
 .skills-container {
@@ -1182,7 +1189,7 @@ section {
   width: 40px;
   height: 40px;
   background-color: var(--background-color);
-  z-index: 1;
+  z-index: 11;
   transform: rotate(45deg);
 }
 
@@ -1316,7 +1323,7 @@ section {
   /* margin-bottom: 40px; */
   margin: 50px auto 40px auto;
   text-transform: uppercase;
-  z-index: 1;
+  z-index: 11;
 }
 
 .themes-title::before {
@@ -1329,7 +1336,7 @@ section {
   font-size: 4rem;
   font-weight: 900;
   width: 100%;
-  z-index: 0;
+  z-index: 10;
 }
 
 .row {
@@ -1407,7 +1414,7 @@ a {
   height: 100%;
   background: linear-gradient(90deg, rgba(0, 78, 212, 1) 0%, rgba(0, 78, 212, 1) 100%);
   transition: width 0.6s ease-out;
-  z-index: 2;
+  z-index: 12;
 }
 
 .card-img-slide:hover .filledbar {
@@ -1522,7 +1529,7 @@ form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  z-index: 1;
+  z-index: 11;
 }
 
 input::placeholder,
@@ -1666,12 +1673,15 @@ textarea::placeholder {
 
 #footer {
   position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: var(--background-color);
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
+  max-width: 3200px;
+  margin: 0 auto;
 }
 
 .compagny-info {
@@ -1726,6 +1736,10 @@ textarea::placeholder {
   justify-self: end;
 } */
 
+footer p:nth-of-type(3) {
+  margin-bottom: 20px;
+}
+
 .footer-links-title {
   text-transform: capitalize;
   margin-bottom: 1rem;
@@ -1747,3 +1761,58 @@ textarea::placeholder {
 
 /* #endregion Footer */
 /* ----------------------------------- */
+/* boites de fin de page */
+.box {
+  /* height: 600px; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* font-size: 40px; */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.box img {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+
+.box1 {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  max-width: 3200px;
+  margin: 0 auto;
+}
+
+.box1 img {
+  opacity: 0.7;
+}
+
+.box2 {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  max-width: 3200px;
+  margin: 0 auto;
+}
+
+.box2 img {
+  opacity: 0.5;
+}
+
+.box3 {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  max-width: 3200px;
+  margin: 0 auto;
+}
+
+.box3 img {
+  opacity: 0.2;
+}
