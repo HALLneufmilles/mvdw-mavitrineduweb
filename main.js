@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // document.head.appendChild(link);
 
-  const preloadImage = new Promise((resolve) => {
+  const preloadImage = new Promise((resolve, reject) => {
     var link = document.createElement("link");
     link.rel = "preload";
     link.as = "image";
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Quand l'image est chargée, on résout la promesse
     link.onload = () => resolve();
+    link.onerror = () => reject(new Error("Erreur lors du chargement de l'image"));
     document.head.appendChild(link);
   });
 
@@ -318,12 +319,15 @@ document.addEventListener("DOMContentLoaded", function () {
   initialize();
   // initializeParticles();
   // handleColorInversion();
-
-  preloadImage.then(() => {
-    console.log("Image préchargée, initialisation des particules et inversion des couleurs");
-    initializeParticles();
-    handleColorInversion();
-  });
+  preloadImage
+    .then(() => {
+      console.log("Image préchargée, initialisation des particules et inversion des couleurs");
+      initializeParticles();
+      handleColorInversion();
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
 });
 
 // Animation on scroll
