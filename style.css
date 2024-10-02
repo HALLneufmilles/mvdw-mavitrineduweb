@@ -270,8 +270,8 @@ section {
   z-index: 0;
   position: relative;
   /* Afin de pouvoir positionner la div.overlay-img */
-  opacity: 0;
-  visibility: hidden;
+  /* opacity: 0; */
+  /* visibility: hidden; */
   transition: opacity 0.8s ease-in-out;
   /* Transition fluide pour l'apparition */
 }

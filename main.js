@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Ajoute la balise <link> dans le <head> pour précharger l'image
   document.head.appendChild(link);
 
-  function showContent() {
-    document.querySelector(".loader-container").classList.add("hidden");
-  }
+  // function showContent() {
+  //   document.querySelector(".loader-container").classList.add("hidden");
+  // }
 
   // Fonction pour montrer la section "hero"
   function showHeroSection() {
