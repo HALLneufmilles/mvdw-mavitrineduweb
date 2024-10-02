@@ -193,15 +193,15 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(pricingSection);
   }
 
-  setTimeout(() => {
-    // showContent();
-    // setTimeout(() => {
-    // showHeroSection();
-    // Affiche la section "hero" après le retrait du loader
-    initializeParticles();
-    handleColorInversion();
-    // }, 1500);
-  }, 700);
+  // setTimeout(() => {
+  // showContent();
+  // setTimeout(() => {
+  // showHeroSection();
+  // Affiche la section "hero" après le retrait du loader
+  initializeParticles();
+  handleColorInversion();
+  // }, 1500);
+  // }, 700);
 
   // TextScramble (texte défilant section hero)
   class TextScramble {
