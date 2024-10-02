@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // }
 
   // Fonction pour montrer la section "hero"
-  function showHeroSection() {
-    const heroSection = document.querySelector(".hero");
-    heroSection.style.opacity = "1"; // Rendre la section visible
-    heroSection.style.visibility = "visible";
-  }
+  // function showHeroSection() {
+  //   const heroSection = document.querySelector(".hero");
+  //   heroSection.style.opacity = "1"; // Rendre la section visible
+  //   heroSection.style.visibility = "visible";
+  // }
 
   // Fonction pour initialiser Particles.js
   function initializeParticles() {
@@ -194,13 +194,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   setTimeout(() => {
-    showContent();
-    setTimeout(() => {
-      showHeroSection();
-      // Affiche la section "hero" après le retrait du loader
-      initializeParticles();
-      handleColorInversion();
-    }, 1500);
+    // showContent();
+    // setTimeout(() => {
+    // showHeroSection();
+    // Affiche la section "hero" après le retrait du loader
+    initializeParticles();
+    handleColorInversion();
+    // }, 1500);
   }, 700);
 
   // TextScramble (texte défilant section hero)
