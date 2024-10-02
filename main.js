@@ -21,21 +21,36 @@ document.addEventListener("DOMContentLoaded", function () {
   // Preload pour l'image en background-image.
   // Dans la balise <head> on préload l'image de la balise <img> avec 'imagesrcset'. Mais comme l'image de fond de la section "héro" est décide par le css avec Média Query, on utilise JS pour anticiper la taille d'image qui sera décidé par le css en fonction de la taille d'écran du user.
   // Preload background-image pour la classe "hero"
-  var link = document.createElement("link");
-  link.rel = "preload";
-  link.as = "image";
+  // var link = document.createElement("link");
+  // link.rel = "preload";
+  // link.as = "image";
 
-  // Détecte la taille de l'écran et charge l'image correspondante
-  if (window.matchMedia("(min-width: 1024px)").matches) {
-    // Pour les écrans à partir de 1024px
-    link.href = "/20-fond-hero-section-1400.jpeg";
-  } else {
-    // Pour les petits écrans
-    link.href = "/20-fond-hero-section-800.jpeg";
-  }
+  // if (window.matchMedia("(min-width: 1024px)").matches) {
 
-  // Ajoute la balise <link> dans le <head> pour précharger l'image
-  document.head.appendChild(link);
+  //   link.href = "/20-fond-hero-section-1400.jpeg";
+  // } else {
+
+  //   link.href = "/20-fond-hero-section-800.jpeg";
+  // }
+
+  // document.head.appendChild(link);
+
+  const preloadImage = new Promise((resolve) => {
+    var link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+
+    // Détecte la taille de l'écran et charge l'image correspondante
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      link.href = "/20-fond-hero-section-1400.jpeg";
+    } else {
+      link.href = "/20-fond-hero-section-800.jpeg";
+    }
+
+    // Quand l'image est chargée, on résout la promesse
+    link.onload = () => resolve();
+    document.head.appendChild(link);
+  });
 
   // function showContent() {
   //   document.querySelector(".loader-container").classList.add("hidden");
@@ -198,8 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // setTimeout(() => {
   // showHeroSection();
   // Affiche la section "hero" après le retrait du loader
-  initializeParticles();
-  handleColorInversion();
+
   // }, 1500);
   // }, 700);
 
@@ -301,7 +315,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
-  initialize(); // Initialisation de l'affichage
+  initialize();
+  // initializeParticles();
+  // handleColorInversion();
+
+  preloadImage.then(() => {
+    console.log("Image préchargée, initialisation des particules et inversion des couleurs");
+    initializeParticles();
+    handleColorInversion();
+  });
 });
 
 // Animation on scroll
