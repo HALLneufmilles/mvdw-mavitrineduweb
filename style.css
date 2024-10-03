@@ -326,7 +326,7 @@ section {
   min-height: 1.5rem;
 }
 
-.gauche img {
+.gauche object {
   width: 50vw;
   /* Largeur flexible de base relative à la largeur du viewport. cette valeur est nécessaire pour le navigateur afin qu'il applique correctement ses calculs pour min-width et max-width. */
   max-width: 60vh; /* Largeur mini pour limiter la taille sur les petit écrans */
