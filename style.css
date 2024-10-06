@@ -1772,8 +1772,8 @@ footer p:nth-of-type(3) {
   align-items: center;
   text-align: center;
   /* font-size: 40px; */
-  /* opacity: 0;
-  visibility: hidden; */
+  opacity: 0;
+  visibility: hidden;
   transition: all 0.5s ease-in-out;
 }
 
