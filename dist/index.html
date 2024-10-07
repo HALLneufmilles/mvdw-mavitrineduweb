@@ -250,6 +250,7 @@
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
+    <!--  media="print" est une astuce qui permet de différer le chargement du fichier CSS du cdn en disant au navigateur qu'il est destiné à l'impression. "onload="this.media='all'" permet ensuite de le changer dynamiquement après le chargement de la page en disant au navigateur que le cdn est destiné à l'impression et aux écrans ("screen"). -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -259,11 +260,21 @@
       media="print"
       onload="this.media='all'"
     />
+    <!-- Comme on utilise javascript avec "onload="this.media='all'", il faut que si Javascript est désactivé, le cdn puisse qu'en même se charger. Pour ça on utilise la balise <noscript>:  -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+      />
+    </noscript>
+
     <title>Entreprise de conception de sites Web à La Rochelle · Ma Vitrine Du Web . mavitrineduweb.fr</title>
     <script async src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script defer src="https://unpkg.com/scrollreveal"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="module" crossorigin src="/assets/index-BgjSyMcN.js"></script>
+    <script type="module" crossorigin src="/assets/index-BGnDZPad.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BDmDLn4x.css">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   </head>

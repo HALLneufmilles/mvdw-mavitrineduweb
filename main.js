@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Création de l'observer avec un threshold de 0.1 (10%)
     const observer = new IntersectionObserver(handleBoxesVisibility, {
-      threshold: 0.9,
+      threshold: 0.1,
     });
 
     // Observer le footer
@@ -353,13 +353,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
-  initialize();
   // initializeParticles();
   // handleColorInversion();
   preloadImage
     .then(() => {
       console.log("Image préchargée, initialisation des particules et inversion des couleurs");
       initializeParticles();
+      initialize();
       handleColorInversion();
       showVoletBoxs();
     })
