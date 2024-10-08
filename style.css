@@ -1029,8 +1029,9 @@ section {
   border: 1px solid var(--background-cards); /* Ajoute une bordure noire de 2px */
 }
 
-.circle i {
+.circle span {
   color: var(--background-cards);
+  font-weight: 1000;
 }
 
 .feature-title p {

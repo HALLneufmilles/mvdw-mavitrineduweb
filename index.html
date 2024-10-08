@@ -252,7 +252,7 @@
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <!--  media="print" est une astuce qui permet de différer le chargement du fichier CSS du cdn en disant au navigateur qu'il est destiné à l'impression. "onload="this.media='all'" permet ensuite de le changer dynamiquement après le chargement de la page en disant au navigateur que le cdn est destiné à l'impression et aux écrans ("screen"). -->
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -260,16 +260,16 @@
       referrerpolicy="no-referrer"
       media="print"
       onload="this.media='all'"
-    />
+    /> -->
     <!-- Comme on utilise javascript avec "onload="this.media='all'", il faut que si Javascript est désactivé, le cdn puisse qu'en même se charger. Pour ça on utilise la balise <noscript>:  -->
-    <noscript>
+    <!-- <noscript>
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
       />
-    </noscript>
+    </noscript> -->
 
     <title>Entreprise de conception de sites Web à La Rochelle · Ma Vitrine Du Web . mavitrineduweb.fr</title>
     <script async src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -377,7 +377,7 @@
           <div class="container-services">
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (2)-100.png" width="512" heigth="512" alt="logo rond d'un cv" />
+                <img src="/pngegg (2)-100.png" width="100" heigth="100" alt="logo rond d'un cv" />
               </div>
               <h2>Portfolio / CV</h2>
               <p>
@@ -388,7 +388,7 @@
             </div>
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (1)-100.png" width="512" heigth="512" alt="logo rond d'un écran " />
+                <img src="/pngegg (1)-100.png" width="100" heigth="100" alt="logo rond d'un écran " />
               </div>
               <h2>Site Vitrine</h2>
               <p>
@@ -399,7 +399,7 @@
             </div>
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (4)-100.png" width="512" heigth="512" alt="logo rond d'un caddie de course" />
+                <img src="/pngegg (4)-100.png" width="100" heigth="100" alt="logo rond d'un caddie de course" />
               </div>
               <h2>E-commerce</h2>
               <p>
@@ -410,7 +410,7 @@
             </div>
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (5)-100.png" width="512" heigth="512" alt="logo rond d'une feuille de journal" />
+                <img src="/pngegg (5)-100.png" width="100" heigth="100" alt="logo rond d'une feuille de journal" />
               </div>
               <h2>Blog</h2>
               <p>
@@ -421,7 +421,7 @@
             </div>
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (6)-100.png" width="512" heigth="512" alt="logo rond d'une balise fermante HTML" />
+                <img src="/pngegg (6)-100.png" width="100" heigth="100" alt="logo rond d'une balise fermante HTML" />
               </div>
               <h2>Développement Sur Mesure</h2>
               <p>
@@ -432,7 +432,7 @@
             </div>
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (7)-100.png" width="512" heigth="512" alt="logo rond d'un graphique croissant" />
+                <img src="/pngegg (7)-100.png" width="100" heigth="100" alt="logo rond d'un graphique croissant" />
               </div>
               <h2>Référencement Naturel</h2>
               <p>
@@ -444,8 +444,8 @@
               <div class="div-img-service">
                 <img
                   src="/pngegg (8)-100.png"
-                  width="512"
-                  heigth="512"
+                  width="100"
+                  heigth="100"
                   alt="logo rond d'un diaphragme d'appareil photo"
                 />
               </div>
@@ -458,7 +458,7 @@
             </div>
             <div class="card">
               <div class="div-img-service">
-                <img src="/pngegg (12)-100.png" width="512" heigth="512" alt="logo rond téléphone mobile" />
+                <img src="/pngegg (12)-100.png" width="100" heigth="100" alt="logo rond téléphone mobile" />
               </div>
               <h2>Mobile</h2>
               <br />
@@ -560,80 +560,50 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Nbr pages: 2</p>
                     </div>
-                    <!-- <p>Manage and grow your social media presence</p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Designées</p>
                     </div>
-                    <!-- <p>Optimize your website for improved search rankings</p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Template Fourni</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Responsive Design</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
-                      </div>
-                      <p>Formulaire Contact</p>
-                    </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Formulaire Inscription</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>100% des droits de propriété</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                 </div>
               </div>
@@ -649,135 +619,96 @@
                   <p>Valorisent votre activité et captez l’attention de votre audience cible.</p>
                   <h3>À PARTIR DE</h3>
                   <p class="price">999€</p>
-                  <!-- <hr /> -->
                 </div>
 
                 <div class="pricing-box-features">
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Nbr pages: 10</p>
                     </div>
-                    <!-- <p>Manage and grow your social media presence</p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Designées</p>
                     </div>
-                    <!-- <p>Optimize your website for improved search rankings</p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Template Fourni</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Template Exclusif</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Responsive Design</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Formulaire Contact</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Formulaire Inscription</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>CMS</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Réseaux Sociaux</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>SEO Naturel</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>100% des droits de propriété</p>
                     </div>
-                    <!-- <p>
-                  Monthly creation and distribution of engaging blog posts or
-                  articles
-                </p> -->
                   </div>
                 </div>
               </div>
@@ -798,7 +729,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Nbr pages: > 10</p>
                     </div>
@@ -806,7 +737,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Designées</p>
                     </div>
@@ -814,7 +745,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Template Fourni</p>
                     </div>
@@ -822,7 +753,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Template Exclusif</p>
                     </div>
@@ -830,7 +761,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Responsive Design</p>
                     </div>
@@ -838,7 +769,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Formulaire Contact</p>
                     </div>
@@ -846,7 +777,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Formulaire Inscription</p>
                     </div>
@@ -854,7 +785,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>CMS</p>
                     </div>
@@ -862,7 +793,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Réseaux Sociaux</p>
                     </div>
@@ -870,7 +801,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>SEO Optimisé</p>
                     </div>
@@ -878,7 +809,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Mobile PWA</p>
                     </div>
@@ -886,7 +817,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>Technologie VueJS</p>
                     </div>
@@ -894,7 +825,7 @@
                   <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
-                        <i class="fa-solid fa-check" aria-label="Validé"></i>
+                        <span>&#10003;</span>
                       </div>
                       <p>100% des droits de propriété</p>
                     </div>
@@ -1073,6 +1004,8 @@
                 srcset="/34-html-80.png 80w, /34-html-60.png 60w"
                 class="skill-image"
                 alt="logo html"
+                width="60"
+                height="60"
               />
               <p class="skill-name">HTML</p>
             </div>
@@ -1268,7 +1201,7 @@
       />
     </div>
     <!-- #endregion footer -->
-
+    <script src="https://kit.fontawesome.com/0cf3a578f9.js" crossorigin="anonymous"></script>
     <script type="module" src="/main.js" defer></script>
   </body>
 </html>
