@@ -58,7 +58,7 @@
       name="twitter:description"
       content="Nous créons des sites web, portfolio, CV, blog, e-commerce captivants et adaptés à vos besoins"
     />
-    <meta name="twitter:image" content="https://mavitrineduweb.fr/Accueil-1200x600.jpg" />
+    <meta name="twitter:image" content="https://mavitrineduweb.fr/Accueil-1200x600.webp" />
     <meta name="twitter:url" content="https://mavitrineduweb.fr" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/logo-mavitrineduweb-180.png" />
@@ -317,13 +317,35 @@
           <div id="particles-js"></div>
           <!-- L'image sélectionnée sera préloadée. Voir <link rel="preload"> dans <head> -->
           <!-- Pour voir les img utilisées par le navigateur: DevTool / Network / filtre img. -->
-          <img
+          <!-- <img
             src="/21-bateaumarinutilise2-800.png"
             srcset="/21-bateaumarinutilise2-800.png 800w, /21-bateaumarinutilise2-1400.png 1024w"
             sizes="100vw"
             alt="bateau pirate et tête de marin à gauche regardent les tours de la rochelle à droite"
             class="overlay-image"
-          />
+          /> -->
+          <picture>
+            <source
+              srcset="
+                /21-bateaumarinutilise2-400.webp   400w,
+                /21-bateaumarinutilise2-800.webp   800w,
+                /21-bateaumarinutilise2-1400.webp 1344w
+              "
+              type="image/webp"
+            />
+            <source
+              srcset="/21-bateaumarinutilise2-800.png 800w, /21-bateaumarinutilise2-1400.png 1344w"
+              type="image/png"
+            />
+            <img
+              src="/21-bateaumarinutilise2-400.png"
+              width="400"
+              height="229"
+              loading="lazy"
+              alt="bateau pirate et tête de marin à gauche regardent les tours de la rochelle à droite"
+              class="overlay-image"
+            />
+          </picture>
           <div class="gauche">
             <!-- <img src="/22-TextWhitNonFendu2-800.png"  width="300" height="182" alt="texte MVDW ma vitrine du web à droite." /> -->
             <object
@@ -1159,20 +1181,32 @@
             <textarea id="message" name="message" cols="30" rows="10" placeholder="Votre message" required></textarea>
             <button type="submit" class="submit-form-btn">Envoyer</button>
           </form>
-          <div class="div-phone footer-links-container">
-            <img src="/phone-blanc-fond-50.png" alt="logo combiné de téléphone" class="logo" />
+          <div class="div-phone">
+            <img src="/phone-blanc-fond-50.png" alt="logo combiné de téléphone" />
             <p class="footer-text">06 63 20 85 31</p>
           </div>
         </div>
       </section>
     </main>
-    <!-- #endregion footer -->
+    <!-- #region footer -->
     <footer id="footer">
       <!-- https://www.youtube.com/watch?v=Y636LRWBdo8&t=21s -->
       <div class="compagny-info">
-        <img src="/22-TextWhitNonFendu2-300.png" alt="logo ma vitrine du web" class="logo" />
+        <picture>
+          <source srcset="/22-TextWhitNonFendu2-300.webp 300w" type="image/webp" />
+          <source srcset="/22-TextWhitNonFendu2-300.png 300w" type="image/png" />
+          <img
+            class="logo"
+            src="/22-TextWhitNonFendu2-300.png"
+            width="300"
+            height="300"
+            loading="lazy"
+            alt="logo ma vitrine du web"
+          />
+        </picture>
+        <!-- <img src="/22-TextWhitNonFendu2-300.png" alt="logo ma vitrine du web" class="logo" /> -->
       </div>
-      <div class="useful-links footer-links-container">
+      <div class="useful-links">
         <a href="#hero-section" class="footer-links">Home</a>
         <a href="#services" class="footer-links">services</a>
         <a href="#prix" class="footer-links">Formules</a>
@@ -1182,45 +1216,115 @@
       <p class="copyright">Copyright 2024 © by MaVitrineDuWeb</p>
       <p class="copyright">All right reserved.</p>
       <div class="box">
-        <img
+        <picture>
+          <source
+            srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
+            type="image/webp"
+          />
+          <source
+            srcset="/mavitrineduweb-800.png 800w, /mavitrineduweb-1200.png 1200w, /mavitrineduweb-1900.png 1900w"
+            type="image/png"
+          />
+          <img
+            src="/mavitrineduweb-800.png"
+            width="800"
+            height="81"
+            loading="lazy"
+            alt="texte blanc ma vitrine du web sur la largeur de l'écran"
+          />
+        </picture>
+
+        <!-- <img
           src="/mavitrineduweb-800.webp"
           srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
           width="800"
           height="81"
           loading="lazy"
           alt="texte blanc ma vitrine du web sur la largeur de l'écran"
-        />
+        /> -->
       </div>
     </footer>
+    <!-- #endregion footer -->
     <div class="box box1">
-      <img
+      <picture>
+        <source
+          srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
+          type="image/webp"
+        />
+        <source
+          srcset="/mavitrineduweb-800.png 800w, /mavitrineduweb-1200.png 1200w, /mavitrineduweb-1900.png 1900w"
+          type="image/png"
+        />
+        <img
+          src="/mavitrineduweb-800.png"
+          width="800"
+          height="81"
+          loading="lazy"
+          alt="texte moins blanc ma vitrine du web sur la largeur de l'écran"
+        />
+      </picture>
+      <!-- <img
         src="/mavitrineduweb-800.webp"
         srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
         width="800"
         height="81"
         loading="lazy"
         alt="texte moins blanc ma vitrine du web sur la largeur de l'écran"
-      />
+      /> -->
     </div>
     <div class="box box2">
-      <img
+      <picture>
+        <source
+          srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
+          type="image/webp"
+        />
+        <source
+          srcset="/mavitrineduweb-800.png 800w, /mavitrineduweb-1200.png 1200w, /mavitrineduweb-1900.png 1900w"
+          type="image/png"
+        />
+        <img
+          src="/mavitrineduweb-800.png"
+          width="800"
+          height="81"
+          loading="lazy"
+          alt="texte encore moins blanc ma vitrine du web sur la largeur de l'écran"
+        />
+      </picture>
+      <!-- <img
         src="/mavitrineduweb-800.webp"
         srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
         width="800"
         height="81"
         loading="lazy"
         alt="texte encore moins blanc ma vitrine du web sur la largeur de l'écran"
-      />
+      /> -->
     </div>
     <div class="box box3">
-      <img
+      <picture>
+        <source
+          srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
+          type="image/webp"
+        />
+        <source
+          srcset="/mavitrineduweb-800.png 800w, /mavitrineduweb-1200.png 1200w, /mavitrineduweb-1900.png 1900w"
+          type="image/png"
+        />
+        <img
+          src="/mavitrineduweb-800.png"
+          width="800"
+          height="81"
+          loading="lazy"
+          alt="texte encore plus moins blanc ma vitrine du web sur la largeur de l'écran"
+        />
+      </picture>
+      <!-- <img
         src="/mavitrineduweb-800.webp"
         srcset="/mavitrineduweb-800.webp 800w, /mavitrineduweb-1200.webp 1200w, /mavitrineduweb-1900.webp 1900w"
         width="800"
         height="81"
         loading="lazy"
         alt="texte encore plus moins blanc ma vitrine du web sur la largeur de l'écran"
-      />
+      /> -->
     </div>
     <!-- #endregion footer -->
     <script type="module" src="/main.js" defer></script>

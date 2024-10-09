@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Détecte la taille de l'écran et charge l'image correspondante
     if (window.matchMedia("(min-width: 1024px)").matches) {
-      link.href = "/20-fond-hero-section-1400.jpeg";
+      link.href = "/20-fond-hero-section-1400.webp";
     } else {
-      link.href = "/20-fond-hero-section-800.jpeg";
+      link.href = "/20-fond-hero-section-800.webp";
     }
 
     // Quand l'image est chargée, on résout la promesse
@@ -379,6 +379,7 @@ const sr = ScrollReveal({
 
 sr.reveal(".contact-form h1");
 sr.reveal(".contact-form p", { delay: 300 });
+sr.reveal(".contact-form form input:nth-child(1)", { delay: 300 });
 sr.reveal(".contact-form form input:nth-child(2)", { delay: 400 });
 sr.reveal(".contact-form form input:nth-child(3)", { delay: 500 });
 sr.reveal(".contact-form form input:nth-child(4)", { delay: 600 });

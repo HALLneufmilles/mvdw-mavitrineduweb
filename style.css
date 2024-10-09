@@ -282,6 +282,12 @@ section {
   /* Transition fluide pour l'apparition */
 }
 
+@supports (background-image: url("/20-fond-hero-section-800.webp")) {
+  .hero {
+    background-image: url("/20-fond-hero-section-800.webp");
+  }
+}
+
 #particles-js {
   position: absolute;
   width: 100%;
@@ -372,6 +378,11 @@ section {
   .hero {
     background-image: url("/20-fond-hero-section-1400.jpeg");
     background-size: cover;
+  }
+  @supports (background-image: url("/20-fond-hero-section-1400.webp")) {
+    .hero {
+      background-image: url("/20-fond-hero-section-1400.webp");
+    }
   }
 }
 
@@ -1541,7 +1552,7 @@ form {
 
 input::placeholder,
 textarea::placeholder {
-  font-size: 14px; /* Ajuste la taille du texte du placeholder ici */
+  font-size: 1em; /* Ajuste la taille du texte du placeholder ici */
   color: #888; /* Tu peux aussi changer la couleur si nécessaire */
   font-style: italic; /* Facultatif : tu peux aussi appliquer un style particulier */
 }
@@ -1550,7 +1561,7 @@ textarea::placeholder {
 .contact-form form textarea {
   background-color: transparent;
   height: 75px;
-  font-size: 24px;
+  font-size: 1em;
   border: none;
   border-bottom: 1px solid var(--primary-text-color);
   color: #e7e6e6;
@@ -1634,11 +1645,11 @@ textarea::placeholder {
 /* @media (min-width: 430px) {*/
 
 @media (min-width: 750px) {
-  .div-phone {
+  /* .div-phone {
     bottom: 40px;
-    left: 78%;
+    left: 80%;
     transform: translateX(-50%);
-  }
+  } */
 }
 
 /* @media (min-width: 800px) {
@@ -1649,20 +1660,37 @@ textarea::placeholder {
 
 @media (min-width: 1024px) {
   .div-phone {
-    bottom: 85px;
+    bottom: 105px;
     left: 78%;
-    transform: translateX(-50%);
   }
   .div-phone p {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .div-phone {
+    bottom: 65px;
   }
 }
 
 /* @media (min-width: 1920px) {
 } */
 
-/* @media (min-width: 2048px) {
-} */
+@media (min-width: 2048px) {
+  .div-phone {
+    bottom: 110px;
+    left: 78%;
+    transform: translateX(-50%);
+  }
+  .div-phone p {
+    font-size: 1.5rem;
+  }
+  .div-phone img {
+    width: 2.5em;
+    height: auto;
+  }
+}
 
 /* @media (min-width: 3840px) {
 } */
@@ -1692,34 +1720,14 @@ textarea::placeholder {
 }
 
 .compagny-info {
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center; */
-  text-align: center;
+  width: 40%;
+  margin: 0 auto 20px;
 }
 
 .compagny-info .logo {
-  height: 7rem;
-}
-
-/* .social-links {
-  display: flex;
-  gap: 1rem;
-} */
-
-/* .social-links a {
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0.5rem;
-  border-radius: 100%;
-} */
-
-/* .social-links a img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
+  height: auto;
+}
 
 .useful-links {
   width: 100%;
@@ -1734,14 +1742,10 @@ textarea::placeholder {
   display: block;
   color: var(--primary-text-color);
   padding-top: 2px;
-  /* padding-bottom: 2vh; */
   font-size: 0.5rem;
   opacity: 0.8;
   padding-right: 10px;
 }
-/* .footer-links-container {
-  justify-self: end;
-} */
 
 footer p:nth-of-type(3) {
   margin-bottom: 20px;
@@ -1753,18 +1757,58 @@ footer p:nth-of-type(3) {
   color: var(--primary-text-color);
 }
 
-.footer-links,
-.footer-text {
+.footer-links {
   color: var(--primary-text-color);
   text-decoration: none;
   display: block;
   margin-bottom: 0.5rem;
   text-transform: capitalize;
+  font-size: 1em;
 }
 
 .footer-links:hover {
   opacity: 0.5;
 }
+
+/* @media (min-width: 430px) {*/
+
+/* @media (min-width: 750px) {
+} */
+
+@media (min-width: 800px) {
+  .compagny-info {
+    width: 35%;
+    margin: 0 auto 40px;
+  }
+  .copyright {
+    font-size: 1em;
+  }
+  .footer-links {
+    font-size: 1.5em;
+  }
+}
+
+/* @media (min-width: 950px) {
+}     */
+
+@media (min-width: 1024px) {
+  .compagny-info {
+    width: 30%;
+    margin: 0 auto 40px;
+  }
+}
+
+/* @media (min-width: 1920px) {
+} */
+
+/* @media (min-width: 2048px) {
+} */
+
+/* @media (min-width: 3840px) {
+} */
+
+/* @media (min-width: 4500px) {
+} */
 
 /* #endregion Footer */
 /* ----------------------------------- */
@@ -1782,10 +1826,21 @@ footer p:nth-of-type(3) {
   transition: all 0.5s ease-in-out;
 }
 
-.box img {
+/* .box img {
   width: 100%;
   height: auto;
   object-fit: fill;
+} */
+
+.box picture {
+  display: block;
+  width: 100%;
+}
+
+.box img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .box1 {
