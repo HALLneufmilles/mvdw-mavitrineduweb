@@ -1660,28 +1660,8 @@ textarea::placeholder {
 
 @media (min-width: 1024px) {
   .div-phone {
-    bottom: 105px;
+    bottom: 75px;
     left: 78%;
-  }
-  .div-phone p {
-    font-size: 1.3rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .div-phone {
-    bottom: 65px;
-  }
-}
-
-/* @media (min-width: 1920px) {
-} */
-
-@media (min-width: 2048px) {
-  .div-phone {
-    bottom: 110px;
-    left: 78%;
-    transform: translateX(-50%);
   }
   .div-phone p {
     font-size: 1.5rem;
@@ -1689,6 +1669,27 @@ textarea::placeholder {
   .div-phone img {
     width: 2.5em;
     height: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .div-phone {
+    /* bottom: 65px; */
+  }
+}
+
+@media (min-width: 1920px) {
+  .div-phone {
+    /* bottom: 80px; */
+  }
+}
+
+@media (min-width: 2048px) {
+  .div-phone {
+    bottom: 70px;
+  }
+  .div-phone p {
+    font-size: 1.5rem;
   }
 }
 
