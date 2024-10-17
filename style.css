@@ -284,7 +284,7 @@ section {
 
 @supports (background-image: url("/20-fond-hero-section-800.webp")) {
   .hero {
-    background-image: url("/20-fond-hero-section-800.webp");
+    background-image: url("/20-fond-hero-section-1400.webp");
   }
 }
 
@@ -1671,18 +1671,14 @@ textarea::placeholder {
     height: auto;
   }
 }
-
+/* 
 @media (min-width: 1200px) {
-  .div-phone {
-    /* bottom: 65px; */
-  }
+ 
 }
 
 @media (min-width: 1920px) {
-  .div-phone {
-    /* bottom: 80px; */
-  }
-}
+  
+} */
 
 @media (min-width: 2048px) {
   .div-phone {
