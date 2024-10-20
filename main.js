@@ -255,6 +255,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // }, 1500);
   // }, 700);
 
+  // Web Worker pour TextScramble
+  const textScrambleWorker = new Worker("textScrambleWorker.js");
+
   // TextScramble (texte défilant section hero)
   class TextScramble {
     constructor(el) {
@@ -264,19 +267,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     setText(newText) {
       const oldText = this.el.innerText;
-      const length = Math.max(oldText.length, newText.length);
       const promise = new Promise((resolve) => (this.resolve = resolve));
-      this.queue = [];
-      for (let i = 0; i < length; i++) {
-        const from = oldText[i] || "";
-        const to = newText[i] || "";
-        const start = Math.floor(Math.random() * 80);
-        const end = start + Math.floor(Math.random() * 80);
-        this.queue.push({ from, to, start, end });
-      }
-      cancelAnimationFrame(this.frameRequest);
-      this.frame = 0;
-      this.update();
+      textScrambleWorker.postMessage({ newText, chars: this.chars, oldText });
+
+      textScrambleWorker.onmessage = (e) => {
+        this.queue = e.data;
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+      };
+
       return promise;
     }
     update() {
