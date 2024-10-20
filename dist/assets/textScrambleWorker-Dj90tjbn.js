@@ -1,0 +1,1 @@
+(function(){"use strict";onmessage=function(a){const{newText:o,chars:f,oldText:n}=a.data,c=Math.max(n.length,o.length);let e=[];for(let t=0;t<c;t++){const h=n[t]||"",r=o[t]||"",s=Math.floor(Math.random()*80),l=s+Math.floor(Math.random()*80);e.push({from:h,to:r,start:s,end:l})}postMessage(e)}})();

@@ -256,7 +256,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // }, 700);
 
   // Web Worker pour TextScramble
-  const textScrambleWorker = new Worker("textScrambleWorker.js");
+  // Web Worker pour TextScramble
+  const textScrambleWorker = new Worker(new URL("./textScrambleWorker.js", import.meta.url));
 
   // TextScramble (texte défilant section hero)
   class TextScramble {
