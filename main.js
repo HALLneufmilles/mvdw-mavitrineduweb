@@ -388,12 +388,12 @@ const sr = ScrollReveal({
 sr.reveal("#contacts");
 sr.reveal(".presentation", { delay: 200 });
 // sr.reveal(".div-phone", { delay: 300 });
-sr.reveal(".services-flex", { delay: 500 });
-sr.reveal(".stape-card", { delay: 500 });
-sr.reveal(".pricing", { delay: 500 });
-sr.reveal("#themes", { delay: 500 });
-sr.reveal(".skills", { delay: 300 });
-sr.reveal(".buton-phone", { delay: 600 });
+sr.reveal(".services-flex", { delay: 200 });
+sr.reveal(".stape-card", { delay: 200 });
+sr.reveal(".pricing", { delay: 200 });
+sr.reveal("#themes", { delay: 200 });
+sr.reveal(".skills", { delay: 200 });
+sr.reveal(".buton-phone", { delay: 300 });
 
 // Formulaires de contact - envoie de l'email
 
