@@ -377,22 +377,23 @@ const sr = ScrollReveal({
   easing: "ease-in-out",
 });
 
-sr.reveal(".contact-form h1");
-sr.reveal(".contact-form p", { delay: 300 });
-sr.reveal(".contact-form form input:nth-child(1)", { delay: 300 });
-sr.reveal(".contact-form form input:nth-child(2)", { delay: 400 });
-sr.reveal(".contact-form form input:nth-child(3)", { delay: 500 });
-sr.reveal(".contact-form form input:nth-child(4)", { delay: 600 });
-sr.reveal(".contact-form form textarea", { delay: 700 });
-sr.reveal(".submit-form-btn", { delay: 200 });
-// Section
+// sr.reveal(".contact-form h1");
+// sr.reveal(".contact-form p", { delay: 300 });
+// sr.reveal(".contact-form form input:nth-child(1)", { delay: 300 });
+// sr.reveal(".contact-form form input:nth-child(2)", { delay: 400 });
+// sr.reveal(".contact-form form input:nth-child(3)", { delay: 500 });
+// sr.reveal(".contact-form form input:nth-child(4)", { delay: 600 });
+// sr.reveal(".contact-form form textarea", { delay: 700 });
+// Sections:
+sr.reveal("#contacts");
 sr.reveal(".presentation", { delay: 200 });
-sr.reveal(".div-phone", { delay: 300 });
-sr.reveal(".services-flex", { delay: 300 });
-sr.reveal(".stape-card", { delay: 300 });
+// sr.reveal(".div-phone", { delay: 300 });
+sr.reveal(".services-flex", { delay: 500 });
+sr.reveal(".stape-card", { delay: 500 });
 sr.reveal(".pricing", { delay: 500 });
+sr.reveal("#themes", { delay: 500 });
 sr.reveal(".skills", { delay: 300 });
-sr.reveal("#themes", { delay: 300 });
+sr.reveal(".buton-phone", { delay: 600 });
 
 // Formulaires de contact - envoie de l'email
 

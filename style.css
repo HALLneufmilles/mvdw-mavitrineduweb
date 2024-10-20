@@ -7,6 +7,7 @@
   --background-cards: #1a1a1a;
   --background-bar-themes: #2e3033;
   --background-pricing-box: #eeeeee;
+  --pricing-border-h6: #5f5f5f; /* Boîtes de pricing en gris foncé */
 }
 
 .root-inverted {
@@ -18,7 +19,6 @@
   --background-cards: #f9f9f9; /* Cartes en gris clair inversées */
   --background-bar-themes: #d1d1d1; /* Barres de thème plus claires */
   --background-pricing-box: #1a1a1a; /* Boîtes de pricing en gris foncé */
-  --pricing-border-h6: #2d2d2d; /* Boîtes de pricing en gris foncé */
   --background-pricing-div: #c4c4c4; /* Boîtes de pricing en gris foncé */
   --background-pricing-btn: #ffffff; /* Boîtes de pricing en gris foncé */
   --border-pricing-btn: #f8f8f8; /* Boîtes de pricing en gris foncé */
@@ -971,7 +971,7 @@ section {
   gap: 1vh;
 }
 
-.pricing-box-title h6 {
+.pricing-box-title h3 {
   font-size: 1rem;
   font-weight: 100;
   background-color: var(--background-pricing-h6);
@@ -992,7 +992,7 @@ section {
   padding: 20px 0 5px 0;
 }
 
-.pricing-box-title h3 {
+.pricing-box-title h5 {
   font-size: 1rem;
   font-weight: bold;
   padding: 0px 0;
@@ -1560,12 +1560,12 @@ textarea::placeholder {
 .contact-form form input,
 .contact-form form textarea {
   background-color: transparent;
-  height: 75px;
-  font-size: 1em;
+  height: 30px;
+  font-size: 1.3em;
   border: none;
   border-bottom: 1px solid var(--primary-text-color);
   color: #e7e6e6;
-  margin: 10px 0;
+  margin: 30px 0;
 }
 
 .contact-form form textarea {
@@ -1577,6 +1577,22 @@ textarea::placeholder {
 .contact-form form input:focus,
 .contact-form form textarea:focus {
   outline: none;
+}
+
+.submit-form:hover {
+  transform: scale(1.1);
+}
+
+.submit-form:focus {
+  outline: none;
+}
+
+.buton-phone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .submit-form-btn {
@@ -1598,38 +1614,24 @@ textarea::placeholder {
   margin: 15px auto 5px auto;
 }
 
-.submit-form:hover {
-  transform: scale(1.1);
-}
-
-.submit-form:focus {
-  outline: none;
-}
-
 .div-phone {
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3vh;
-  padding-right: 0.5vw;
+  margin-top: 30px;
 }
 
 .div-phone img {
   width: 1.5rem;
   height: 1.5rem;
-  display: inline-block;
-  margin-right: 10px;
+  margin-right: 3px;
 }
 
 .div-phone p {
   margin: 0;
   padding: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 @keyframes ripple {
@@ -1645,11 +1647,20 @@ textarea::placeholder {
 /* @media (min-width: 430px) {*/
 
 @media (min-width: 750px) {
-  /* .div-phone {
-    bottom: 40px;
-    left: 80%;
+  .buton-phone {
+    position: relative;
     transform: translateX(-50%);
-  } */
+    left: 57.5%;
+    flex-wrap: nowrap;
+  }
+  .submit-form-btn {
+    margin: 0 0;
+  }
+  .div-phone {
+    margin-left: 5vw;
+    width: auto;
+    margin-top: 0;
+  }
 }
 
 /* @media (min-width: 800px) {
@@ -1658,36 +1669,17 @@ textarea::placeholder {
 /* @media (min-width: 950px) {
 }     */
 
-@media (min-width: 1024px) {
-  .div-phone {
-    bottom: 75px;
-    left: 78%;
-  }
-  .div-phone p {
-    font-size: 1.5rem;
-  }
-  .div-phone img {
-    width: 2.5em;
-    height: auto;
-  }
-}
-/* 
-@media (min-width: 1200px) {
- 
+/* @media (min-width: 1024px) {
+} */
+
+/* @media (min-width: 1200px) {
 }
 
 @media (min-width: 1920px) {
-  
 } */
 
-@media (min-width: 2048px) {
-  .div-phone {
-    bottom: 70px;
-  }
-  .div-phone p {
-    font-size: 1.5rem;
-  }
-}
+/* @media (min-width: 2048px) {
+} */
 
 /* @media (min-width: 3840px) {
 } */
@@ -1718,7 +1710,9 @@ textarea::placeholder {
 
 .compagny-info {
   width: 40%;
-  margin: 0 auto 20px;
+  height: auto;
+  padding: 10px 0;
+  margin: 10px auto;
 }
 
 .compagny-info .logo {
@@ -1775,7 +1769,7 @@ footer p:nth-of-type(3) {
 @media (min-width: 800px) {
   .compagny-info {
     width: 35%;
-    margin: 0 auto 40px;
+    margin: 20px auto 20px;
   }
   .copyright {
     font-size: 1em;
@@ -1791,7 +1785,7 @@ footer p:nth-of-type(3) {
 @media (min-width: 1024px) {
   .compagny-info {
     width: 30%;
-    margin: 0 auto 40px;
+    /* margin: 0 auto 40px; */
   }
 }
 
@@ -1809,6 +1803,8 @@ footer p:nth-of-type(3) {
 
 /* #endregion Footer */
 /* ----------------------------------- */
+
+/* #region Vollets bas de page*/
 /* boites de fin de page */
 .box {
   /* height: 600px; */
@@ -1875,3 +1871,4 @@ footer p:nth-of-type(3) {
 .box3 img {
   opacity: 0.2;
 }
+/* #endregion Vollets bas de page*/
