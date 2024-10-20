@@ -6,245 +6,256 @@ emailjs.init("SSGMoBteY1IqEzwlA");
 
 // console.log("Lazysizes loaded");
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   console.log("DOM Content Loaded");
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM Content Loaded");
 
-// nav-bar
-const navbar = document.querySelector(".side-nav");
-const togglebtn = document.querySelector(".toggle-btn");
+  // nav-bar
+  const navbar = document.querySelector(".side-nav");
+  const togglebtn = document.querySelector(".toggle-btn");
 
-togglebtn.addEventListener("click", () => {
-  navbar.classList.toggle("active");
-  togglebtn.classList.toggle("active");
-});
-
-// const preloadImage = new Promise((resolve, reject) => {
-//   var link = document.createElement("link");
-//   link.rel = "preload";
-//   link.as = "image";
-
-//   if (window.matchMedia("(min-width: 1024px)").matches) {
-//     link.href = "/20-fond-hero-section-1400.webp";
-//   } else {
-//     link.href = "/20-fond-hero-section-800.webp";
-//   }
-
-//   link.onload = () => resolve();
-//   link.onerror = () => reject(new Error("Erreur lors du chargement de l'image"));
-//   document.head.appendChild(link);
-// });
-
-// function showContent() {
-//   document.querySelector(".loader-container").classList.add("hidden");
-// }
-
-// Fonction pour montrer la section "hero"
-// function showHeroSection() {
-//   const heroSection = document.querySelector(".hero");
-//   heroSection.style.opacity = "1"; // Rendre la section visible
-//   heroSection.style.visibility = "visible";
-// }
-
-function showVoletBoxs() {
-  // On contrôle l'existence de l'élément 'footer'
-  const footer = document.querySelector("#footer");
-  if (!footer) {
-    console.error("L'élément #footer n'existe pas dans le DOM.");
-    return; // Quitte la fonction si l'élément n'existe pas
-  }
-
-  // Sélection de tous les éléments avec la classe .box
-  const boxElements = document.querySelectorAll(".box");
-
-  // Fonction de rappel pour l'observer
-  const handleBoxesVisibility = (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        boxElements.forEach((box) => {
-          box.style.opacity = "1";
-          box.style.visibility = "visible";
-        });
-      } else {
-        boxElements.forEach((box) => {
-          box.style.opacity = "0";
-          box.style.visibility = "hidden";
-        });
-      }
-    });
-  };
-
-  // Création de l'observer avec un threshold de 0.1 (10%)
-  const observer = new IntersectionObserver(handleBoxesVisibility, {
-    threshold: 0.1,
+  togglebtn.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+    togglebtn.classList.toggle("active");
   });
 
-  // Observer le footer
-  observer.observe(footer);
-}
+  // Preload pour l'image en background-image.
+  // Dans la balise <head> on préload l'image de la balise <img> avec 'imagesrcset'. Mais comme l'image de fond de la section "héro" est décide par le css avec Média Query, on utilise JS pour anticiper la taille d'image qui sera décidé par le css en fonction de la taille d'écran du user.
+  // Preload background-image pour la classe "hero"
+  // var link = document.createElement("link");
+  // link.rel = "preload";
+  // link.as = "image";
 
-showVoletBoxs();
+  // if (window.matchMedia("(min-width: 1024px)").matches) {
 
-// Fonction pour initialiser Particles.js
-function initializeParticles() {
-  particlesJS("particles-js", {
-    particles: {
-      number: {
-        value: 65,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        value: "#ffffff",
-      },
-      shape: {
-        type: "circle",
-        stroke: {
-          width: 0,
-          color: "#000000",
-        },
-        polygon: {
-          nb_sides: 5,
-        },
-        image: {
-          src: "img/github.svg",
-          width: 100,
-          height: 100,
-        },
-      },
-      opacity: {
-        value: 0.5,
-        random: false,
-        anim: {
-          enable: false,
-          speed: 1,
-          opacity_min: 0.1,
-          sync: false,
-        },
-      },
-      size: {
-        value: 3,
-        random: true,
-        anim: {
-          enable: false,
-          speed: 40,
-          size_min: 0.1,
-          sync: false,
-        },
-      },
-      line_linked: {
-        enable: true,
-        distance: 236.74429248968178,
-        color: "#ffffff",
-        opacity: 0.4,
-        width: 1,
-      },
-      move: {
-        enable: true,
-        speed: 5,
-        direction: "none",
-        random: false,
-        straight: false,
-        out_mode: "out",
-        bounce: false,
-        attract: {
-          enable: false,
-          rotateX: 600,
-          rotateY: 1200,
-        },
-      },
-    },
-    interactivity: {
-      detect_on: "canvas",
-      events: {
-        onhover: {
-          enable: true,
-          mode: "repulse",
-        },
-        onclick: {
-          enable: true,
-          mode: "push",
-        },
-        resize: true,
-      },
-      modes: {
-        grab: {
-          distance: 400,
-          line_linked: {
-            opacity: 1,
+  //   link.href = "/20-fond-hero-section-1400.jpeg";
+  // } else {
+
+  //   link.href = "/20-fond-hero-section-800.jpeg";
+  // }
+
+  // document.head.appendChild(link);
+
+  const preloadImage = new Promise((resolve, reject) => {
+    var link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+
+    // Détecte la taille de l'écran et charge l'image correspondante
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      link.href = "/20-fond-hero-section-1400.webp";
+    } else {
+      link.href = "/20-fond-hero-section-800.webp";
+    }
+
+    // Quand l'image est chargée, on résout la promesse
+    link.onload = () => resolve();
+    link.onerror = () => reject(new Error("Erreur lors du chargement de l'image"));
+    document.head.appendChild(link);
+  });
+
+  // function showContent() {
+  //   document.querySelector(".loader-container").classList.add("hidden");
+  // }
+
+  // Fonction pour montrer la section "hero"
+  // function showHeroSection() {
+  //   const heroSection = document.querySelector(".hero");
+  //   heroSection.style.opacity = "1"; // Rendre la section visible
+  //   heroSection.style.visibility = "visible";
+  // }
+
+  function showVoletBoxs() {
+    // On contrôle l'existence de l'élément 'footer'
+    const footer = document.querySelector("#footer");
+    if (!footer) {
+      console.error("L'élément #footer n'existe pas dans le DOM.");
+      return; // Quitte la fonction si l'élément n'existe pas
+    }
+
+    // Sélection de tous les éléments avec la classe .box
+    const boxElements = document.querySelectorAll(".box");
+
+    // Fonction de rappel pour l'observer
+    const handleBoxesVisibility = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          boxElements.forEach((box) => {
+            box.style.opacity = "1";
+            box.style.visibility = "visible";
+          });
+        } else {
+          boxElements.forEach((box) => {
+            box.style.opacity = "0";
+            box.style.visibility = "hidden";
+          });
+        }
+      });
+    };
+
+    // Création de l'observer avec un threshold de 0.1 (10%)
+    const observer = new IntersectionObserver(handleBoxesVisibility, {
+      threshold: 0.1,
+    });
+
+    // Observer le footer
+    observer.observe(footer);
+  }
+
+  // Fonction pour initialiser Particles.js
+  function initializeParticles() {
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 65,
+          density: {
+            enable: true,
+            value_area: 800,
           },
         },
-        bubble: {
-          distance: 400,
-          size: 40,
-          duration: 2,
-          opacity: 8,
-          speed: 3,
+        color: {
+          value: "#ffffff",
         },
-        repulse: {
-          distance: 200,
-          duration: 0.4,
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#000000",
+          },
+          polygon: {
+            nb_sides: 5,
+          },
+          image: {
+            src: "img/github.svg",
+            width: 100,
+            height: 100,
+          },
         },
-        push: {
-          particles_nb: 4,
+        opacity: {
+          value: 0.5,
+          random: false,
+          anim: {
+            enable: false,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false,
+          },
         },
-        remove: {
-          particles_nb: 2,
+        size: {
+          value: 3,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 40,
+            size_min: 0.1,
+            sync: false,
+          },
+        },
+        line_linked: {
+          enable: true,
+          distance: 236.74429248968178,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 5,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 1200,
+          },
         },
       },
-    },
-    retina_detect: true,
-  });
-}
-
-initializeParticles();
-
-// Retirer le loader après 1 seconde, puis afficher la section "hero"
-// setTimeout(() => {
-// showContent(); // Cache le loader
-
-// Fonction pour inverser les couleurs lorsque l'utilisateur scrolle
-function handleColorInversion() {
-  console.log("handleColorInversion appelée");
-  const pricingSection = document.querySelector("#prix");
-  if (!pricingSection) {
-    console.error("La section #prix n'existe pas dans le DOM.");
-    return; // Quitte la fonction si l'élément n'existe pas
-  }
-  console.log(pricingSection); // Debugging
-
-  const invertColors = (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        document.documentElement.classList.add("root-inverted");
-      } else {
-        document.documentElement.classList.remove("root-inverted");
-      }
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse",
+          },
+          onclick: {
+            enable: true,
+            mode: "push",
+          },
+          resize: true,
+        },
+        modes: {
+          grab: {
+            distance: 400,
+            line_linked: {
+              opacity: 1,
+            },
+          },
+          bubble: {
+            distance: 400,
+            size: 40,
+            duration: 2,
+            opacity: 8,
+            speed: 3,
+          },
+          repulse: {
+            distance: 200,
+            duration: 0.4,
+          },
+          push: {
+            particles_nb: 4,
+          },
+          remove: {
+            particles_nb: 2,
+          },
+        },
+      },
+      retina_detect: true,
     });
-  };
+  }
 
-  const observer = new IntersectionObserver(invertColors, {
-    threshold: 0.5,
-  });
+  // Retirer le loader après 1 seconde, puis afficher la section "hero"
+  // setTimeout(() => {
+  // showContent(); // Cache le loader
 
-  observer.observe(pricingSection);
-}
+  // Fonction pour inverser les couleurs lorsque l'utilisateur scrolle
+  function handleColorInversion() {
+    console.log("handleColorInversion appelée");
+    const pricingSection = document.querySelector("#prix");
+    if (!pricingSection) {
+      console.error("La section #prix n'existe pas dans le DOM.");
+      return; // Quitte la fonction si l'élément n'existe pas
+    }
+    console.log(pricingSection); // Debugging
 
-handleColorInversion();
+    const invertColors = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          document.documentElement.classList.add("root-inverted");
+        } else {
+          document.documentElement.classList.remove("root-inverted");
+        }
+      });
+    };
 
-// setTimeout(() => {
-// showContent();
-// setTimeout(() => {
-// showHeroSection();
-// Affiche la section "hero" après le retrait du loader
+    const observer = new IntersectionObserver(invertColors, {
+      threshold: 0.5,
+    });
 
-// }, 1500);
-// }, 700);
+    observer.observe(pricingSection);
+  }
 
-// TextScramble (texte défilant section hero)
+  // setTimeout(() => {
+  // showContent();
+  // setTimeout(() => {
+  // showHeroSection();
+  // Affiche la section "hero" après le retrait du loader
 
-function dynamicText() {
+  // }, 1500);
+  // }, 700);
+
+  // TextScramble (texte défilant section hero)
   class TextScramble {
     constructor(el) {
       this.el = el;
@@ -342,26 +353,20 @@ function dynamicText() {
     });
   };
 
-  initialize();
-}
-
-dynamicText();
-
-// initializeParticles();
-// handleColorInversion();
-// preloadImage
-//   .then(() => {
-//     console.log("Image préchargée, initialisation des particules et inversion des couleurs");
-// initializeParticles();
-// initialize();
-// handleColorInversion();
-// showVoletBoxs();
-// })
-// .catch((error) => {
-//   console.error("Une erreur s'est produite :", error);
-// });
-
-// });
+  // initializeParticles();
+  // handleColorInversion();
+  preloadImage
+    .then(() => {
+      console.log("Image préchargée, initialisation des particules et inversion des couleurs");
+      initializeParticles();
+      initialize();
+      handleColorInversion();
+      showVoletBoxs();
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
+});
 
 // Animation on scroll
 const sr = ScrollReveal({
