@@ -273,8 +273,8 @@
     <title>Entreprise de conception de sites Web à La Rochelle · Ma Vitrine Du Web . mavitrineduweb.fr</title>
     <script async src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script defer src="https://unpkg.com/scrollreveal"></script>
-    <script type="module" crossorigin src="/assets/index-DmIaomSx.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DhdnLdOI.css">
+    <script type="module" crossorigin src="/assets/index-By1FH6GI.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DhiIlSLB.css">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   </head>
   <body>
@@ -345,13 +345,9 @@
           </picture>
           <div class="gauche">
             <!-- <img src="/22-TextWhitNonFendu2-800.png"  width="300" height="182" alt="texte MVDW ma vitrine du web à droite." /> -->
-            <object
-              data="/22-TextWhitNonFendu2-800.svg"
-              type="image/svg+xml"
-              width="300"
-              height="182"
-              alt="text blanc MVDW ma vitrine du web"
-            ></object>
+            <object data="/22-TextWhitNonFendu2-800.svg" type="image/svg+xml" width="300" height="182">
+              alt="texte blanc MVDW ma vitrine du web"
+            </object>
 
             <div id="text1" class="text"></div>
             <div id="text2" class="text"></div>
@@ -567,10 +563,10 @@
             <div class="pricing-box formule">
               <div>
                 <div class="pricing-box-title">
-                  <h6>RAPIDE</h6>
+                  <h3>RAPIDE</h3>
                   <h4>PORTFOLIO - CV</h4>
                   <p>Conçu pour mettre en valeur vos compétences et réalisations.</p>
-                  <h3>À PARTIR DE</h3>
+                  <h5>À PARTIR DE</h5>
                   <p class="price">499 €</p>
                   <!-- <hr /> -->
                 </div>
@@ -1176,12 +1172,14 @@
             <input type="email" id="user_email" name="user_email" placeholder="Email" autocomplete="off" required />
             <input type="text" id="subject" name="subject" placeholder="Sujet" autocomplete="off" required />
             <textarea id="message" name="message" cols="30" rows="10" placeholder="Votre message" required></textarea>
-            <button type="submit" class="submit-form-btn">Envoyer</button>
+            <div class="buton-phone">
+              <button type="submit" class="submit-form-btn">Envoyer</button>
+              <div class="div-phone">
+                <img src="/phone-blanc-fond-50.png" alt="logo combiné de téléphone" />
+                <p class="footer-text">06 63 20 85 31</p>
+              </div>
+            </div>
           </form>
-          <div class="div-phone">
-            <img src="/phone-blanc-fond-50.png" alt="logo combiné de téléphone" />
-            <p class="footer-text">06 63 20 85 31</p>
-          </div>
         </div>
       </section>
     </main>
@@ -1190,8 +1188,8 @@
       <!-- https://www.youtube.com/watch?v=Y636LRWBdo8&t=21s -->
       <div class="compagny-info">
         <picture>
-          <source srcset="/22-TextWhitNonFendu2-300.webp 300w" type="image/webp" />
-          <source srcset="/22-TextWhitNonFendu2-300.png 300w" type="image/png" />
+          <source srcset="/22-TextWhitNonFendu2-300.webp 300w, /22-TextWhitNonFendu2-800.webp 800w" type="image/webp" />
+          <source srcset="/22-TextWhitNonFendu2-300.png 300w, /22-TextWhitNonFendu2-800.png 800w" type="image/png" />
           <img
             class="logo"
             src="/22-TextWhitNonFendu2-300.png"
@@ -1241,7 +1239,7 @@
         /> -->
       </div>
     </footer>
-    <!-- #endregion footer -->
+    <!-- #region Vollets bas de page -->
     <div class="box box1">
       <picture>
         <source
@@ -1269,6 +1267,9 @@
         alt="texte moins blanc ma vitrine du web sur la largeur de l'écran"
       /> -->
     </div>
+    <!-- #endregion footer -->
+
+    <!-- #region Vollets bas de page -->
     <div class="box box2">
       <picture>
         <source
@@ -1323,7 +1324,7 @@
         alt="texte encore plus moins blanc ma vitrine du web sur la largeur de l'écran"
       /> -->
     </div>
-    <!-- #endregion footer -->
+    <!-- #endregion Bas de page -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   </body>
 </html>
