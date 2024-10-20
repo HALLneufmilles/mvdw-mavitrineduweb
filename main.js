@@ -386,14 +386,15 @@ const sr = ScrollReveal({
 // sr.reveal(".contact-form form input:nth-child(4)", { delay: 600 });
 // sr.reveal(".contact-form form textarea", { delay: 700 });
 // Sections:
-sr.reveal("#contacts");
+
 sr.reveal(".presentation", { delay: 200 });
 // sr.reveal(".div-phone", { delay: 300 });
-sr.reveal(".services-flex", { delay: 200 });
+// sr.reveal(".services-flex", { delay: 200 });
 sr.reveal(".stape-card", { delay: 200 });
-sr.reveal(".pricing", { delay: 200 });
+// sr.reveal(".pricing", { delay: 200 });
 sr.reveal("#themes", { delay: 200 });
-sr.reveal(".skills", { delay: 200 });
+// sr.reveal(".skills", { delay: 200 });
+sr.reveal("#contacts");
 sr.reveal(".buton-phone", { delay: 300 });
 
 // Formulaires de contact - envoie de l'email
