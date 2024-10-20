@@ -1819,11 +1819,15 @@ footer p:nth-of-type(3) {
   transition: all 0.5s ease-in-out;
 }
 
-/* .box img {
-  width: 100%;
-  height: auto;
-  object-fit: fill;
-} */
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
 
 .box picture {
   display: block;

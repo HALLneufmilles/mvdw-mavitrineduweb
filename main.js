@@ -80,13 +80,13 @@ document.addEventListener("DOMContentLoaded", function () {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           boxElements.forEach((box) => {
-            box.style.opacity = "1";
-            box.style.visibility = "visible";
+            box.classList.add("visible");
+            box.classList.remove("hidden");
           });
         } else {
           boxElements.forEach((box) => {
-            box.style.opacity = "0";
-            box.style.visibility = "hidden";
+            box.classList.add("hidden");
+            box.classList.remove("visible");
           });
         }
       });
