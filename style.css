@@ -95,7 +95,9 @@ section {
     padding: 3vh 0;
   }
 }
+
 /* #region navbar */
+
 .side-nav {
   width: 200px;
   height: 500px;
@@ -200,6 +202,7 @@ section {
 }
 
 /* #endregion navbar */
+
 /* #region loader */
 /* .loader-container {
   position: fixed;
@@ -449,7 +452,8 @@ section {
 
 .hye-title::after {
   position: absolute;
-  content: attr(data-hye);
+  /* content: attr(data-hye); */
+  content: "MVDW";
   font-size: 5rem;
   left: 30%;
   top: -25%;

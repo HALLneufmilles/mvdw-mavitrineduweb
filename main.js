@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // }, 700);
 
   // Web Worker pour TextScramble
-  // Web Worker pour TextScramble
+  // https://chatgpt.com/share/67153e4a-1468-800d-be06-336532189fad
   const textScrambleWorker = new Worker(new URL("./textScrambleWorker.js", import.meta.url));
 
   // TextScramble (texte défilant section hero)
