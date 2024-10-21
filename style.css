@@ -37,10 +37,8 @@
 
 html {
   font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
-  scroll-behavior: smooth; /* permet un scroll automatique souple video : 1h 07mn 50 */
-  /* scroll-padding-top: 100px;  */
-  /* On lui dit : arrête le scroll auto à 100px pour tenir compte de la hauteur de la navbar. 
-  ("PROJECTES" appaît en haut et sous la navbar quand on click sur le lein "Projects" de la navbar.) */
+  /* scroll-behavior: smooth;  */
+  /* permet un scroll automatique souple video : 1h 07mn 50 */
 }
 
 body {
@@ -58,7 +56,7 @@ body * {
 
 header {
   position: relative;
-  z-index: 10;
+  /* z-index: 10; */
 }
 
 main {
@@ -99,6 +97,7 @@ section {
 /* #region navbar */
 
 .side-nav {
+  position: relative;
   width: 200px;
   height: 500px;
   position: fixed;
@@ -119,7 +118,7 @@ section {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
-  z-index: -1;
+  z-index: 14;
   backdrop-filter: blur(2px);
 }
 
@@ -127,15 +126,11 @@ section {
   right: 0;
 }
 
-/* background-image: url(#); */
-/* background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  filter: blur(10px); */
-
 .nav-container {
+  position: relative;
   width: 100%;
   height: auto;
+  z-index: 15;
 }
 
 .links {
@@ -164,7 +159,7 @@ section {
   transition: 0.5s;
   cursor: pointer;
   background-color: #3b3b3b;
-  z-index: 15;
+  z-index: 16;
   border-radius: 5px;
 }
 
@@ -1527,7 +1522,7 @@ form {
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  padding: 2vh 4vw 8vh 4vw;
+  padding: 2vh 4vw 30px 4vw;
   position: relative;
   overflow: hidden;
   background-color: var(--background-color);
@@ -1596,7 +1591,7 @@ textarea::placeholder {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 70px;
 }
 
 .submit-form-btn {
@@ -1615,6 +1610,7 @@ textarea::placeholder {
   line-height: 30px;
   animation: ripple 1.5s linear infinite;
   transition: all 0.7s ease;
+  /* margin: 15px auto 5px auto; */
   margin: 15px auto 5px auto;
 }
 
@@ -1623,7 +1619,7 @@ textarea::placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 .div-phone img {
@@ -1635,7 +1631,7 @@ textarea::placeholder {
 .div-phone p {
   margin: 0;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 @keyframes ripple {
@@ -1650,22 +1646,8 @@ textarea::placeholder {
 }
 /* @media (min-width: 430px) {*/
 
-@media (min-width: 750px) {
-  .buton-phone {
-    position: relative;
-    transform: translateX(-50%);
-    left: 57.5%;
-    flex-wrap: nowrap;
-  }
-  .submit-form-btn {
-    margin: 0 0;
-  }
-  .div-phone {
-    margin-left: 5vw;
-    width: auto;
-    margin-top: 0;
-  }
-}
+/* @media (min-width: 750px) {
+} */
 
 /* @media (min-width: 800px) {
 } */
@@ -1823,12 +1805,12 @@ footer p:nth-of-type(3) {
   transition: all 0.5s ease-in-out;
 }
 
-.hidden {
+.hidden-box {
   opacity: 0;
   visibility: hidden;
 }
 
-.visible {
+.visible-box {
   opacity: 1;
   visibility: visible;
 }
