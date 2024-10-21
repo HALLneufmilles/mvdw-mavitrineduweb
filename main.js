@@ -12,54 +12,54 @@ document.addEventListener("DOMContentLoaded", function () {
   // nav-bar
   const navbar = document.querySelector(".side-nav");
   const togglebtn = document.querySelector(".toggle-btn");
-  // const links = document.querySelectorAll(".links, .footer-links");
+  const links = document.querySelectorAll(".links, .footer-links");
 
   togglebtn.addEventListener("click", () => {
     navbar.classList.toggle("active");
     togglebtn.classList.toggle("active");
   });
 
-  // links.forEach((link) => {
-  //   link.addEventListener("click", (event) => {
-  //     event.preventDefault();
-  //     const targetId = link.getAttribute("href").slice(1);
-  //     const targetElement = document.getElementById(targetId);
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const targetId = link.getAttribute("href").slice(1);
+      const targetElement = document.getElementById(targetId);
 
-  //     if (targetElement) {
-  //       // Lancer immédiatement l'animation
-  //       smoothScrollTo(targetElement);
-  //     }
-  //   });
-  // });
+      if (targetElement) {
+        // Lancer immédiatement l'animation
+        smoothScrollTo(targetElement);
+      }
+    });
+  });
 
-  // function smoothScrollTo(targetElement) {
-  //   const start = window.scrollY;
-  //   const targetPosition = targetElement.getBoundingClientRect().top + start;
-  //   const distance = targetPosition - start;
-  //   const limitedTime = 2000; // Durée de l'animation en ms
-  //   let startTime = null;
+  function smoothScrollTo(targetElement) {
+    const start = window.scrollY;
+    const targetPosition = targetElement.getBoundingClientRect().top + start;
+    const distance = targetPosition - start;
+    const limitedTime = 2000; // Durée de l'animation en ms
+    let startTime = null;
 
-  //   function animation(currentTime) {
-  //     if (!startTime) startTime = currentTime;
-  //     const timeElapsed = currentTime - startTime;
-  //     const progress = Math.min(timeElapsed / limitedTime, 1); // Assure que la valeur reste entre 0 et 1
-  //     const easeProgress = easeInOutQuad(progress); // Utiliser une fonction d'interpolation exponentielle
-  //     const newY = start + distance * easeProgress;
+    function animation(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / limitedTime, 1); // Assure que la valeur reste entre 0 et 1
+      const easeProgress = easeInOutQuad(progress); // Utiliser une fonction d'interpolation exponentielle
+      const newY = start + distance * easeProgress;
 
-  //     window.scrollTo(0, newY);
+      window.scrollTo(0, newY);
 
-  //     if (timeElapsed < limitedTime) {
-  //       requestAnimationFrame(animation);
-  //     }
-  //   }
+      if (timeElapsed < limitedTime) {
+        requestAnimationFrame(animation);
+      }
+    }
 
-  //   // Fonction d'interpolation exponentielle pour une forte accélération/décélération
-  //   function easeInOutQuad(t) {
-  //     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-  //   }
+    // Fonction d'interpolation exponentielle pour une forte accélération/décélération
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
 
-  //   requestAnimationFrame(animation);
-  // }
+    requestAnimationFrame(animation);
+  }
 
   // Preload pour l'image en background-image.
   // Dans la balise <head> on préload l'image de la balise <img> avec 'imagesrcset'. Mais comme l'image de fond de la section "héro" est décide par le css avec Média Query, on utilise JS pour anticiper la taille d'image qui sera décidé par le css en fonction de la taille d'écran du user.
