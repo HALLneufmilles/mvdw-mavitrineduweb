@@ -4,10 +4,18 @@ import emailjs from "@emailjs/browser";
 
 emailjs.init("SSGMoBteY1IqEzwlA");
 
-// console.log("Lazysizes loaded");
+const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+const isAndroid = navigator.userAgent.toLowerCase().includes("android");
+const isSmartphone = window.matchMedia("(orientation: portrait)").matches && window.innerWidth < 768;
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
+
+  if (isFirefox && isAndroid && window.matchMedia("(orientation: portrait)").matches) {
+    document.querySelectorAll(".box-sticky").forEach((box) => {
+      box.style.position = "static";
+    });
+  }
 
   // nav-bar
   const navbar = document.querySelector(".side-nav");
@@ -108,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // }
 
   function showVoletBoxs() {
+    console.log("showVoletBoxs appellée");
+
     // On contrôle l'existence de l'élément 'footer'
     const footer = document.querySelector("#footer");
     if (!footer) {
@@ -115,33 +125,54 @@ document.addEventListener("DOMContentLoaded", function () {
       return; // Quitte la fonction si l'élément n'existe pas
     }
 
-    // Sélection de tous les éléments avec la classe .box
     const boxElements = document.querySelectorAll(".box");
 
     // Fonction de rappel pour l'observer
-    const handleBoxesVisibility = (entries) => {
+    const handleBoxVisibility = (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          boxElements.forEach((box) => {
-            box.classList.add("visible-box");
-            box.classList.remove("hidden-box");
-          });
+          entry.target.classList.add("visible-box");
+          entry.target.classList.remove("hidden-box");
         } else {
-          boxElements.forEach((box) => {
-            box.classList.add("hidden");
-            box.classList.remove("visible");
-          });
+          entry.target.classList.add("hidden-box");
+          entry.target.classList.remove("visible-box");
         }
       });
     };
 
-    // Création de l'observer avec un threshold de 0.1 (10%)
-    const observer = new IntersectionObserver(handleBoxesVisibility, {
-      threshold: 0.1,
+    const observer = new IntersectionObserver(handleBoxVisibility, {
+      threshold: 0.1, // Ajuste le seuil d'intersection si nécessaire
     });
 
-    // Observer le footer
-    observer.observe(footer);
+    boxElements.forEach((box) => observer.observe(box));
+
+    // const handleBoxesVisibility = (entries) => {
+    //   entries.forEach((entry) => {
+    //     if (entry.isIntersecting) {
+    //       boxElements.forEach((box) => {
+    // box.classList.remove("hidden-box");
+    // box.classList.add("visible-box");
+    // box.style.opacity = "1";
+    // box.style.visibility = "visible";
+    //       });
+    //     } else {
+    //       boxElements.forEach((box) => {
+    //         box.classList.remove("visible-box");
+    //         box.classList.add("hidden-box");
+    //         // box.style.opacity = "0";
+    //         // box.style.visibility = "hidden";
+    //       });
+    //     }
+    //   });
+    // };
+
+    // Création de l'observer avec un threshold de 0.1 (10%)
+    // const observer = new IntersectionObserver(handleBoxesVisibility, {
+    //   threshold: 0.1,
+    // });
+
+    // // Observer le footer
+    // observer.observe(footer);
   }
 
   // Fonction pour initialiser Particles.js
@@ -256,6 +287,21 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       retina_detect: true,
     });
+    // Arrêter les particules après 8 secondes sur les smartphones
+    if (isSmartphone) {
+      setTimeout(() => {
+        console.log("Arrêt des particules après 8 secondes");
+        if (window.pJSDom && window.pJSDom.length > 0) {
+          const particlesInstance = window.pJSDom[0].pJS;
+
+          // Désactiver le mouvement
+          particlesInstance.particles.move.enable = false;
+
+          // Relancer le fonctionnement des particules pour appliquer les changements
+          particlesInstance.fn.particlesRefresh();
+        }
+      }, 5000);
+    }
   }
 
   // Retirer le loader après 1 seconde, puis afficher la section "hero"
@@ -283,7 +329,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const observer = new IntersectionObserver(invertColors, {
-      threshold: 0.5,
+      threshold: 0.2,
     });
 
     observer.observe(pricingSection);
@@ -353,11 +399,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  const binary1 = ["01000100 11000011 10101001"]; // Valeur binaire initiale pour #text1
-  const binary2 = ["MaVitrineDuWeb.fr"]; // Valeur binaire initiale pour #text2
+  const phrases1 = ["Développeur Web"]; // Valeur binaire initiale pour #text1
+  const phrases2 = ["A La Rochelle"]; // Valeur binaire initiale pour #text2
 
-  const phrases1 = ["Développeur Web"]; // Phrase à afficher dynamiquement pour #text1
-  const phrases2 = ["A La Rochelle"]; // Phrase à afficher dynamiquement pour #text2
+  // Phrase à afficher dynamiquement pour #text1
+  const binary1 = ["01000100 11000011 10101001"];
+  // Phrase à afficher dynamiquement pour #text2
+  const binary2 = ["MaVitrineDuWeb.fr"];
 
   const el1 = document.getElementById("text1"); // Élément avec id="text1"
   const el2 = document.getElementById("text2"); // Élément avec id="text2"
@@ -367,33 +415,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let counter1 = 0;
   let counter2 = 0;
+  let cycleCounter = 0; // Compteur pour limiter les cycles
 
   const cycleTexts = () => {
-    // Afficher les phrases dynamiquement dans #text1 et #text2
-    fx1.setText(binary1[counter1]).then(() => {
+    if (isSmartphone && cycleCounter >= 1) {
+      return; // Arrêter l'animation après 2 cycles sur les smartphones
+    }
+
+    fx1.setText(binary1[cycleCounter % binary1.length]).then(() => {
       setTimeout(() => {
-        fx2.setText(binary2[counter2]).then(() => {
-          // Après avoir affiché les deux phrases, réinitialiser avec les valeurs binaires
+        fx2.setText(binary2[cycleCounter % binary2.length]).then(() => {
           setTimeout(() => {
-            fx1.setText(phrases1[counter1]).then(() => {
-              fx2.setText(phrases2[counter2]).then(() => {
-                setTimeout(cycleTexts, 900); // Répéter le cycle après un délai
+            fx1.setText(phrases1[cycleCounter % phrases1.length]).then(() => {
+              fx2.setText(phrases2[cycleCounter % phrases2.length]).then(() => {
+                cycleCounter++;
+                setTimeout(cycleTexts, 900); // Délai avant de répéter le cycle
               });
             });
-          }, 200); // Délai avant de réinitialiser avec les valeurs binaires
+          }, 200); // Délai avant de réinitialiser avec les phrases
         });
-      }, 200); // Délai entre #text1 et #text2
+      }, 200); // Délai entre les deux éléments
     });
   };
 
   const initialize = () => {
-    // Afficher les valeurs binaires initiales
-    fx1.setText(phrases1[counter1]).then(() => {
-      fx2.setText(phrases2[counter2]).then(() => {
-        // Démarrer l'animation des phrases après les binaires
-        setTimeout(cycleTexts, 500);
-      });
-    });
+    // Afficher les valeurs binaires initiales directement (sans animation)
+    el1.innerText = binary1[0];
+    el2.innerText = binary2[0];
+
+    // Vérifier s'il s'agit d'un smartphone
+    if (isSmartphone) {
+      // Pour les smartphones, effectuer un seul cycle d'animation
+      setTimeout(() => {
+        fx1.setText(phrases1[0]).then(() => {
+          fx2.setText(phrases2[0]).then(() => {
+            console.log("Animation terminée après une transition sur smartphone");
+          });
+        });
+      }, 500); // Délai avant de démarrer l'animation
+    } else {
+      // Pour les autres appareils, continuer les cycles d'animation
+      setTimeout(() => {
+        fx1.setText(phrases1[0]).then(() => {
+          fx2.setText(phrases2[0]).then(() => {
+            setTimeout(cycleTexts, 500); // Démarrer le cycle après un délai
+          });
+        });
+      }, 500); // Délai avant de démarrer l'animation
+    }
   };
 
   // initializeParticles();
@@ -411,7 +480,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Animation on scroll
+// Animation on scroll:
+// paramètres par défaut:
 const sr = ScrollReveal({
   origin: "bottom",
   distance: "60px",
@@ -430,13 +500,15 @@ const sr = ScrollReveal({
 // Sections:
 
 sr.reveal(".presentation", { delay: 200, distance: "200px" });
+sr.reveal(".messagedefilant", { delay: 200, distance: "200px" });
 // sr.reveal(".div-phone", { delay: 300 });
-sr.reveal(".services-flex", { delay: 200, distance: "400px" });
-sr.reveal(".stape-card", { delay: 200, distance: "400px" });
+sr.reveal(".services-title", { delay: 200, distance: "200px" });
+sr.reveal(".card", { delay: 200, distance: "200px" });
+sr.reveal(".stape-card", { delay: 200, distance: "200px" });
 // sr.reveal(".pricing", { delay: 200 });
-sr.reveal("#themes", { delay: 200, distance: "400px" });
-sr.reveal(".skills", { delay: 200, distance: "400px" });
-sr.reveal(".contact-form", { delay: 400, distance: "300px" });
+sr.reveal("#themes", { delay: 200, distance: "100px" });
+sr.reveal(".skills", { delay: 200, distance: "100px" });
+sr.reveal(".contact-form", { delay: 200, distance: "100px" });
 sr.reveal(".buton-phone", { delay: 600 });
 
 // Formulaires de contact - envoie de l'email
