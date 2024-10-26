@@ -268,7 +268,7 @@ section {
 }
 
 .hero {
-  background-image: url("/20-fond-hero-section-800.jpeg");
+  background-image: url("/20-fond-hero-section-800.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -456,7 +456,7 @@ section {
   /* content: attr(data-hye); */
   content: "MVDW";
   font-size: 5rem;
-  left: 30%;
+  left: 15%;
   top: -25%;
   /* transform: translate(-50%, -85%); */
   opacity: 0.3;
@@ -476,9 +476,11 @@ section {
   font-size: 1.1rem;
 }
 
-/* @media (min-width: 430px) {
-
-      } */
+@media (min-width: 410px) {
+  .hye-title::after {
+    left: 25%;
+  }
+}
 
 @media (min-width: 750px) {
   .presentation {
@@ -760,7 +762,7 @@ section {
   position: relative;
   text-align: center;
   color: var(--primary-text-color);
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 900;
   /* margin-bottom: 40px; */
   margin: 50px auto 40px auto;

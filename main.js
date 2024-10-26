@@ -37,7 +37,19 @@ document.addEventListener("DOMContentLoaded", function () {
         // Lancer immédiatement l'animation
         smoothScrollTo(targetElement);
       }
+      // Fermer le menu après avoir cliqué sur un lien
+      navbar.classList.remove("active");
+      togglebtn.classList.remove("active");
     });
+  });
+
+  // Fermer le menu si on clique en dehors de celui-ci
+  document.addEventListener("click", (event) => {
+    if (!navbar.contains(event.target) && !togglebtn.contains(event.target)) {
+      // Si l'utilisateur clique à l'extérieur du menu ou du bouton de bascule
+      navbar.classList.remove("active");
+      togglebtn.classList.remove("active");
+    }
   });
 
   function smoothScrollTo(targetElement) {
@@ -318,6 +330,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     console.log(pricingSection); // Debugging
 
+    // Définir le threshold en fonction du type d'appareil
+    const threshold = isSmartphone ? 0.1 : 0.7;
+
     const invertColors = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -329,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const observer = new IntersectionObserver(invertColors, {
-      threshold: 0.2,
+      threshold: threshold,
     });
 
     observer.observe(pricingSection);
