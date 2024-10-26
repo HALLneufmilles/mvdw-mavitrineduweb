@@ -141,7 +141,9 @@ section {
   justify-content: center;
   align-items: center;
 }
+
 .links {
+  background-color: rgba(254, 252, 252, 0);
   display: block;
   color: #040404c2;
   font-size: 1.2rem;
@@ -151,11 +153,11 @@ section {
   width: 100%;
   cursor: pointer;
   text-transform: capitalize;
-  transition: font-size 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .links:hover {
-  background: rgba(254, 252, 252, 1);
+  background-color: rgba(254, 252, 252, 1);
   font-size: 1.3rem;
 }
 
