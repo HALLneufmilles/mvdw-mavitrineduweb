@@ -99,7 +99,7 @@ section {
 .side-nav {
   position: relative;
   width: 150px;
-  height: 500px;
+  height: 493px;
   position: fixed;
   z-index: 15;
   top: 0;
@@ -134,7 +134,12 @@ section {
 }
 
 .link-item {
-  border-top: 1px solid rgb(255, 255, 255);
+  border-top: 1px solid rgb(249, 249, 249);
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .links {
   display: block;
@@ -146,11 +151,9 @@ section {
   width: 100%;
   cursor: pointer;
   text-transform: capitalize;
-  transition: font-size 0.2s ease-in-out;
+  transition: font-size 0.5s ease-in-out;
 }
-/*   display: block;
-    width: 100%;
-    padding: 20px 10vw; */
+
 .links:hover {
   background: rgba(254, 252, 252, 1);
   font-size: 1.3rem;
