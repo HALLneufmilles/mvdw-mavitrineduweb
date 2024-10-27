@@ -96,7 +96,7 @@ section {
 
 /* #region navbar */
 
-.side-nav {
+/* .side-nav {
   position: relative;
   width: 150px;
   height: 493px;
@@ -107,6 +107,22 @@ section {
   padding: 100px 0 0 0;
   transition: 0.5s;
   overflow: hidden;
+  border-radius: 5px;
+} */
+
+.side-nav {
+  position: fixed;
+  width: 150px;
+  /* height: 493px; */
+  max-height: 100vh; /* Limiter la hauteur à celle de la fenêtre */
+  z-index: 15;
+  top: 0;
+  right: -150px;
+  padding: 100px 0 0 0;
+  transition: 0.5s;
+  overflow: hidden;
+  /* overflow-y: auto; 
+  overflow-x: hidden; */
   border-radius: 5px;
 }
 
@@ -126,10 +142,20 @@ section {
   right: 0;
 }
 
-.nav-container {
+/* .nav-container {
   position: relative;
   width: 100%;
   height: auto;
+  z-index: 15;
+} */
+
+.nav-container {
+  position: relative;
+  width: 100%;
+  /* height: auto; */
+  max-height: calc(100vh - 150px);
+  /* max-height: 100vh; */
+  overflow-y: auto;
   z-index: 15;
 }
 
@@ -1709,7 +1735,7 @@ textarea::placeholder {
   cursor: pointer;
   border: 2px solid var(--primary-text-color);
   color: var(--background-cards);
-  height: 40px;
+  height: 50px;
   width: 150px;
   display: flex;
   justify-content: center; /* Centre le contenu horizontalement */
@@ -1848,7 +1874,8 @@ footer p:nth-of-type(3) {
   color: var(--primary-text-color);
   text-decoration: none;
   display: block;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
+  padding: 1rem 1rem;
   text-transform: capitalize;
   font-size: 1em;
 }
@@ -1900,7 +1927,7 @@ footer p:nth-of-type(3) {
 /* #endregion Footer */
 /* ----------------------------------- */
 
-/* #region Vollets bas de page*/
+/* #region vollets */
 /* boites de fin de page */
 .box {
   width: 100%;
@@ -1976,3 +2003,5 @@ footer p:nth-of-type(3) {
 .box3 img {
   opacity: 0.2;
 }
+
+/* #endregion vollets */
