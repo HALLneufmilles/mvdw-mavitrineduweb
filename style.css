@@ -96,34 +96,29 @@ section {
 
 /* #region navbar */
 
-/* .side-nav {
-  position: relative;
-  width: 150px;
-  height: 493px;
-  position: fixed;
-  z-index: 15;
-  top: 0;
-  right: -150px;
-  padding: 100px 0 0 0;
-  transition: 0.5s;
-  overflow: hidden;
-  border-radius: 5px;
-} */
-
 .side-nav {
   position: fixed;
   width: 150px;
-  /* height: 493px; */
   max-height: 100vh; /* Limiter la hauteur à celle de la fenêtre */
   z-index: 15;
   top: 0;
   right: -150px;
-  padding: 100px 0 0 0;
+  padding: 90px 0 0 0;
   transition: 0.5s;
   overflow: hidden;
-  /* overflow-y: auto; 
-  overflow-x: hidden; */
   border-radius: 5px;
+}
+
+.nav-container {
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  z-index: 15;
+}
+
+.side-nav.active {
+  right: 0;
 }
 
 .side-nav::before {
@@ -136,27 +131,6 @@ section {
   background: rgba(253, 253, 253, 0.9);
   z-index: 14;
   backdrop-filter: blur(2px);
-}
-
-.side-nav.active {
-  right: 0;
-}
-
-/* .nav-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  z-index: 15;
-} */
-
-.nav-container {
-  position: relative;
-  width: 100%;
-  /* height: auto; */
-  max-height: calc(100vh - 150px);
-  /* max-height: 100vh; */
-  overflow-y: auto;
-  z-index: 15;
 }
 
 .link-item {

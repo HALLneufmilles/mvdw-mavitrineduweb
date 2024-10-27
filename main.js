@@ -6,7 +6,7 @@ emailjs.init("SSGMoBteY1IqEzwlA");
 
 const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
 const isAndroid = navigator.userAgent.toLowerCase().includes("android");
-const isSmartphone = window.matchMedia("(orientation: portrait)").matches && window.innerWidth < 768;
+const isSmartphone = window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 940;
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Arrêter les particules après 8 secondes sur les smartphones
     if (isSmartphone) {
       setTimeout(() => {
-        console.log("Arrêt des particules après 8 secondes");
+        console.log("Arrêt des particules après 5 secondes");
         if (window.pJSDom && window.pJSDom.length > 0) {
           const particlesInstance = window.pJSDom[0].pJS;
 
