@@ -276,53 +276,44 @@
     <script defer src="https://unpkg.com/scrollreveal"></script>
   </head>
   <body>
-    <!-- <div class="loader-container">
-      <div class="loader">
-        <img src="/logo-mavitrineduweb-500.png" alt="logo du site ma vitrine du web" />
-        <span class="loader-span"></span>
-      </div>
-    </div> -->
     <header>
       <!-- https://www.youtube.com/watch?v=r5QAGkoF6O8&list=PLqm86YkewF6SYMNqk_d_yFdDNDJrtEpLF&index=5 -->
-      <nav class="side-nav">
-        <ul class="nav-container">
-          <li class="link-item">
-            <a href="#hero-section" class="links">Home</a>
-          </li>
-          <li class="link-item">
-            <a href="#services" class="links">Services</a>
-          </li>
-          <li class="link-item">
-            <a href="#etapes" class="links">Etapes</a>
-          </li>
-          <li class="link-item">
-            <a href="#prix" class="links">Prix</a>
-          </li>
-          <li class="link-item">
-            <a href="#themes" class="links">Thèmes</a>
-          </li>
-          <li class="link-item">
-            <a href="#contacts" class="links">Contact</a>
-          </li>
-        </ul>
+      <nav class="nav-barre">
+        <div id="nav-mobile" class="side-nav">
+          <div class="user-view">
+            <img loading="lazy" src="/Cover-menu-500x263.webp" />
+          </div>
+          <div class="nav-container-links">
+            <li>
+              <a href="#hero-section" class="links"><img src="/50-Home24x48.webp" alt="" /> Home</a>
+            </li>
+            <li>
+              <a href="#services" class="links"><img src="/51-Services48x24.webp" alt="" /> Services</a>
+            </li>
+            <li>
+              <a href="#etapes" class="links"><img src="/52-Etapes24x48.webp" alt="" />Étapes</a>
+            </li>
+            <li>
+              <a href="#prix" class="links"><img src="/53-Prix24x48.webp" alt="" />Prix</a>
+            </li>
+            <li>
+              <a href="#themes" class="links"><img src="/54-Themes24x48.webp" alt="" />Thèmes</a>
+            </li>
+            <li>
+              <a href="#contacts" class="links"><img src="/55-Contact24x48.webp" alt="" />Contact</a>
+            </li>
+          </div>
+        </div>
+        <div class="toggle-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </nav>
-      <div class="toggle-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <div id="overlay-menu" class="overlay"></div>
       <div id="hero-section">
         <div class="hero">
           <div id="particles-js"></div>
-          <!-- L'image sélectionnée sera préloadée. Voir <link rel="preload"> dans <head> -->
-          <!-- Pour voir les img utilisées par le navigateur: DevTool / Network / filtre img. -->
-          <!-- <img
-            src="/21-bateaumarinutilise2-800.png"
-            srcset="/21-bateaumarinutilise2-800.png 800w, /21-bateaumarinutilise2-1400.png 1024w"
-            sizes="100vw"
-            alt="bateau pirate et tête de marin à gauche regardent les tours de la rochelle à droite"
-            class="overlay-image"
-          /> -->
           <picture>
             <source
               srcset="
@@ -1245,7 +1236,7 @@
           <source srcset="/22-TextWhitNonFendu2-300.png 300w, /22-TextWhitNonFendu2-800.png 800w" type="image/png" />
           <img
             class="logo"
-            src="/22-TextWhitNonFendu2-300.png"
+            src="/22-TextWhitNonFendu2-300.webp"
             width="300"
             height="300"
             loading="lazy"
@@ -1294,7 +1285,7 @@
     </footer>
     <!-- #endregion footer -->
 
-    <!-- #endregion footer -->
+    <!-- #region vollets -->
     <div class="box box1 box-sticky hidden-box">
       <picture>
         <source
@@ -1357,7 +1348,7 @@
           width="300"
           height="30"
           loading="lazy"
-          alt="texte moins blanc ma vitrine du web sur la largeur de l'écran"
+          alt="texte 2 fois moins blanc ma vitrine du web sur la largeur de l'écran"
         />
       </picture>
       <!-- <img
@@ -1394,7 +1385,7 @@
           width="300"
           height="30"
           loading="lazy"
-          alt="texte moins blanc ma vitrine du web sur la largeur de l'écran"
+          alt="texte 3 fois moins blanc ma vitrine du web sur la largeur de l'écran"
         />
       </picture>
       <!-- <img
@@ -1406,7 +1397,7 @@
         alt="texte encore plus moins blanc ma vitrine du web sur la largeur de l'écran"
       /> -->
     </div>
-    <!-- #endregion footer -->
+    <!-- #endregion vollets -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="module" src="/main.js" defer></script>
   </body>

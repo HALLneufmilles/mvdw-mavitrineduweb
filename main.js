@@ -6,6 +6,7 @@ emailjs.init("SSGMoBteY1IqEzwlA");
 
 const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
 const isAndroid = navigator.userAgent.toLowerCase().includes("android");
+
 const isSmartphone = window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 940;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -18,13 +19,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // nav-bar
-  const navbar = document.querySelector(".side-nav");
+  const navbar = document.querySelector(".nav-barre");
   const togglebtn = document.querySelector(".toggle-btn");
   const links = document.querySelectorAll(".links, .footer-links");
+  const overlay = document.querySelector("#overlay-menu");
 
   togglebtn.addEventListener("click", () => {
-    navbar.classList.toggle("active");
+    const isMenuOpen = navbar.classList.toggle("active");
     togglebtn.classList.toggle("active");
+    overlay.classList.toggle("active");
+    if (isMenuOpen) {
+      document.documentElement.classList.add("no-scroll");
+    } else {
+      document.documentElement.classList.remove("no-scroll");
+    }
   });
 
   links.forEach((link) => {
@@ -40,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Fermer le menu après avoir cliqué sur un lien
       navbar.classList.remove("active");
       togglebtn.classList.remove("active");
+      overlay.classList.remove("active");
+      document.documentElement.classList.remove("no-scroll");
     });
   });
 
@@ -49,6 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Si l'utilisateur clique à l'extérieur du menu ou du bouton de bascule
       navbar.classList.remove("active");
       togglebtn.classList.remove("active");
+      overlay.classList.remove("active");
+      document.documentElement.classList.remove("no-scroll");
     }
   });
 
@@ -519,6 +531,7 @@ sr.reveal(".messagedefilant", { delay: 200, distance: "200px" });
 // sr.reveal(".div-phone", { delay: 300 });
 sr.reveal(".services-title", { delay: 200, distance: "200px" });
 sr.reveal(".card", { delay: 200, distance: "200px" });
+sr.reveal(".stape-container", { delay: 200, distance: "200px" });
 sr.reveal(".stape-card", { delay: 200, distance: "200px" });
 // sr.reveal(".pricing", { delay: 200 });
 sr.reveal("#themes", { delay: 200, distance: "100px" });
