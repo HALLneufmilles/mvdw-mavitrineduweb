@@ -107,6 +107,7 @@ section {
   top: 0;
   left: -300px;
   z-index: 15;
+  transition: all 0.8s ease-in-out;
 }
 
 .side-nav {
@@ -123,7 +124,7 @@ section {
   list-style: none;
   display: block;
   box-sizing: inherit;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .nav-barre.active {
@@ -149,10 +150,13 @@ section {
 .user-view {
   margin-bottom: 60px;
   height: 150px;
+  width: 300px;
 }
 
 .user-view > img {
   width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .nav-container-links {
@@ -197,8 +201,8 @@ section {
 
 .nav-container-links a:hover::before {
   width: 200%;
-  left: 50%;
-  transition: width 0.7s ease, left 0.7s ease;
+  left: 40%;
+  transition: width 0.5s ease;
 }
 
 .nav-container-links li a img {
@@ -253,6 +257,12 @@ section {
   opacity: 0;
 }
 
+/* Désactiver l'effet de surlignement bleu lors du clic */
+.links,
+.toggle-btn {
+  -webkit-tap-highlight-color: transparent; /* Pour désactiver le surlignement sur les navigateurs mobiles Webkit (Chrome, Safari) */
+}
+
 @media (min-width: 750px) {
   .toggle-btn {
     position: relative;
@@ -260,63 +270,6 @@ section {
 }
 
 /* #endregion navbar */
-
-/* #region loader */
-/* .loader-container {
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #e5e5e5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-} */
-
-/* .loader-container.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.loader {
-  width: 120px;
-  height: 120px;
-}
-
-.loader img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.loader-span {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: block;
-  margin: 15px auto;
-  position: relative;
-  background: #000000;
-  box-sizing: border-box;
-  animation: shadowExpandX 1s linear infinite alternate;
-} */
-
-/* @keyframes shadowExpandX {
-  0% {
-    box-shadow: 0 0, 0 0;
-    color: rgba(255, 255, 255, 0.2);
-  }
-  100% {
-    box-shadow: -24px 0, 24px 0;
-    color: rgba(0, 0, 0, 0.8);
-  }
-} */
-
-/* --------------------------------------- */
-/* #endregion loader */
 
 /* #region Hero */
 /* **** hero-section **** */
@@ -1899,7 +1852,7 @@ footer p:nth-of-type(3) {
 }
 
 .box1 img {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .box2 {
