@@ -1825,15 +1825,15 @@ footer p:nth-of-type(3) {
   visibility: visible;
 }
 
-/* .box picture {
+.box picture {
   display: block;
   width: 100%;
-} */
+}
 
 .box img {
   width: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* ---------------------------------*/

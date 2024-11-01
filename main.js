@@ -11,6 +11,23 @@ const isSmartphone = window.matchMedia("(orientation: portrait)").matches || win
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
+  // chargement différé des image des vollets de bas de page
+  const pictureElements = document.querySelectorAll(".delayed-load");
+
+  pictureElements.forEach((picture) => {
+    const sources = picture.querySelectorAll("source");
+    sources.forEach((source) => {
+      if (source.dataset.srcset) {
+        source.srcset = source.dataset.srcset;
+      }
+    });
+
+    const img = picture.querySelector("img");
+    if (img && img.dataset.src) {
+      img.src = img.dataset.src;
+    }
+  });
+  // Fin chargement des img vollets
 
   if (isFirefox && isAndroid && window.matchMedia("(orientation: portrait)").matches) {
     document.querySelectorAll(".box-sticky").forEach((box) => {
