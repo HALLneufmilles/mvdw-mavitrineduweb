@@ -11,23 +11,6 @@ const isSmartphone = window.matchMedia("(orientation: portrait)").matches || win
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
-  // chargement différé des image des vollets de bas de page
-  const pictureElements = document.querySelectorAll(".delayed-load");
-
-  pictureElements.forEach((picture) => {
-    const sources = picture.querySelectorAll("source");
-    sources.forEach((source) => {
-      if (source.dataset.srcset) {
-        source.srcset = source.dataset.srcset;
-      }
-    });
-
-    const img = picture.querySelector("img");
-    if (img && img.dataset.src) {
-      img.src = img.dataset.src;
-    }
-  });
-  // Fin chargement des img vollets
 
   if (isFirefox && isAndroid && window.matchMedia("(orientation: portrait)").matches) {
     document.querySelectorAll(".box-sticky").forEach((box) => {
@@ -155,6 +138,66 @@ document.addEventListener("DOMContentLoaded", function () {
   //   heroSection.style.opacity = "1"; // Rendre la section visible
   //   heroSection.style.visibility = "visible";
   // }
+
+  function showVoletBoxs() {
+    console.log("showVoletBoxs appellée");
+
+    // On contrôle l'existence de l'élément 'footer'
+    const footer = document.querySelector("#footer");
+    if (!footer) {
+      console.error("L'élément #footer n'existe pas dans le DOM.");
+      return; // Quitte la fonction si l'élément n'existe pas
+    }
+
+    const boxElements = document.querySelectorAll(".box");
+
+    // Fonction de rappel pour l'observer
+    const handleBoxVisibility = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible-box");
+          entry.target.classList.remove("hidden-box");
+        } else {
+          entry.target.classList.add("hidden-box");
+          entry.target.classList.remove("visible-box");
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleBoxVisibility, {
+      threshold: 0.1, // Ajuste le seuil d'intersection si nécessaire
+    });
+
+    boxElements.forEach((box) => observer.observe(box));
+
+    // const handleBoxesVisibility = (entries) => {
+    //   entries.forEach((entry) => {
+    //     if (entry.isIntersecting) {
+    //       boxElements.forEach((box) => {
+    // box.classList.remove("hidden-box");
+    // box.classList.add("visible-box");
+    // box.style.opacity = "1";
+    // box.style.visibility = "visible";
+    //       });
+    //     } else {
+    //       boxElements.forEach((box) => {
+    //         box.classList.remove("visible-box");
+    //         box.classList.add("hidden-box");
+    //         // box.style.opacity = "0";
+    //         // box.style.visibility = "hidden";
+    //       });
+    //     }
+    //   });
+    // };
+
+    // Création de l'observer avec un threshold de 0.1 (10%)
+    // const observer = new IntersectionObserver(handleBoxesVisibility, {
+    //   threshold: 0.1,
+    // });
+
+    // // Observer le footer
+    // observer.observe(footer);
+  }
 
   // Fonction pour initialiser Particles.js
   function initializeParticles() {
