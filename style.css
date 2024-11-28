@@ -1544,6 +1544,8 @@ form {
   font-weight: bold;
   color: var(--primary-text-color);
   margin-bottom: 2vh;
+  text-align: center;
+  line-height: 1.6;
 }
 .contact-form p {
   font-size: 1rem;
