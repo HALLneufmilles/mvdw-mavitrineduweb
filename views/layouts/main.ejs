@@ -1,0 +1,57 @@
+<!-- main.ejs' est le Template layout principal de l'application. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- "Title" s'affiche dans l'onglet du navigateur. -->
+    <title><%= locals.title %></title>
+    <meta name="description" content="<%= locals.description %>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="preload"
+      as="style"
+      crossorigin="anonymous"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+    />
+    <link rel="stylesheet" href="/css/markdown.css" />
+    <link rel="stylesheet" href="/css/styleBlog.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/vs2015.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      // Appeler Highlight.js après son chargement
+      hljs.highlightAll();
+    </script>
+    <script type="text/javascript" defer src="/js/script.js"></script>
+  </head>
+  <body>
+    <%- include('../partials/search.ejs') %>
+    <!-- prettier-ignore -->
+    <div class="container">
+      <%- include('../partials/header.ejs') %>
+        <main class="main">
+          <!-- 'body' réceptionne les  rendus des vues (situées dans le dossiers "views") et ses données envoyés par les fonctions render(), elles même situées dans les fichiers du dossier "routes" .  -->
+          <%- body %> 
+        </main>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+    <script src="/js/script.js" defer></script>
+  </body>
+</html>

@@ -7,12 +7,18 @@ emailjs.init("SSGMoBteY1IqEzwlA");
 const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
 const isAndroid = navigator.userAgent.toLowerCase().includes("android");
 
-const isSmartphone = window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 940;
+const isSmartphone =
+  window.matchMedia("(orientation: portrait)").matches ||
+  window.innerWidth < 940;
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
 
-  if (isFirefox && isAndroid && window.matchMedia("(orientation: portrait)").matches) {
+  if (
+    isFirefox &&
+    isAndroid &&
+    window.matchMedia("(orientation: portrait)").matches
+  ) {
     document.querySelectorAll(".box-sticky").forEach((box) => {
       box.style.position = "static";
     });
@@ -37,7 +43,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   links.forEach((link) => {
     link.addEventListener("click", (event) => {
-      event.preventDefault();
+      // Vérifier si le lien est externe (target="_blank" ou URL absolue)
+      const isExternal =
+        link.getAttribute("target") === "_blank" ||
+        link.href.startsWith("http");
+
+      if (isExternal) {
+        // Ne pas empêcher l'action par défaut pour les liens externes
+        return;
+      }
+      event.preventDefault(); // Empêche l'action par défaut pour les liens internes
       const targetId = link.getAttribute("href").slice(1);
       const targetElement = document.getElementById(targetId);
 
@@ -124,7 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Quand l'image est chargée, on résout la promesse
     link.onload = () => resolve();
-    link.onerror = () => reject(new Error("Erreur lors du chargement de l'image"));
+    link.onerror = () =>
+      reject(new Error("Erreur lors du chargement de l'image"));
     document.head.appendChild(link);
   });
 
@@ -165,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const observer = new IntersectionObserver(handleBoxVisibility, {
-      threshold: 0.1, // Ajuste le seuil d'intersection si nécessaire
+      threshold: 0.1 // Ajuste le seuil d'intersection si nécessaire
     });
 
     boxElements.forEach((box) => observer.observe(box));
@@ -207,26 +223,26 @@ document.addEventListener("DOMContentLoaded", function () {
           value: 65,
           density: {
             enable: true,
-            value_area: 800,
-          },
+            value_area: 800
+          }
         },
         color: {
-          value: "#ffffff",
+          value: "#ffffff"
         },
         shape: {
           type: "circle",
           stroke: {
             width: 0,
-            color: "#000000",
+            color: "#000000"
           },
           polygon: {
-            nb_sides: 5,
+            nb_sides: 5
           },
           image: {
             src: "img/github.svg",
             width: 100,
-            height: 100,
-          },
+            height: 100
+          }
         },
         opacity: {
           value: 0.5,
@@ -235,8 +251,8 @@ document.addEventListener("DOMContentLoaded", function () {
             enable: false,
             speed: 1,
             opacity_min: 0.1,
-            sync: false,
-          },
+            sync: false
+          }
         },
         size: {
           value: 3,
@@ -245,15 +261,15 @@ document.addEventListener("DOMContentLoaded", function () {
             enable: false,
             speed: 40,
             size_min: 0.1,
-            sync: false,
-          },
+            sync: false
+          }
         },
         line_linked: {
           enable: true,
           distance: 236.74429248968178,
           color: "#ffffff",
           opacity: 0.4,
-          width: 1,
+          width: 1
         },
         move: {
           enable: true,
@@ -266,50 +282,50 @@ document.addEventListener("DOMContentLoaded", function () {
           attract: {
             enable: false,
             rotateX: 600,
-            rotateY: 1200,
-          },
-        },
+            rotateY: 1200
+          }
+        }
       },
       interactivity: {
         detect_on: "canvas",
         events: {
           onhover: {
             enable: true,
-            mode: "repulse",
+            mode: "repulse"
           },
           onclick: {
             enable: true,
-            mode: "push",
+            mode: "push"
           },
-          resize: true,
+          resize: true
         },
         modes: {
           grab: {
             distance: 400,
             line_linked: {
-              opacity: 1,
-            },
+              opacity: 1
+            }
           },
           bubble: {
             distance: 400,
             size: 40,
             duration: 2,
             opacity: 8,
-            speed: 3,
+            speed: 3
           },
           repulse: {
             distance: 200,
-            duration: 0.4,
+            duration: 0.4
           },
           push: {
-            particles_nb: 4,
+            particles_nb: 4
           },
           remove: {
-            particles_nb: 2,
-          },
-        },
+            particles_nb: 2
+          }
+        }
       },
-      retina_detect: true,
+      retina_detect: true
     });
     // Arrêter les particules après 8 secondes sur les smartphones
     if (isSmartphone) {
@@ -356,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const observer = new IntersectionObserver(invertColors, {
-      threshold: threshold,
+      threshold: threshold
     });
 
     observer.observe(pricingSection);
@@ -476,7 +492,9 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         fx1.setText(phrases1[0]).then(() => {
           fx2.setText(phrases2[0]).then(() => {
-            console.log("Animation terminée après une transition sur smartphone");
+            console.log(
+              "Animation terminée après une transition sur smartphone"
+            );
           });
         });
       }, 500); // Délai avant de démarrer l'animation
@@ -496,7 +514,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // handleColorInversion();
   preloadImage
     .then(() => {
-      console.log("Image préchargée, initialisation des particules et inversion des couleurs");
+      console.log(
+        "Image préchargée, initialisation des particules et inversion des couleurs"
+      );
       initializeParticles();
       initialize();
       handleColorInversion();
@@ -514,7 +534,7 @@ const sr = ScrollReveal({
   distance: "60px",
   duration: 1000,
   delay: 100,
-  easing: "ease-in-out",
+  easing: "ease-in-out"
 });
 
 // sr.reveal(".contact-form h1");
@@ -550,7 +570,7 @@ window.sendMail = function () {
     user_email: document.getElementById("user_email").value,
     subject: document.getElementById("subject").value,
     message: document.getElementById("message").value,
-    contact_number: document.getElementById("contact_number").value,
+    contact_number: document.getElementById("contact_number").value
   };
   console.log("params:", params);
 

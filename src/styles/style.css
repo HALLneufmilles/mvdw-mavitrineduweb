@@ -50,7 +50,9 @@ body {
 }
 
 body * {
-  transition: background-color 1s ease, color 0.2s ease;
+  transition:
+    background-color 1s ease,
+    color 0.2s ease;
 }
 
 #accueil {
@@ -181,7 +183,7 @@ section {
   font-size: 1.1rem;
   font-weight: 500;
   padding: 0 32px;
-  color: rgb(255, 255, 255);
+  color: rgb(6, 248, 212);
   text-decoration: none;
   overflow: hidden;
   transition: color 0.4s ease;
@@ -194,7 +196,11 @@ section {
   left: 40%;
   width: 0;
   height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
   transform: translate(-50%, -50%);
   z-index: -1;
 }
@@ -393,7 +399,9 @@ section {
     background-image: url("/img/hero/20-fond-hero-section-1400.jpeg");
     background-size: cover;
   }
-  @supports (background-image: url("/img/hero/20-fond-hero-section-1400.webp")) {
+  @supports (
+    background-image: url("/img/hero/20-fond-hero-section-1400.webp")
+  ) {
     .hero {
       background-image: url("/img/hero/20-fond-hero-section-1400.webp");
     }
@@ -1234,7 +1242,11 @@ a {
   left: 0;
   width: 0;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0, 78, 212, 1) 0%, rgba(0, 78, 212, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 78, 212, 1) 0%,
+    rgba(0, 78, 212, 1) 100%
+  );
   transition: width 0.6s ease-out;
   z-index: 12;
 }
@@ -1649,11 +1661,17 @@ textarea::placeholder {
 
 @keyframes ripple {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 0 3px rgba(255, 255, 255, 0.3),
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.3),
+      0 0 0 3px rgba(255, 255, 255, 0.3),
       0 0 0 5px rgba(255, 255, 255, 0.3);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3), 0 0 0 4px rgba(255, 255, 255, 0.3), 0 0 0 20px rgba(255, 255, 255, 0),
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.3),
+      0 0 0 4px rgba(255, 255, 255, 0.3),
+      0 0 0 20px rgba(255, 255, 255, 0),
       0 0 0 30px rgba(255, 255, 255, 0);
   }
 }
