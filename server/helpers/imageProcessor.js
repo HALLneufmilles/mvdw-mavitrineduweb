@@ -42,23 +42,6 @@ export async function processImage(bannerFile) {
     `${bannerImageName}-300x100.webp`
   );
 
-  /*   if (isPng) {
-    await sharp(bannerFile.data)
-      .png({
-        quality: 80,
-        compressionLevel: 9
-      })
-      .toFile(basePath);
-  } else {
-    await sharp(bannerFile.data)
-      .withMetadata({ density: 72 })
-      .jpeg({
-        mozjpeg: true,
-        quality: 80
-      })
-      .toFile(basePath);
-  } */
-
   if (isPng) {
     const buffer = await sharp(bannerFile.data)
       .png({
