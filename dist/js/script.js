@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   readMoreBtns.forEach((readMoreBtn) => {
     readMoreBtn.addEventListener("click", function (event) {
       event.preventDefault();
-      const authorContainer = this.closest(".author");
+      const authorContainer = this.closest(".intro");
       const collapsed = authorContainer.querySelector(".collapsed");
       const fullText = authorContainer.querySelector(".full-text");
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   readLessBtns.forEach((readLessBtn) => {
     readLessBtn.addEventListener("click", function (event) {
       event.preventDefault();
-      const authorContainer = this.closest(".author");
+      const authorContainer = this.closest(".intro");
       const collapsed = authorContainer.querySelector(".collapsed");
       const fullText = authorContainer.querySelector(".full-text");
 

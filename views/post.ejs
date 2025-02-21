@@ -12,16 +12,18 @@
     />
   </picture>
 </div>
-
-<!-- <div class="banner2">
-  <img src=" <%= data.bannerImages.ImgConvert %> " alt="" />
-</div> -->
 <div class="blog">
   <h1 class="title"><%= data.title %></h1>
   <p class="published">
     <span>published at - </span><%= data.createdAt.toDateString() %>
   </p>
   <div class="markdown"><%- data.sanitizedHtml %></div>
+  <div class="author" itemscope itemtype="https://schema.org/Person">
+    <div class="img-author">
+      <img src="/img/author/moi.jpg" alt="Photo de le béchennec boris" />
+    </div>
+    <span class="author-name" itemprop="name">LE BÉCHENNEC Boris</span>
+  </div>
 </div>
 <div class="btn retour" style="display: inline-block; margin: 20px">
   <a href="/blog" style="text-decoration: none">&slarr; Accueil</a>

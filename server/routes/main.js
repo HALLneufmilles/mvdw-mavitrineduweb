@@ -1,5 +1,10 @@
 import express from "express";
 import Post from "../models/Post.js";
+// app.use((req, res, next) => {
+//   res.locals.data = res.locals.data || null; // S'assurer que data existe
+//   next();
+// });
+
 const router = express.Router();
 /* Lorsque tu appelles res.render("search", { locals, data, currentRoute: '/' }), cela implique plusieurs choses, surtout dans le contexte de l'utilisation d'un layout :
 
@@ -38,7 +43,7 @@ router.get("/", async (req, res) => {
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
-    // console.log("data find :", data);
+    // console.log("data index :", data);
 
     // https://chatgpt.com/share/672e0389-1c94-800d-b388-659e73d9334c
     // Count is deprecated - please use countDocuments
@@ -112,6 +117,7 @@ router.get("/post/:id", async (req, res) => {
     // Il est préférable de mettre 'const locals' après 'const data'.
     // "title" représente maintenant le titre de l'article. Il s'affichera dans l'onglet du navigateur.
     const random3Posts = await Post.aggregate([{ $sample: { size: 3 } }]);
+    // console.log("data post :", data);
 
     const locals = {
       title: data.title,

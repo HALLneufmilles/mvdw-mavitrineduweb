@@ -2,11 +2,31 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) A COPIER DANS CHAQUE PAGE !!!! -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HWQQXGQ5V9"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HWQQXGQ5V9");
+    </script>
+    <!-- Google tag -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- "Title" s'affiche dans l'onglet du navigateur. -->
     <title><%= locals.title %></title>
     <meta name="description" content="<%= locals.description %>" />
+
+    <!-- ✅ Icônes et favicons -->
+    <link rel="icon" type="image/svg+xml" href="/img/favicone/favicone.svg" />
+    <link rel="apple-touch-icon" href="/img/favicone/favicone-180.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
