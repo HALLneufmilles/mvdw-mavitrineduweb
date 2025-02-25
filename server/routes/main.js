@@ -78,7 +78,6 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  // Récupération des Posts pour la route Home + pagination.
 });
 
 // *(2) Récupération des Posts pour la route Home.

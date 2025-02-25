@@ -1,6 +1,6 @@
 .markdown {
   font-weight: 400;
-  font-family:
+  /* font-family:
     -system-ui,
     -apple-system,
     BlinkMacSystemFont,
@@ -11,7 +11,7 @@
     sans-serif,
     Apple Color Emoji,
     Segoe UI Emoji,
-    Segoe UI Symbol;
+    Segoe UI Symbol; */
   line-height: 1.4;
   font-size: 1.05rem;
   /* width: 95%; */

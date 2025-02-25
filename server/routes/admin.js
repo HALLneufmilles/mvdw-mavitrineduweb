@@ -207,6 +207,17 @@ router.post("/add-post", authMiddleware, async (req, res) => {
     });
 
     await newPost.save();
+
+    // 3) (Optionnel) PING Google pour signaler la mise à jour du sitemap
+    try {
+      const pingUrl =
+        "https://www.google.com/ping?sitemap=https://mavitrineduweb.fr/sitemap.xml";
+      await fetch(pingUrl);
+      console.log("Ping Google Sitemap: succès !");
+    } catch (pingError) {
+      console.error("Impossible de ping Google :", pingError);
+    }
+
     res.redirect("/blog/dashboard");
   } catch (error) {
     console.error(error);
@@ -373,6 +384,17 @@ router.put("/edit-post/:id", authMiddleware, async (req, res) => {
     }
 
     await post.save();
+
+    // 3) (Optionnel) PING Google
+    try {
+      const pingUrl =
+        "https://www.google.com/ping?sitemap=https://mavitrineduweb.fr/sitemap.xml";
+      await fetch(pingUrl);
+      console.log("Ping Google Sitemap: succès !");
+    } catch (pingError) {
+      console.error("Impossible de ping Google :", pingError);
+    }
+
     res.redirect("/blog/dashboard");
   } catch (error) {
     console.error("Erreur lors de la mise à jour du post :", error);

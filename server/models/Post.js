@@ -5,6 +5,7 @@ import { renderMarkdown } from "../helpers/markdownRenderer.js"; // Importer le 
 
 // Configuration de dompurify
 const dompurify = createDomPurify(new JSDOM().window);
+// Config de dompurify pour autoriser les vidéos avec iframe'.
 dompurify.setConfig({
   ADD_TAGS: ["iframe"],
   ADD_ATTR: [

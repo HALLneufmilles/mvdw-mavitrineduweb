@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://mavitrineduweb.fr/sitemap.xml

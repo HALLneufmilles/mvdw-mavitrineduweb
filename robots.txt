@@ -1,13 +1,7 @@
 User-agent: *
-Disallow: /js/
-Disallow: /css/
-# Bloquer uniquement les versions de l'image que tu souhaites exclure
-Disallow: /public/21-bateaumarinutilise2-200.webp
-Disallow: /public/21-bateaumarinutilise2-400.webp
-Disallow: /public/21-bateaumarinutilise2-800.webp
-Disallow: /public/21-bateaumarinutilise2-1400.webp
-Disallow: /public/21-bateaumarinutilise2-200.png
-Disallow: /public/21-bateaumarinutilise2-400.png
-Disallow: /public/21-bateaumarinutilise2-800.png
-Disallow: /public/21-bateaumarinutilise2-1400.png
+Allow: /
+Disallow: /node_modules/
+Disallow: /server/
+Disallow: /views/
 
+Sitemap: https://mavitrineduweb.fr/sitemap.xml

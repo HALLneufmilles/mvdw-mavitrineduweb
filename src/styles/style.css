@@ -35,7 +35,19 @@
 }
 
 html {
-  font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+  /* font-family: "Segoe UI", "Trebuchet MS", Arial, sans-serif; */
+  font-family:
+    -system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol;
   overflow-x: hidden;
   /* scroll-behavior: smooth;  */
   /* permet un scroll automatique souple video : 1h 07mn 50 */
@@ -183,7 +195,7 @@ section {
   font-size: 1.1rem;
   font-weight: 500;
   padding: 0 32px;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 254, 157);
   text-decoration: none;
   overflow: hidden;
   transition: color 0.4s ease;
@@ -343,7 +355,7 @@ section {
 .text {
   display: inline-block;
   color: var(--primary-text-color);
-  font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif;
+  /* font-family: "Montserrat", "Trebuchet MS", Arial, sans-serif; */
   font-size: 1rem;
   /* https://chatgpt.com/share/807d7103-aa83-4597-8040-22a1cec90905 */
   font-weight: 100;

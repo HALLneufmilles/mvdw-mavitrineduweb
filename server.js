@@ -10,6 +10,8 @@ import mainRoutes from "./server/routes/main.js";
 // expressEjsLayouts est un middleware fourni par le package express-ejs-layouts.
 // Ce middleware est utilisé pour ajouter une fonctionnalité de "layout" (mise en page) dans EJS. Les layouts permettent d'avoir une structure commune sur plusieurs pages, comme un header, un footer, ou une barre de navigation.
 import adminRoutes from "./server/routes/admin.js";
+// route du fichier pour la création du sitemap.xlm.
+import sitemapRoutes from "./server/routes/sitemapRoute.js";
 import expressEjsLayouts from "express-ejs-layouts";
 // "Les cookies sont des morceaux de données (tels que des identifiants, des informations de session, préférences come 'theme dark, les Jetons de token, etc.) que le navigateur stocke et renvoie automatiquement au serveur lors de chaque requête HTTP."
 import session from "express-session";
@@ -113,6 +115,9 @@ app.use("/blog", mainRoutes);
 app.use("/blog", adminRoutes);
 
 app.use(express.static(path.join(__dirname, "dist")));
+
+// <-- Montre la route sitemap à la racine
+app.use("/", sitemapRoutes);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
