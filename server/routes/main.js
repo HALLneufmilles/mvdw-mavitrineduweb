@@ -23,8 +23,9 @@ router.get("/", async (req, res) => {
 
   try {
     const locals = {
-      title: "Node Blog",
-      description: "Simple Blog created with NodeJs, Express & MongoDb."
+      title: "MaVitrineDuWeb - Le Blog",
+      description:
+        "Découvrez nos articles sur la création de sites web professionnels à moindre coût et sans compromis sur la qualité."
     };
     // On défini le nombre de post par page
     let perPage = 6;
