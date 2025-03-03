@@ -42,7 +42,7 @@
 </div>
 <picture>
   <source
-    srcset="/img/accueil-blog/accueil-mobile.webp"
+    srcset="/img/accueil-blog/accueil-mobile3.webp"
     media="(max-width : 600px)"
     type="image/webp"
   />
@@ -96,7 +96,7 @@
   <div class="pagination">
       <% for (let i = 1; i <= Math.ceil(count / perPage); i++) { %> 
         <% if (i == current) { %>
-          <a class="pagination__current"><%= i %></a>
+          <a href="" class="pagination__current"><%= i %></a>
         <% } else { %>
           <a href="/blog/?page=<%= i %>" class="pagination__link"><%= i %></a>
         <% } %> 
