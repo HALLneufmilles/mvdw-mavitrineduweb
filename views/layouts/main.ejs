@@ -36,6 +36,8 @@
     <link rel="apple-touch-icon" href="/img/favicone/favicone-180.png" />
 
     <!-- ✅ Gestion dynamique du titre et de la description -->
+
+    <!-- Si data est un tableau alors la page d'accueil blog est affichée et data représente un tableau regroupant tous les articles -->
     <% if (Array.isArray(data)) { %>
     <!-- Page d'accueil du blog -->
     <title>Le Blog - MaVitrineDuWeb</title>
@@ -44,6 +46,8 @@
       content="Découvrez nos articles sur la création de sites web professionnels à moindre coût et sans compromis sur la qualité."
     />
     <link rel="canonical" href="https://mavitrineduweb.fr/blog" />
+
+    <!-- Sinon si data est un objet alors l'objet représente un article dons on est sur la page d'un article : -->
     <% } else if (typeof data === "object" && data !== null) { %>
     <!-- Page d'un article -->
     <title><%= data.title %> - Le Blog MVDW</title>
@@ -93,7 +97,8 @@
     </script>
     <script type="text/javascript" defer src="/js/script.js"></script>
 
-    <!-- ✅ Open Graph et Twitter Cards -->
+    <!-- ✅ Open Graph (pour FaceBook et Insta) et X (twitter) -->
+    <!-- Si data est un tableau alors la page d'accueil blog est affichée et data représente un tableau regroupant tous les articles -->
     <% if (Array.isArray(data)) { %>
     <meta property="og:title" content="Le Blog MaVitrineDuWeb" />
     <meta
@@ -133,7 +138,7 @@
     <meta name="twitter:description" content="<%= data.description %>" />
     <meta
       name="twitter:image"
-      content="https://mavitrineduweb.fr<%= data.bannerImages.smallImgConvert %>"
+      content="https://mavitrineduweb.fr<%= data.bannerImages.ImgConvert %>"
     />
 
     <meta
