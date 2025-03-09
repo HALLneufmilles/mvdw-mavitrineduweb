@@ -124,27 +124,18 @@
     />
     <meta name="twitter:url" content="https://mavitrineduweb.fr/blog" />
     <% } else if (typeof data === "object" && data !== null) { %>
-    <meta property="og:title" content="<%= data.title %>" />
-    <meta property="og:description" content="<%= data.description %>" />
-    <meta property="og:image" content="<%= data.bannerImages.ImgConvert %>" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta
       property="og:url"
       content="https://mavitrineduweb.fr/blog/post/<%= data._id %>"
     />
-    <meta property="og:type" content="article" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="<%= data.title %>" />
-    <meta name="twitter:description" content="<%= data.description %>" />
+    <meta property="og:title" content="<%= data.title %>" />
+    <meta property="og:description" content="<%= data.description %>" />
     <meta
-      name="twitter:image"
-      content="https://mavitrineduweb.fr<%= data.bannerImages.smallImgConvert %>"
+      property="og:image"
+      content="https://mavitrineduweb.fr<%= data.bannerImages.ImgConvert %>"
     />
 
-    <meta
-      name="twitter:url"
-      content="https://mavitrineduweb.fr/blog/post/<%= data._id %>"
-    />
     <% } %>
 
     <!-- ✅ JSON-LD (uniquement pour les articles) -->
