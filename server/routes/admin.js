@@ -212,8 +212,8 @@ router.post("/add-post", authMiddleware, async (req, res) => {
     console.log("newPost.save :", newPost);
 
     const articleData = {
-      // title: newPost.title,
-      // description: newPost.description,
+      title: newPost.title,
+      description: newPost.description,
       url: `https://mavitrineduweb.fr/blog/post/${newPost._id}`
     };
     console.log("articleData :", articleData);
