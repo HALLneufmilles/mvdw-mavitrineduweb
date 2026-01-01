@@ -30,7 +30,7 @@ router.get("/sitemap.xml", async (req, res) => {
     // 3) URLs dynamiques pour tes articles de blog
     //    On prend _id pour composer l'URL /blog/:id (à adapter si tu gères un slug).
     const blogUrls = posts.map((post) => ({
-      loc: `/blog/${post._id}`,
+      loc: `/blog/post/${post._id}`,
       // On se base sur updatedAt pour indiquer la dernière modif
       lastmod: post.updatedAt ? post.updatedAt.toISOString() : now,
       priority: 0.8
