@@ -26,6 +26,21 @@
       content="9-bsfgSIcx9q12hZFNVjHnQxmHK_TPeAbJMfZJ-_2p8"
     />
     <title>Agence Web La Rochelle - MaVitrineDuWeb</title>
+    <!-- Preload de l'élément <img> de la section "hero". Voir L'utilisation de srcset dans la balise <img> "bateaumarin..." de "hero" -->
+    <link
+      rel="preload"
+      as="image"
+      href="/img/hero/21-bateaumarinutilise2-200.webp"
+      imagesrcset="/img/hero/21-bateaumarinutilise2-200.webp 200w, /img/hero/21-bateaumarinutilise2-400.webp 400w, /img/hero/21-bateaumarinutilise2-800.webp 800w, /img/hero/21-bateaumarinutilise2-1400.webp 1400w"
+      imagesizes="100vw"
+    />
+    <link
+      rel="preload"
+      href="/fonts/Montserrat-VariableFont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta
       name="description"
       content="Agence Web professionnel à La Rochelle et en France. E-commerce, vitrines, portfolios et blogs gratuits et adaptés à vos besoins."
@@ -325,43 +340,23 @@
         ]
       }
     </script>
-    <!-- Preload de l'élément <img> de la section "hero". Voir L'utilisation de srcset dans la balise <img> "bateaumarin..." de "hero" -->
-    <link
-      rel="preload"
-      as="image"
-      href="/img/hero/21-bateaumarinutilise2-200.webp"
-      imagesrcset="/img/hero/21-bateaumarinutilise2-200.webp 200w, /img/hero/21-bateaumarinutilise2-400.webp 400w, /img/hero/21-bateaumarinutilise2-800.webp 800w, /img/hero/21-bateaumarinutilise2-1400.webp 1400w"
-      imagesizes="100vw"
-    />
-    <!-- https://chatgpt.com/share/6723c21a-3cf0-800d-ac1e-f1fcfafe41cc -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
-      rel="preload"
-      as="style"
-      crossorigin="anonymous"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
-      />
-    </noscript>
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto+Mono:100"
-      rel="preload"
-      as="style"
-      crossorigin="anonymous"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto+Mono:100"
-      />
-    </noscript> -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "@id": "https://mavitrineduweb.fr/#business",
+        "name": "MaVitrineDuWeb",
+        "url": "https://mavitrineduweb.fr",
+        "areaServed": {
+          "@type": "City",
+          "name": "La Rochelle"
+        },
+        "sameAs": [
+          "https://www.facebook.com/MaVitrineDuWeb",
+          "https://x.com/MaVitrineDuWeb_"
+        ]
+      }
+    </script>
     <script
       async
       src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"
@@ -372,7 +367,7 @@
   <body>
     <header>
       <!-- https://www.youtube.com/watch?v=r5QAGkoF6O8&list=PLqm86YkewF6SYMNqk_d_yFdDNDJrtEpLF&index=5 -->
-      <nav class="nav-barre">
+      <nav class="nav-barre" aria-label="Navigation principale">
         <div id="nav-mobile" class="side-nav">
           <div class="user-view">
             <img
@@ -385,7 +380,7 @@
           </div>
           <ul class="nav-container-links">
             <li>
-              <a href="#hero-section" class="links"
+              <a href="#home" class="links"
                 ><img
                   loading="lazy"
                   src="/img/nav/50-Home24x48.webp"
@@ -420,7 +415,7 @@
               >
             </li>
             <li>
-              <a href="#prix" class="links"
+              <a href="tarifs.html" class="links"
                 ><img
                   loading="lazy"
                   src="/img/nav/53-Prix24x48.webp"
@@ -468,14 +463,27 @@
             </li>
           </ul>
         </div>
-        <div class="toggle-btn">
+        <!-- <div class="toggle-btn">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </div> -->
+        <button class="toggle-btn" type="button" aria-label="Ouvrir le menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
       </nav>
       <div id="overlay-menu" class="overlay"></div>
-      <div id="hero-section">
+      <section id="home">
+        <div class="presentation reveal">
+          <h1 class="hye-title">
+            Votre <br />Site Web <br />personnalisé<br />
+            A <strong>La Rochelle</strong>
+          </h1>
+        </div>
+      </section>
+      <div id="hero-section" class="reveal reveal--hero">
         <div class="hero">
           <div id="particles-js"></div>
           <picture>
@@ -521,36 +529,36 @@
           </div>
         </div>
       </div>
+      <section id="home2">
+        <div class="presentation2 reveal">
+          <h2 class="hye-title2">
+            <strong>Agence Web .</strong> E-commerce, vitrines, blogs,
+            portfolios, CV numériques, à La Rochelle.
+          </h2>
+          <p class="hye-propos">
+            Pour un <strong>Site Web Professionnel</strong> qui reflète votre
+            personnalité, l'image de votre entreprise,
+            <strong>sans coût supplémentaire</strong>.<br />
+            <br />
+            <span>MaVitrineDuWeb</span> est l'<strong>Agence Web</strong> qui
+            mettra son expertise à votre service afin de concrétiser votre
+            projet en ligne, adapté à vos besoins.<br />
+            <br />
+            <span>MaVitrineDuWeb </span> assure un an de support technique
+            gratuit.
+          </p>
+          <a class="hye-propos" href="/blog"
+            ><strong>le Blog MaVitrineDuWeb</strong></a
+          >
+          (open-source, phylosophie de travail, SEO local, performance…).
+        </div>
+      </section>
     </header>
     <main>
       <!-- présentation -->
-      <section>
-        <div class="presentation">
-          <h1 class="hye-title">
-            Votre <br />Site Web <br />personnalisé<br />
-            A <strong>La Rochelle</strong> .
-          </h1>
-          <h2 class="hye-title2">
-            <strong>Création de sites web</strong> Création de sites web
-            E-commerce, site vitrines, blogs, portfolios et CV numériques, à La
-            Rochelle.
-          </h2>
-          <p class="hye-propos">
-            Vous souhaitez créer un <strong>Site Web Professionnel</strong> qui
-            reflète votre personnalité ou l’image unique de votre entreprise
-            ?<br />
-            <br />
-            <span>MaVitrineDuWeb</span> est l'<strong>Agence Web</strong> qui
-            mettra son expertise à votre service pour concrétiser un projet en
-            ligne adapté à vos besoins.<br />
-            <br /><span>MaVitrineDuWeb </span> assure un an de support technique
-            gratuit pour une tranquillité d’esprit totale après la mise en ligne
-            de votre projet.
-          </p>
-        </div>
-      </section>
+
       <!-- Texte défilant Techno -->
-      <div class="messagedefilant">
+      <div class="messagedefilant reveal">
         <div
           data-text="- JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE - JAVASCRIPT - CSS - HTML - PHP - BACKEND - API - NODEJS - CMS -VUEJS - MONGODB - FIREBASE"
         >
@@ -567,9 +575,11 @@
       <!-- Section Services -->
       <section id="services">
         <div class="services-flex">
-          <h2 class="services-title" data-services="services">Services</h2>
+          <h2 class="services-title reveal" data-services="services">
+            Services
+          </h2>
           <div class="container-services">
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (2)-100.webp"
@@ -588,7 +598,7 @@
                 fidèlement votre parcours et vos ambitions.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (1)-100.webp"
@@ -606,7 +616,7 @@
                 efficace, en phase avec l’identité de votre marque.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (4)-100.webp"
@@ -624,7 +634,7 @@
                 l'essence de votre marque.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (5)-100.webp"
@@ -642,7 +652,7 @@
                 vos idées et votre expertise.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (6)-100.webp"
@@ -660,7 +670,7 @@
                 de s'adaptent parfaitement à votre projet.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (7)-100.webp"
@@ -678,7 +688,7 @@
                 personnalisées.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (8)-100.webp"
@@ -696,7 +706,7 @@
                 votre marque et raconter votre histoire de manière percutante.
               </p>
             </div>
-            <div class="card">
+            <div class="card reveal">
               <div class="div-img-service">
                 <img
                   src="/img/services/pngegg (12)-100.webp"
@@ -721,7 +731,7 @@
         </div>
       </section>
       <!-- Texte défilant services -->
-      <div class="messagedefilant">
+      <div class="messagedefilant reveal">
         <div
           class="invert"
           data-text="- PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE - PORTFOLIO - CV - BLOG - SITE VITRINE - E.COMMERCE"
@@ -738,8 +748,8 @@
       <!-- Section Etapes -->
       <section id="etapes">
         <div class="stape-section">
-          <div class="stape-container">
-            <div class="stape-card">
+          <div class="stape-container reveal">
+            <div class="stape-card reveal">
               <div class="stape-div">
                 <h2 class="title-stape" data-text="etape 1">etape 1</h2>
               </div>
@@ -751,7 +761,7 @@
                 partager une vision commune du projet.
               </p>
             </div>
-            <div class="stape-card">
+            <div class="stape-card reveal">
               <div class="stape-div">
                 <h2 class="title-stape" data-text="etape 2">etape 2</h2>
               </div>
@@ -764,7 +774,7 @@
                 prioritaires.
               </p>
             </div>
-            <div class="stape-card">
+            <div class="stape-card reveal">
               <div class="stape-div">
                 <h2 class="title-stape" data-text="etape 3">etape 3</h2>
               </div>
@@ -775,7 +785,7 @@
                 pleinement à vos objectifs.
               </p>
             </div>
-            <div class="stape-card">
+            <div class="stape-card reveal">
               <div class="stape-div">
                 <h2 class="title-stape" data-text="etape 4">etape 4</h2>
               </div>
@@ -796,143 +806,148 @@
         <div class="pricing">
           <div class="pricing-headline">
             <p>Faites votre choix.</p>
-            <h2>Formules & Prix</h2>
+            <h2><a href="/tarifs.html">Formules & Prix</a></h2>
           </div>
           <div class="pricing-boxes">
             <!-- Basic Plan Box -->
             <div class="pricing-box formule">
               <div>
                 <div class="pricing-box-title">
-                  <h3>RAPIDE</h3>
-                  <h4>PORTFOLIO - CV</h4>
+                  <p>RAPIDE</p>
+                  <h3>PORTFOLIO - CV</h3>
                   <p>
                     Conçu pour mettre en valeur vos compétences et réalisations.
                   </p>
-                  <h5>À PARTIR DE</h5>
+                  <h4>À PARTIR DE</h4>
                   <p class="price">499 €</p>
                   <!-- <hr /> -->
+                  <!-- 
+                  <p>
+                    <a href="tarifs.html">Cliquez ici pour en savoir plus </a>
+                  </p> -->
                 </div>
-
-                <div class="pricing-box-features">
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                <a href="/tarifs.html" class="pricing-link" target="_blank">
+                  <div class="pricing-box-features home">
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Nbr pages: 2</p>
                       </div>
-                      <p>Nbr pages: 2</p>
+                    </div>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Designées</p>
+                      </div>
+                    </div>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Template Fourni</p>
+                      </div>
+                    </div>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Responsive Design</p>
+                      </div>
+                    </div>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Formulaire Inscription</p>
+                      </div>
+                    </div>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>100% des droits de propriété</p>
+                      </div>
                     </div>
                   </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
-                      </div>
-                      <p>Designées</p>
-                    </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
-                      </div>
-                      <p>Template Fourni</p>
-                    </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
-                      </div>
-                      <p>Responsive Design</p>
-                    </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
-                      </div>
-                      <p>Formulaire Inscription</p>
-                    </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
-                      </div>
-                      <p>100% des droits de propriété</p>
-                    </div>
-                  </div>
-                </div>
+                </a>
               </div>
               <a href="#contacts" class="btn-pricing" aria-label="Validé"
-                >COMMENCER</a
+                >CONTACTEZ NOUS</a
               >
             </div>
 
-            <!-- Pro Plan Box -->
+            <!-- Pro Plan Box-->
             <div class="pricing-box formule">
               <div>
                 <div class="pricing-box-title">
-                  <h3>POPULAIRE</h3>
-                  <h4>SITE VITRINE - BLOG</h4>
+                  <p>POPULAIRE</p>
+                  <h3>SITE VITRINE - BLOG</h3>
                   <p>
                     Valorisent votre activité et captez l’attention de votre
                     audience cible.
                   </p>
-                  <h5>À PARTIR DE</h5>
+                  <h4>À PARTIR DE</h4>
                   <p class="price">999€</p>
                 </div>
-
-                <div class="pricing-box-features">
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                <a href="/tarifs.html" class="pricing-link" target="_blank">
+                  <div class="pricing-box-features home">
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Nbr pages: 10</p>
                       </div>
-                      <p>Nbr pages: 10</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Designées</p>
                       </div>
-                      <p>Designées</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Template Fourni</p>
                       </div>
-                      <p>Template Fourni</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Template Exclusif</p>
                       </div>
-                      <p>Template Exclusif</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Responsive Design</p>
                       </div>
-                      <p>Responsive Design</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Formulaire Contact</p>
                       </div>
-                      <p>Formulaire Contact</p>
                     </div>
-                  </div>
-                  <div class="feature">
+                    <!-- <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
                         <span>&#10003;</span>
@@ -971,75 +986,77 @@
                       </div>
                       <p>100% des droits de propriété</p>
                     </div>
+                  </div> -->
                   </div>
-                </div>
+                </a>
               </div>
-              <a href="#contacts" class="btn-pricing">COMMENCER</a>
+              <a href="#contacts" class="btn-pricing">CONTACTEZ NOUS</a>
             </div>
 
             <!-- Premium Plan Box -->
             <div class="pricing-box formule">
               <div>
                 <div class="pricing-box-title">
-                  <h3>COMPLET</h3>
-                  <h4>E-COMMERCE</h4>
+                  <p>COMPLET</p>
+                  <h3>E-COMMERCE</h3>
                   <p>
                     Sites e-commerce optimisé pour maximiser vos ventes en
                     ligne.
                   </p>
-                  <h5>À PARTIR DE</h5>
+                  <h4>À PARTIR DE</h4>
                   <p class="price">1.499€</p>
                 </div>
-                <div class="pricing-box-features">
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                <a href="/tarifs.html" class="pricing-link" target="_blank">
+                  <div class="pricing-box-features home">
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Nbr pages: > 10</p>
                       </div>
-                      <p>Nbr pages: > 10</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Designées</p>
                       </div>
-                      <p>Designées</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Template Fourni</p>
                       </div>
-                      <p>Template Fourni</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Template Exclusif</p>
                       </div>
-                      <p>Template Exclusif</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Responsive Design</p>
                       </div>
-                      <p>Responsive Design</p>
                     </div>
-                  </div>
-                  <div class="feature">
-                    <div class="feature-title">
-                      <div class="circle">
-                        <span>&#10003;</span>
+                    <div class="feature">
+                      <div class="feature-title">
+                        <div class="circle">
+                          <span>&#10003;</span>
+                        </div>
+                        <p>Formulaire Contact</p>
                       </div>
-                      <p>Formulaire Contact</p>
                     </div>
-                  </div>
-                  <div class="feature">
+                    <!-- <div class="feature">
                     <div class="feature-title">
                       <div class="circle">
                         <span>&#10003;</span>
@@ -1094,17 +1111,18 @@
                       </div>
                       <p>100% des droits de propriété</p>
                     </div>
+                  </div> -->
                   </div>
-                </div>
+                </a>
               </div>
-              <a href="#contacts" class="btn-pricing">COMMENCER</a>
+              <a href="#contacts" class="btn-pricing">CONTACTEZ NOUS</a>
             </div>
           </div>
         </div>
         <!-- </div> -->
       </section>
       <!-- Section Thèmes -->
-      <section id="themes">
+      <section id="themes" class="reveal">
         <h2 class="themes-title" data-themes="thèmes">thèmes</h2>
         <div class="row">
           <a
@@ -1311,7 +1329,7 @@
       </section>
       <!-- Section SKILLS -->
       <section id="competences">
-        <div class="skills">
+        <div class="skills reveal">
           <h2 class="skill-title" data-text="SKILLS">SKILLS</h2>
           <div class="skills-container">
             <div class="skill-card">
@@ -1511,7 +1529,7 @@
       </section>
       <!-- Contact Section -->
       <section id="contacts">
-        <div class="contact-form">
+        <div class="contact-form reveal">
           <h2>
             Parlons de votre projet. <br />Basés à
             <strong>La Rochelle</strong> , nous intervenons partout en
@@ -1566,7 +1584,7 @@
               placeholder="Votre message"
               required
             ></textarea>
-            <div class="buton-phone">
+            <div class="buton-phone reveal">
               <button type="submit" class="submit-form-btn">Envoyer</button>
               <div class="div-phone">
                 <img
@@ -1612,11 +1630,67 @@
           />
         </picture>
         <!-- <img src="/22-TextWhitNonFendu2-300.png" alt="logo ma vitrine du web" class="logo" /> -->
+        <div class="footer-socials">
+          <a
+            href="https://www.facebook.com/MaVitrineDuWeb"
+            target="_blank"
+            rel="noopener noreferrer me"
+            aria-label="page Facebook MaVitrineDuWeb"
+            ><svg
+              class="social-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="12" />
+              <g transform="translate(12 12) scale(1.25) translate(-12 -12)">
+                <path
+                  d="M13.5 8H15V5h-1.5C11.6 5 10 6.6 10 8.5V10H8v3h2v6h3v-6h2.3l.7-3H13v-1.3c0-.4.3-.7.5-.7z"
+                />
+              </g>
+            </svg>
+            <!-- <img
+            class="social-icon"
+            src="/img/social/facebook.svg"
+            alt="Facebook MaVitrineDuWeb"
+            width="28"
+            height="28"
+            loading="lazy"
+            /> -->
+          </a>
+
+          <a
+            href="https://x.com/MaVitrineDuWeb_"
+            target="_blank"
+            rel="noopener noreferrer me"
+            aria-label=" page X MaVitrineDuWeb"
+            ><svg
+              class="social-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <rect x="0" y="0" width="24" height="24" rx="4" />
+
+              <g transform="translate(12 12) scale(0.75) translate(-12 -12)">
+                <path
+                  d="M18.244 2H21l-6.54 7.47L22 22h-6.828l-5.345-7.01L3.5 22H1l7.004-8.004L2 2h6.97l4.83 6.36L18.244 2z"
+                />
+              </g>
+            </svg>
+            <!-- <img
+            src="/img/social/x.svg"
+            alt="X MaVitrineDuWeb"
+            width="28"
+            height="28"
+            loading="lazy"
+            /> -->
+          </a>
+        </div>
       </div>
       <div class="useful-links">
-        <a href="#hero-section" class="footer-links">Home</a>
+        <a href="#home" class="footer-links">Home</a>
         <a href="#services" class="footer-links">services</a>
         <a href="#prix" class="footer-links">Formules</a>
+        <a href="/blog" class="footer-links">Le Blog</a>
       </div>
       <h2 class="copyright"><strong>A La Rochelle</strong></h2>
       <p class="copyright">Policy Privacy</p>
