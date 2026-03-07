@@ -17,14 +17,12 @@ router.get("/sitemap.xml", async (req, res) => {
     const now = new Date().toISOString();
     const staticUrls = [
       { loc: "/", lastmod: now, priority: 1.0 },
-      { loc: "/#hero-section", lastmod: now, priority: 0.8 },
-      { loc: "/#services", lastmod: now, priority: 0.8 },
-      { loc: "/#etapes", lastmod: now, priority: 0.7 },
-      { loc: "/#prix", lastmod: now, priority: 0.7 },
-      { loc: "/#themes", lastmod: now, priority: 0.7 },
-      { loc: "/#competences", lastmod: now, priority: 0.6 },
-      { loc: "/#contacts", lastmod: now, priority: 0.9 },
-      { loc: "/blog", lastmod: now, priority: 0.9 }
+
+      // ✔ nouvelle page MS
+      { loc: "/tarifs.html", lastmod: now, priority: 0.9 },
+
+      // ✔ page blog
+      { loc: "/blog", lastmod: now, priority: 0.9 },
     ];
 
     // 3) URLs dynamiques pour tes articles de blog
@@ -33,7 +31,7 @@ router.get("/sitemap.xml", async (req, res) => {
       loc: `/blog/post/${post._id}`,
       // On se base sur updatedAt pour indiquer la dernière modif
       lastmod: post.updatedAt ? post.updatedAt.toISOString() : now,
-      priority: 0.8
+      priority: 0.8,
     }));
 
     // 4) Construire l'objet urlset qui va générer le sitemap
@@ -45,9 +43,9 @@ router.get("/sitemap.xml", async (req, res) => {
           // Remplace ci-dessous par ton domaine réel si différent
           loc: `https://mavitrineduweb.fr${url.loc}`,
           lastmod: url.lastmod,
-          priority: url.priority
-        }))
-      }
+          priority: url.priority,
+        })),
+      },
     };
 
     // 5) Génère le XML avec xmlbuilder2

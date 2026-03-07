@@ -77,7 +77,7 @@ app.use(
     // Comme dit plus haut lors de l'importation, "MongoStore" de 'connect-mongo' va créer la collection "sessions" dans la base de données.
     // Cela signifie que les sessions seront stockées dans MongoDB. Si le serveur redémarre, les utilisateurs ne seront pas déconnectés tant que leur session est encore valide, car la session est stockée de manière persistante dans la base de données.
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI
+      mongoUrl: process.env.MONGODB_URI,
     }),
     cookie: {
       // Durée de vie du cookie de session : 30 jours (en millisecondes). Chaque jour a 24 heures. Chaque heure a 60 minutes. Chaque minute a 60 secondes. Chaque seconde a 1000 millisecondes.
@@ -85,11 +85,11 @@ app.use(
       // Ou 6mn:
       // maxAge: new Date(Date.now() + 360000)
       // Ou 6mn . Acause du décallage d'une heure je rajoute 1 heure soit 3600000 + 6mn 360000 = 3960000
-      maxAge: 3960000
+      maxAge: 3960000,
       /*  httpOnly: true, // Empêche l'accès aux cookies via JavaScript côté client
       sameSite: "strict" // Les cookies seront envoyés uniquement dans le même site, réduisant les risques de CSRF */
-    }
-  })
+    },
+  }),
 );
 
 // Utilises expressEjsLayouts, cela signifie que tu veux définir un layout de base pour tes vues EJS. Le contenu spécifique de chaque page (par exemple index.ejs ou about.ejs) sera inséré dans une structure commune définie par le layout.
@@ -114,10 +114,10 @@ app.use("/blog", mainRoutes);
 // ajoute le préfixe "blog" aux routes du fichier 'mainroutes'.
 app.use("/blog", adminRoutes);
 
-app.use(express.static(path.join(__dirname, "dist")));
-
 // <-- Montre la route sitemap à la racine
 app.use("/", sitemapRoutes);
+
+app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
