@@ -43,6 +43,9 @@
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: "Montserrat", system-ui, sans-serif;
 }
 
@@ -51,6 +54,9 @@ html {
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background-color: var(--background-color);
   font-size: 1rem;
 }
@@ -294,6 +300,8 @@ section {
   position: fixed;
   top: 0px;
   right: 20px;
+  right: max(20px, env(safe-area-inset-right));
+  left: auto;
   transition: 0.5s;
   cursor: pointer;
   /* background-color: #000000; */
@@ -352,6 +360,16 @@ section {
 @media (min-width: 750px) {
   .toggle-btn {
     position: relative;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .toggle-btn {
+    position: fixed;
+    top: 0px;
+    right: 20px;
+    right: max(20px, env(safe-area-inset-right));
+    left: auto;
   }
 }
 
