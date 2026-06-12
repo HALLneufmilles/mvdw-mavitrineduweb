@@ -368,7 +368,7 @@
     <header>
       <!-- https://www.youtube.com/watch?v=r5QAGkoF6O8&list=PLqm86YkewF6SYMNqk_d_yFdDNDJrtEpLF&index=5 -->
       <nav class="nav-barre" aria-label="Navigation principale">
-        <div id="nav-mobile" class="side-nav">
+        <div id="nav-mobile" class="side-nav" aria-hidden="true" inert>
           <div class="user-view">
             <img
               loading="lazy"
@@ -468,7 +468,13 @@
           <span></span>
           <span></span>
         </div> -->
-        <button class="toggle-btn" type="button" aria-label="Ouvrir le menu">
+        <button
+          class="toggle-btn"
+          type="button"
+          aria-label="Ouvrir le menu de navigation"
+          aria-controls="nav-mobile"
+          aria-expanded="false"
+        >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>

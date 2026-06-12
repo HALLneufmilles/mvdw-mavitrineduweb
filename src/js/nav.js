@@ -3,17 +3,35 @@ export function initNav() {
   const navbar = document.querySelector(".nav-barre");
   const togglebtn = document.querySelector(".toggle-btn");
   const overlay = document.querySelector("#overlay-menu");
+  const sideNav = document.querySelector(".side-nav");
   const links = document.querySelectorAll(".links, .footer-links");
 
   // ✅ Guard : si le menu n'existe pas sur la page, on quitte sans erreur
   if (!navbar || !togglebtn || !overlay) return;
 
+  function setMenuState(isMenuOpen) {
+    navbar.classList.toggle("active", isMenuOpen);
+    togglebtn.classList.toggle("active", isMenuOpen);
+    overlay.classList.toggle("active", isMenuOpen);
+    document.documentElement.classList.toggle("no-scroll", isMenuOpen);
+
+    togglebtn.setAttribute("aria-expanded", isMenuOpen ? "true" : "false");
+    togglebtn.setAttribute(
+      "aria-label",
+      isMenuOpen
+        ? "Fermer le menu de navigation"
+        : "Ouvrir le menu de navigation",
+    );
+
+    if (sideNav) {
+      sideNav.toggleAttribute("inert", !isMenuOpen);
+      sideNav.setAttribute("aria-hidden", isMenuOpen ? "false" : "true");
+    }
+  }
+
   // Ferme le menu et libère la page.
   function closeMenu() {
-    navbar.classList.remove("active");
-    togglebtn.classList.remove("active");
-    overlay.classList.remove("active");
-    document.documentElement.classList.remove("no-scroll");
+    setMenuState(false);
   }
 
   // Ajout de la classe selec pour que les lien garde l'apparence actif.
@@ -93,13 +111,11 @@ export function initNav() {
   // ---------------------------------------------
 
   togglebtn.addEventListener("click", () => {
-    const isMenuOpen = navbar.classList.toggle("active");
-    togglebtn.classList.toggle("active");
-    overlay.classList.toggle("active");
-
-    document.documentElement.classList.toggle("no-scroll", isMenuOpen);
+    const isMenuOpen = !navbar.classList.contains("active");
+    setMenuState(isMenuOpen);
   });
 
+  setMenuState(navbar.classList.contains("active"));
   setSelectedFromLocation();
   window.addEventListener("hashchange", setSelectedFromLocation);
 
@@ -113,7 +129,7 @@ export function initNav() {
       if (isHashLink) setSelectedLink(link);
 
       // Toujours fermer le menu (UX)
-      // closeMenu();
+      closeMenu();
 
       // Si ce n’est pas une ancre, on laisse le navigateur gérer
       if (!isHashLink) return;
