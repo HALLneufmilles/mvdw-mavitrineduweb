@@ -31,6 +31,38 @@ export function initNav() {
     }
   }
 
+  function setSelectedFromLocation() {
+    const navLinks = document.querySelectorAll(".nav-container-links .links");
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    const currentHash = window.location.hash || "";
+    let targetLink = null;
+
+    navLinks.forEach((link) => link.classList.remove("selec"));
+
+    if (currentPage === "index.html") {
+      const expectedHash = currentHash || "#home";
+      targetLink = Array.from(navLinks).find(
+        (link) => link.getAttribute("href") === expectedHash,
+      );
+    } else if (currentPage === "services.html") {
+      targetLink = Array.from(navLinks).find(
+        (link) =>
+          link.getAttribute("aria-current") === "page" ||
+          link.getAttribute("href") === "/services.html",
+      );
+    } else if (currentPage === "tarifs.html") {
+      targetLink = Array.from(navLinks).find(
+        (link) =>
+          link.getAttribute("aria-current") === "page" ||
+          link.getAttribute("href") === "#" ||
+          link.getAttribute("href") === "/tarifs.html" ||
+          link.getAttribute("href") === "tarifs.html",
+      );
+    }
+
+    if (targetLink) targetLink.classList.add("selec");
+  }
+
   // --- Scroll animé
   function smoothScrollTo(targetElement) {
     const start = window.scrollY;
@@ -67,6 +99,9 @@ export function initNav() {
 
     document.documentElement.classList.toggle("no-scroll", isMenuOpen);
   });
+
+  setSelectedFromLocation();
+  window.addEventListener("hashchange", setSelectedFromLocation);
 
   // On intercepte tous les clics sur .links, .footer-links.
   links.forEach((link) => {

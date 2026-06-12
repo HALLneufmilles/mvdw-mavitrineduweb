@@ -11,13 +11,14 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(__dirname, "index.html"),
-        tarifs: resolve(__dirname, "tarifs.html") // page tarifs
-      }
-    }
+        tarifs: resolve(__dirname, "tarifs.html"),
+        services: resolve(__dirname, "services.html"),
+      },
+    },
   },
 
   server: {
     port: 5173,
-    strictPort: true
-  }
+    strictPort: true,
+  },
 });

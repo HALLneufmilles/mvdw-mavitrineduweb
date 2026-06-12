@@ -20,6 +20,7 @@ router.get("/sitemap.xml", async (req, res) => {
 
       // ✔ nouvelle page MS
       { loc: "/tarifs.html", lastmod: now, priority: 0.9 },
+      { loc: "/services.html", lastmod: now, priority: 0.9 },
 
       // ✔ page blog
       { loc: "/blog", lastmod: now, priority: 0.9 },

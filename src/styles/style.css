@@ -215,12 +215,17 @@ section {
 .nav-container-links {
   position: relative;
   width: 100%;
-  overflow-y: auto;
+  display: grid;
+  grid-template-columns: max-content;
+  justify-content: center;
+  transform: translateX(-12%);
+  overflow: visible;
   z-index: 16;
 }
 
 .nav-container-links li {
   float: none;
+  width: 100%;
   line-height: 48px;
   list-style: none;
 }
@@ -229,11 +234,16 @@ section {
   position: relative;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: max-content;
   height: 48px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 0 32px;
-  color: rgb(249, 249, 249);
+  margin: 0 0 8px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0 52px 0 32px;
+  color: rgb(0, 254, 157);
   text-decoration: none;
   overflow: hidden;
   transition: color 0.35s ease;
@@ -245,6 +255,7 @@ section {
   content: "";
   position: absolute;
   inset: 0; /* couvre tout le lien */
+  border-radius: inherit;
   background: #ecebeb; /* le fond final */
   transform: scaleX(0) scaleY(0.8); /* 0 = juste une ligne (virtuellement) */
   transform-origin: 25% center; /* part du centre et s'étale des 2 côtés */
@@ -554,13 +565,13 @@ section {
 }
 
 .hye-title2 {
-  font-size: 1rem;
-  /* padding: 0 1vw 4.5vh 1vw; */
-  padding: 0 1vw 50px 1vw;
-  opacity: 0.9;
+  margin: 0;
+  padding: 0 1vw 2vh 1vw;
   color: #fff;
+  font-size: 1rem;
   font-style: italic;
-  /* font-size: 0.9rem; */
+  line-height: 1.45;
+  opacity: 0.9;
 }
 
 .hye-title::after {

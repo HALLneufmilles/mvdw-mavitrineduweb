@@ -33,7 +33,7 @@
 <!-- prettier-ignore -->
 <section class="articles">
   <% if (random3Posts && random3Posts.length > 0) { %>
-    <h3 class="sub-heading">Pour vous :</h3>
+    <h2 class="sub-heading">Pour vous :</h2>
     <div class="blogs-section">
         <% random3Posts.forEach(post => { %>
           <div class="blog-card">
@@ -52,7 +52,7 @@
               </picture>
             </div>
             <div class="card-content-wrapper">
-              <h1 class="card-title"><%= post.title %></h1>
+              <h3 class="card-title"><%= post.title %></h3>
               <p class="card-text"><%= post.description %></p>
               <a href="/blog/post/<%= post._id %>" class="btn dark">read</a>
               <span class="card-article-list__date">

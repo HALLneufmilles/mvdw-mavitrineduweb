@@ -13,6 +13,8 @@ const isSmartphone =
   window.matchMedia("(orientation: portrait)").matches ||
   window.innerWidth < 940;
 
+const ANIMATION_MAX_DURATION = 15000;
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
 
@@ -112,9 +114,31 @@ document.addEventListener("DOMContentLoaded", function () {
     checkAndReveal();
   }
 
+  function waitForParticlesJS(timeout = 4000) {
+    const start = performance.now();
+
+    return new Promise((resolve, reject) => {
+      function check() {
+        if (typeof window.particlesJS === "function") {
+          resolve();
+          return;
+        }
+
+        if (performance.now() - start > timeout) {
+          reject(new Error("particles.js n'est pas disponible."));
+          return;
+        }
+
+        requestAnimationFrame(check);
+      }
+
+      check();
+    });
+  }
+
   // Fonction pour initialiser Particles.js
   function initializeParticles() {
-    particlesJS("particles-js", {
+    window.particlesJS("particles-js", {
       particles: {
         number: {
           value: isSmartphone ? 100 : 65,
@@ -225,20 +249,17 @@ document.addEventListener("DOMContentLoaded", function () {
       retina_detect: true,
     });
 
-    if (isSmartphone) {
-      setTimeout(() => {
-        console.log("Arrêt des particules smartphone");
-        if (window.pJSDom && window.pJSDom.length > 0) {
-          const particlesInstance = window.pJSDom[0].pJS;
+    window.setTimeout(stopParticlesAnimation, ANIMATION_MAX_DURATION);
+  }
 
-          // Désactiver le mouvement
-          particlesInstance.particles.move.enable = false;
+  function stopParticlesAnimation() {
+    if (!window.pJSDom || window.pJSDom.length === 0) return;
 
-          // Relancer le fonctionnement des particules pour appliquer les changements
-          particlesInstance.fn.particlesRefresh();
-        }
-      }, 10000);
-    }
+    const particlesInstance = window.pJSDom[0].pJS;
+    particlesInstance.particles.move.enable = false;
+    particlesInstance.interactivity.events.onhover.enable = false;
+    particlesInstance.interactivity.events.onclick.enable = false;
+    particlesInstance.fn.particlesRefresh();
   }
 
   // Fonction pour inverser les couleurs lorsque l'utilisateur scrolle
@@ -346,8 +367,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // let counter1 = 0;
   // let counter2 = 0;
   let cycleCounter = 0; // Compteur pour limiter les cycles
+  let textAnimationStopped = false;
+  let nextTextCycleTimeout = null;
 
   const cycleTexts = () => {
+    if (textAnimationStopped) return;
+
     console.log("lancemant cycleTexts()");
 
     if (isSmartphone && cycleCounter >= 1) {
@@ -363,7 +388,9 @@ document.addEventListener("DOMContentLoaded", function () {
             fx1.setText(phrases1[cycleCounter % phrases1.length]).then(() => {
               fx2.setText(phrases2[cycleCounter % phrases2.length]).then(() => {
                 cycleCounter++;
-                setTimeout(cycleTexts, 900); // Délai avant de répéter le cycle
+                if (!textAnimationStopped) {
+                  nextTextCycleTimeout = setTimeout(cycleTexts, 900); // Délai avant de répéter le cycle
+                }
               });
             });
           }, 200); // Délai avant de réinitialiser avec les phrases
@@ -403,8 +430,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const initialize = () => {
     el1.innerText = binary1[0];
     el2.innerText = binary2[0];
-    setTimeout(() => cycleTexts(), 1200);
+    nextTextCycleTimeout = setTimeout(() => cycleTexts(), 1200);
+    setTimeout(stopTextAnimation, ANIMATION_MAX_DURATION);
   };
+
+  function stopTextAnimation() {
+    textAnimationStopped = true;
+    if (nextTextCycleTimeout) clearTimeout(nextTextCycleTimeout);
+    cancelAnimationFrame(fx1.frameRequest);
+    cancelAnimationFrame(fx2.frameRequest);
+  }
 
   preloadImage
     .then(() => {
@@ -412,7 +447,9 @@ document.addEventListener("DOMContentLoaded", function () {
         "Image préchargée, initialisation des particules et inversion des couleurs",
       );
       initRevealOnScroll();
-      initializeParticles();
+      waitForParticlesJS()
+        .then(() => initializeParticles())
+        .catch((error) => console.warn(error.message));
       initialize();
       handleColorInversion();
       // showVoletBoxs();

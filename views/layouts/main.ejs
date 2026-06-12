@@ -1,7 +1,7 @@
 <!-- main.ejs' est le Template layout principal de l'application. -->
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <!-- Google tag (gtag.js) A COPIER DANS CHAQUE PAGE !!!! -->
     <script
@@ -40,17 +40,17 @@
     <!-- Si data est un tableau alors la page d'accueil blog est affichée et data représente un tableau regroupant tous les articles -->
     <% if (Array.isArray(data)) { %>
     <!-- Page d'accueil du blog -->
-    <title>Le Blog - MaVitrineDuWeb</title>
+    <title>Page d'accueil du Blog de MaVitrineDuWeb.fr</title>
     <meta
       name="description"
-      content="Découvrez nos articles sur la création de sites web professionnels à moindre coût et sans compromis sur la qualité."
+      content="Découvrez notre blog et tous ses articles sur la création de sites web professionnels à moindre coût et sans compromis sur la qualité."
     />
     <link rel="canonical" href="https://mavitrineduweb.fr/blog" />
 
     <!-- Sinon si data est un objet alors l'objet représente un article dons on est sur la page d'un article : -->
     <% } else if (typeof data === "object" && data !== null) { %>
     <!-- Page d'un article -->
-    <title><%= data.title %> - Le Blog MVDW</title>
+    <title><%= data.title %> - Article du blog maVitrineDuWeb.fr</title>
     <meta name="description" content="<%= data.description %>" />
     <link
       rel="canonical"

@@ -1,0 +1,1178 @@
+﻿/* ========================================================= */
+/* =============== SERVICES.CSS - PAGE SERVICES ============ */
+/* ========================================================= */
+
+/*
+  IMPORTANT
+  =========
+  Ce fichier est pensé pour la page services.html.
+
+  Idée générale :
+  - l'image de fond de page est appliquée sur le body
+  - le header est superposé au-dessus de l'image
+  - la section hero contient seulement le texte et les boutons
+  - les autres sections se posent ensuite sur ce fond sombre
+
+  Ce fichier est écrit en "mobile first" :
+  - on écrit d'abord les styles pour mobile
+  - puis on adapte avec des media queries pour tablette et desktop
+*/
+
+/* ========================================================= */
+/* 1) FOND GLOBAL DE LA PAGE */
+/* ========================================================= */
+
+/*
+  .services-body doit être ajouté sur la balise <body> :
+  <body class="services-body">
+*/
+
+.services-body {
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--primary-text-color);
+  font-family:
+    "Montserrat",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  /*
+    Image de fond unique en haut de page.
+    Sous l'image, le fond revient simplement au noir.
+  */
+  background-image: url("/img/services/services-bg-mobile.webp");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  background-color: #050505;
+  background-attachment: scroll;
+}
+
+/* Écrans larges */
+@media (min-width: 1024px) {
+  .services-body {
+    background-image: url("/img/services/services-bg-desktop.webp");
+  }
+}
+
+/*
+  Le header et le contenu principal restent au-dessus du fond de page.
+*/
+.services-header,
+.services-page {
+  position: relative;
+  z-index: 1;
+}
+/* ========================================================= */
+/* NAV BARRE*/
+/* ========================================================= */
+
+/* #region navbar */
+
+.nav-barre {
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  top: 0;
+  left: -300px;
+  z-index: 15;
+  transition: all 0.8s ease-in-out;
+}
+
+.side-nav {
+  width: 300px;
+  height: 100vh;
+  z-index: 15;
+  margin: 0;
+  /* height: calc(100% + 60px); */
+  padding-bottom: 60px;
+  overflow-y: auto;
+  will-change: transform;
+  backface-visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.62) !important;
+  list-style: none;
+  display: block;
+  box-sizing: inherit;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-barre.active {
+  left: 0;
+}
+
+#overlay-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 14;
+  display: none; /* Caché par défaut */
+  transition: opacity 0.3s ease-in-out;
+}
+
+#overlay-menu.active {
+  display: block;
+}
+
+.user-view {
+  margin-bottom: 60px;
+  height: 150px;
+  width: 300px;
+}
+
+.user-view > img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.nav-container-links {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: max-content;
+  justify-content: center;
+  transform: translateX(-12%);
+  overflow: visible;
+  z-index: 16;
+}
+
+.nav-container-links li {
+  float: none;
+  width: 100%;
+  line-height: 48px;
+  list-style: none;
+}
+
+.nav-container-links a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: max-content;
+  height: 48px;
+  margin: 0 0 8px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0 52px 0 32px;
+  color: rgb(0, 254, 157);
+  text-decoration: none;
+  overflow: hidden;
+  transition: color 0.35s ease;
+  z-index: 1;
+}
+
+/* La "ligne" blanche au centre */
+.nav-container-links a::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* couvre tout le lien */
+  border-radius: inherit;
+  background: #ecebeb; /* le fond final */
+  transform: scaleX(0) scaleY(0.8); /* 0 = juste une ligne (virtuellement) */
+  transform-origin: 25% center; /* part du centre et s'étale des 2 côtés */
+  /* transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease; */
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease;
+  z-index: -1;
+  opacity: 0;
+}
+
+/* Au hover : le fond devient blanc depuis le centre */
+.nav-container-links a:hover::before,
+.nav-container-links a.selec::before {
+  transform: scaleX(1) scaleY(1);
+  opacity: 1;
+}
+
+/* Texte noir quand le fond est blanc */
+.nav-container-links a:hover,
+.nav-container-links a.selec {
+  color: #000;
+}
+
+.nav-container-links li a img {
+  margin-right: 30px;
+}
+
+.toggle-btn {
+  width: 48px;
+  height: 48px;
+  margin-left: 40px;
+  margin-top: 20px;
+  position: fixed;
+  top: 0px;
+  right: 20px;
+  transition: 0.5s;
+  cursor: pointer;
+  /* background-color: #000000; */
+  background-color: rgba(0, 0, 0, 0.4); /* 50% d'opacité */
+  z-index: 15;
+  border-radius: 5px;
+  padding: 0;
+  /* margin: 40px; */
+  border: 0;
+}
+
+.toggle-btn {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.toggle-btn span {
+  width: 70%;
+  height: 3px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.5s;
+}
+
+.toggle-btn span:first-child {
+  top: 25%;
+}
+
+.toggle-btn span:last-child {
+  top: 75%;
+}
+
+.toggle-btn.active span:first-child {
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.toggle-btn.active span:last-child {
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.toggle-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+/* Désactiver l'effet de surlignement bleu lors du clic */
+.links,
+.toggle-btn {
+  -webkit-tap-highlight-color: transparent; /* Pour désactiver le surlignement sur les navigateurs mobiles Webkit (Chrome, Safari) */
+}
+
+@media (min-width: 750px) {
+  .toggle-btn {
+    position: relative;
+  }
+}
+
+/* #endregion navbar */
+
+/* ========================================================= */
+/* 2) STRUCTURE GENERALE DE LA PAGE */
+/* ========================================================= */
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-VariableFont.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --text-paragraphe: #e9e9e9;
+}
+
+.services-page {
+  /*
+    On ne remet PAS de background ici,
+    sinon on cacherait l'image de fond du body.
+  */
+  color: var(--primary-text-color);
+}
+
+.services-page p {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+/*
+  Petite classe commune pour les sections si besoin.
+  Ici on garde simplement un rythme vertical cohérent.
+*/
+.services-intro,
+.services-list,
+.services-audience,
+.services-process,
+.services-quality,
+.services-cta {
+  padding: 40px 20px;
+}
+
+/* ========================================================= */
+/* 3) HEADER SUPERPOSÉ */
+/* ========================================================= */
+
+/*
+  Le header est placé par-dessus l'image.
+  Il ne pousse pas le contenu vers le bas, il flotte au-dessus.
+*/
+.services-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  padding: 18px 14px 0;
+}
+
+/*
+  Barre de navigation principale
+*/
+.services-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/*
+  Groupe gauche : bouton menu + petite ligne décorative
+*/
+.services-nav-left,
+.services-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/*
+  Petite ligne décorative du header.
+  Cachée sur mobile, visible en desktop.
+*/
+.services-nav-line {
+  display: none;
+}
+
+/*
+  Bouton hamburger
+*/
+.services-nav-toggle {
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 10, 0.55);
+  border-radius: 10px;
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 0 14px;
+  cursor: pointer;
+
+  /*
+    backdrop-filter ajoute un léger effet de flou derrière
+    si le navigateur le gère
+  */
+  backdrop-filter: blur(6px);
+}
+
+/*
+  Les 3 barres du bouton menu
+*/
+.services-nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #f3f3f3;
+  border-radius: 999px;
+}
+
+/*
+  Menu desktop
+  Caché en mobile, affiché plus tard en desktop
+*/
+.services-nav-desktop {
+  display: none;
+}
+
+/*
+  Bouton Contact à droite
+*/
+.services-nav-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 84px;
+  height: 42px;
+  padding: 0 14px;
+
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+
+  color: #111;
+  background: rgba(243, 243, 243, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.05),
+    0 0 0 6px rgba(255, 255, 255, 0.02);
+}
+
+/*
+  Menu mobile déroulant
+*/
+.services-menu {
+  margin-top: 12px;
+  padding: 18px;
+  border-radius: 14px;
+
+  background: rgba(8, 8, 8, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.services-menu a {
+  display: block;
+  padding: 12px 0;
+  color: #f3f3f3;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.services-menu a:last-child {
+  border-bottom: 0;
+}
+
+/* ========================================================= */
+/* 4) HERO */
+/* ========================================================= */
+
+/*
+  IMPORTANT
+  =========
+  La section hero n'a PLUS d'image de fond.
+  L'image est maintenant sur le body.
+*/
+
+.services-hero {
+  /* svh = Small Viewport Height */
+  /*  */
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-start;
+  /* padding: 155px 20px 120px; */
+  padding: 155px clamp(20px, 5vw, 70px) 120px;
+}
+
+/*
+  Bloc contenant le texte du hero
+*/
+
+.services-hero-inner {
+  width: 100%;
+  max-width: clamp(290px, 46vw, 430px);
+}
+/* .services-hero-inner {
+  width: 100%;
+  max-width: 290px;
+} */
+
+/*
+  Petit mot au-dessus du H1
+*/
+.services-hero-label {
+  margin: 0 0 14px;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/*
+  Gros titre principal
+*/
+.services-hero-title {
+  margin: 0 0 18px;
+  font-size: clamp(1.8rem, 4.5vw, 3.9rem);
+  line-height: 0.9;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: #f7f7f7;
+  max-width: 7ch;
+}
+
+/*
+  Texte sous le titre
+*/
+
+.services-hero-text {
+  margin: 0 0 26px;
+  max-width: clamp(24ch, 42vw, 28ch);
+  font-size: clamp(0.95rem, 1.6vw, 1.18rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+/* .services-hero-text {
+  margin: 0 0 26px;
+  max-width: 24ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+} */
+
+/*
+  Bloc qui contient les 2 boutons
+*/
+.services-hero-actions {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 28px;
+  width: fit-content;
+  margin-left: auto;
+}
+
+/*
+  Base commune des boutons du hero
+*/
+.btn-hero {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 24px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-hero:hover {
+  transform: translateY(-1px);
+}
+
+/*
+  Bouton principal + secondaire
+  Ici on garde volontairement le même esprit visuel
+  sombre/premium que sur la maquette.
+*/
+.btn-hero-primary,
+.btn-hero-secondary {
+  color: #f3f3f3;
+  background: rgba(10, 10, 10, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+/* ========================================================= */
+/* 5) TITRES DE SECTION */
+/* ========================================================= */
+
+/*
+  Bloc commun pour les titres de section
+*/
+.section-heading {
+  position: relative;
+  margin-bottom: 34px;
+  text-align: center;
+}
+
+.section-heading::before {
+  content: "MVDW";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  transform: translate(-50%, -90%);
+  font-size: clamp(2.8rem, 9vw, 5.2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.44);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.section-heading--first::before {
+  transform: translate(-50%, -430%);
+  font-size: clamp(2.8rem, 12vw, 5.2rem);
+}
+
+.section-heading::after {
+  content: "";
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 14px auto 0;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+/*
+  Vrai titre affiché au-dessus
+*/
+.section-heading h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: #f3f3f3;
+}
+
+/* ========================================================= */
+/* 6) INTRO */
+/* ========================================================= */
+
+.services-intro-content {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.services-intro-content p {
+  margin-bottom: 18px;
+  color: var(--text-paragraphe);
+  line-height: 1.7;
+}
+
+/* ========================================================= */
+/* 7) GRILLE DES SERVICES */
+/* ========================================================= */
+
+.services-grid {
+  display: grid;
+  gap: 30px;
+}
+
+/*
+  Carte de service
+*/
+.service-card {
+  background: rgba(8, 8, 8, 0.72);
+  padding: 34px 22px 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+  text-align: center;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.service-card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.service-card-icon img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: invert(1) contrast(1.08);
+  opacity: 0.96;
+}
+
+.service-card h3 {
+  margin: 0 0 18px;
+  font-size: 1.3rem;
+  color: #f3f3f3;
+  text-align: center;
+}
+
+.service-card p {
+  color: var(--text-paragraphe);
+  margin-bottom: 14px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+/* ========================================================= */
+/* 8) PROCESSUS */
+/* ========================================================= */
+
+.process-grid {
+  display: grid;
+  gap: 30px;
+}
+
+.process-card {
+  background: rgba(16, 16, 16, 0.62);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.process-card-step {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.process-card h3 {
+  margin-bottom: 14px;
+  color: #f3f3f3;
+}
+
+.process-card p {
+  color: var(--text-paragraphe);
+  line-height: 1.65;
+}
+
+/* ========================================================= */
+/* 9) BLOC QUALITÉ / MÉTHODE */
+/* ========================================================= */
+
+.services-quality-intro {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.services-quality-intro p {
+  margin-bottom: 15px;
+  color: var(--text-paragraphe);
+  line-height: 1.7;
+}
+
+.services-quality-list {
+  width: fit-content;
+  max-width: 100%;
+  margin: 30px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, max-content);
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+.services-quality-list li {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(14, 14, 14, 0.62);
+  padding: 16px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #f3f3f3;
+}
+
+/* ========================================================= */
+/* 10) CTA FINAL */
+/* ========================================================= */
+
+.services-cta-inner {
+  background: rgba(8, 8, 8, 0.7);
+  padding: 40px 25px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.services-cta-inner h2 {
+  color: #f3f3f3;
+}
+
+.services-cta-inner p {
+  color: var(--text-paragraphe);
+  margin: 20px 0;
+  line-height: 1.7;
+}
+
+.services-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.services-cta-actions a {
+  width: fit-content;
+  min-height: 35px;
+  padding: 0 28px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: #f3f3f3;
+  color: #242424;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: clamp(0.8rem, 3.8vw, 1rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.services-cta-actions a:hover {
+  transform: translateY(-1px);
+  color: #f3f3f3;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================================= */
+/* 12) FOOTER */
+/* ========================================================= */
+
+#footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 3200px;
+  margin: 0 auto;
+  background-color: #050505;
+  color: #f3f3f3;
+  overflow: hidden;
+}
+
+.compagny-info {
+  width: 60vw;
+  height: auto;
+  padding: 10px 0;
+  margin: 10px auto;
+}
+
+.compagny-info .logo {
+  width: 100%;
+  height: auto;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 15px 0 50px;
+  padding: 0 3vw 0 0;
+}
+
+.footer-socials a {
+  display: inline-flex;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.footer-socials a:hover .social-icon {
+  opacity: 0.6;
+  transform: scale(1.1);
+}
+
+.social-icon circle,
+.social-icon rect {
+  fill: white;
+}
+
+.social-icon path {
+  fill: black;
+}
+
+.footer-socials a:hover .social-icon circle,
+.footer-socials a:hover .social-icon rect {
+  fill: #dcdcdc;
+}
+
+.useful-links {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 3vh;
+}
+
+.footer-links {
+  display: block;
+  padding: 1rem 0.5vw;
+  color: #f3f3f3;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 1em;
+}
+
+.footer-links:hover {
+  opacity: 0.5;
+}
+
+.copyright {
+  display: block;
+  margin: 0;
+  padding-top: 2px;
+  padding-right: 10px;
+  color: #f3f3f3;
+  font-size: 0.5rem;
+  opacity: 0.8;
+}
+
+#footer p:nth-of-type(3) {
+  margin-bottom: 20px;
+}
+
+.box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.box picture {
+  display: block;
+  width: 100%;
+}
+
+.box img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ========================================================= */
+/* 12.5) TRES PETITS MOBILES */
+/* ========================================================= */
+/* @media (max-width: 380px) {
+  .services-hero {
+    padding-top: 155px;
+  }
+
+  .services-hero-title {
+    font-size: 1.8rem;
+    line-height: 0.92;
+  }
+} */
+/* ========================================================= */
+/* 13) TABLETTE */
+/* ========================================================= */
+
+@media (min-width: 768px) {
+  .services-header {
+    padding: 24px 28px 0;
+  }
+
+  /* .services-hero {
+    padding: 155px 44px 120px;
+  } */
+  /* 
+  .services-hero-inner {
+    max-width: 430px;
+  } */
+
+  .services-hero-actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .btn-hero {
+    min-width: 190px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .compagny-info {
+    width: 35%;
+    margin: 20px auto;
+  }
+
+  .copyright {
+    font-size: 1em;
+  }
+
+  .footer-links {
+    font-size: 1.5em;
+  }
+}
+
+/* ========================================================= */
+/* 14) DESKTOP */
+/* ========================================================= */
+@media (min-width: 900px) {
+  /*
+    Future image desktop :
+    background-image: url("/img/services/services-bg-desktop.webp");
+  */
+
+  .services-header {
+    padding: 20px 14px 0;
+  }
+
+  .services-nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+
+  .services-nav-left {
+    justify-self: start;
+  }
+
+  .services-nav-right {
+    justify-self: end;
+  }
+
+  .services-nav-line {
+    display: block;
+    width: 110px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .services-nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+    justify-self: center;
+  }
+
+  .services-nav-desktop a {
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .services-nav-desktop a[aria-current="page"] {
+    color: #ffffff;
+  }
+
+  .services-hero {
+    /* min-height: 100svh; */
+    /* padding: 120px 70px 120px; */
+    align-items: flex-start;
+  }
+
+  /* .services-hero-inner {
+    padding-top: 10px;
+  } */
+  /* .services-hero-inner {
+    max-width: 360px;
+    padding-top: 10px;
+    margin-left: 3vw;
+  } */
+
+  .services-hero-title {
+    font-size: clamp(2.5rem, 4.4vw, 4.2rem);
+    max-width: 8ch;
+  }
+  /* .services-hero-title {
+    font-size: clamp(3.7rem, 5vw, 5.4rem);
+    max-width: 8.5ch;
+  } */
+
+  /* .services-hero-text {
+    font-size: 1.18rem;
+    max-width: 28ch;
+  } */
+
+  .services-hero-actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .btn-hero {
+    min-width: 210px;
+    min-height: 58px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .services-cta-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .compagny-info {
+    width: 30%;
+  }
+}
+/* ========================================================= */
+/* 14.5) TABLETTE LARGE / PETIT DESKTOP */
+/* ========================================================= */
+/* @media (min-width: 900px) and (max-width: 1099px) {
+  .services-hero-inner {
+    max-width: 330px;
+  }
+
+  .services-hero-title {
+    font-size: 3.35rem;
+    max-width: 8ch;
+  }
+} */
