@@ -1,65 +1,14 @@
-<!-- <a href="/dashboard">&larr; Back</a>
-<div class="admin-title">
-  <h2>Add New Post</h2>
-</div>
-
-<form action="/add-post" method="POST">
-  <label for="title"><b>Title</b></label>
-  <input type="text" placeholder="Post Title" name="title" />
-
-  <label for="body"><b>Content</b></label>
-  <textarea name="body" cols="50" rows="10"></textarea>
-
-  <div class="banner">
-    <input
-      type="file"
-      accept="image/*"
-      id="banner-upload"
-      name="image"
-      required
-    />
-    <label for="banner-upload" class="banner-upload-btn"
-      ><img src="img/upload.png" alt="upload banner"
-    /></label>
-  </div>
-
-  <input type="submit" value="Add" class="btn" />
-</form>
-
-<a href="/dashboard">&larr; Back</a>
-<div class="admin-title">
-  <h2>Add New Post</h2>
-</div> -->
-
-<!-- <form action="/add-post" method="POST" enctype="multipart/form-data">
-  <label for="title"><b>Title</b></label>
-  <input type="text" placeholder="Post Title" name="title" />
-
-  <label for="body"><b>Content</b></label>
-  <textarea name="body" cols="50" rows="10"></textarea>
-
-  <div class="div-banner" id="banner-edit">
-    <input type="file" accept="image/*" id="banner-upload" />
-    <label for="banner-upload" class="banner-upload-btn">
-      <img src="/img/upload.png" alt="upload banner" />
-    </label>
-  </div>
-
-  <div class="div-banner div-cards" id="card-edit">
-    <input type="file" accept="image/*" id="card-upload" />
-    <label for="card-upload" class="banner-upload-btn">
-      <img src="/img/upload.png" alt="upload banner" />
-    </label>
-  </div>
-
-  <input type="submit" value="Add" class="btn" />
-</form> -->
-
 <form action="/blog/add-post" method="POST" enctype="multipart/form-data">
   <label for="title"><b>Title</b></label>
-  <input type="text" placeholder="Post Title" name="title" required />
+  <input
+    type="text"
+    placeholder="Post Title"
+    id="title"
+    name="title"
+    required
+  />
 
-  <label for="description"><b>Description</b></label>
+  <label for="textarea-description"><b>Description</b></label>
   <textarea
     id="textarea-description"
     name="description"
@@ -69,7 +18,71 @@
     required
   ></textarea>
 
-  <label for="body"><b>Content</b></label>
+  <label for="seo-title"><b>SEO title</b></label>
+  <input
+    type="text"
+    id="seo-title"
+    name="seoTitle"
+    placeholder="Titre SEO, sinon le titre de l'article sera utilisé"
+  />
+
+  <label for="seo-description"><b>SEO description</b></label>
+  <textarea
+    id="seo-description"
+    name="seoDescription"
+    cols="50"
+    rows="3"
+    placeholder="Description SEO, sinon la description courte sera utilisée"
+  ></textarea>
+
+  <label for="banner-alt"><b>Texte alternatif de l'image principale</b></label>
+  <input
+    type="text"
+    id="banner-alt"
+    name="bannerAlt"
+    placeholder="Texte descriptif de l'image principale"
+  />
+
+  <label for="author-name"><b>Rédacteur</b></label>
+  <input
+    type="text"
+    id="author-name"
+    name="authorName"
+    value="Deckard"
+  />
+
+  <label for="category"><b>Catégorie</b></label>
+  <input
+    type="text"
+    id="category"
+    name="category"
+    placeholder="SEO, Création site web, Open source..."
+  />
+
+  <label for="tags"><b>Tags</b></label>
+  <input
+    type="text"
+    id="tags"
+    name="tags"
+    placeholder="seo-local, site-vitrine, la-rochelle"
+  />
+
+  <label for="status"><b>Statut</b></label>
+  <select id="status" name="status">
+    <option value="published" selected>Publié</option>
+    <option value="draft">Brouillon</option>
+    <option value="archived">Archivé</option>
+  </select>
+
+  <label for="canonical-url"><b>Canonical URL personnalisée</b></label>
+  <input
+    type="url"
+    id="canonical-url"
+    name="canonicalUrl"
+    placeholder="Laisser vide sauf cas particulier"
+  />
+
+  <label for="textarea-body"><b>Content</b></label>
   <textarea
     id="textarea-body"
     name="body"
@@ -79,6 +92,95 @@
     required
   ></textarea>
   <emoji-picker id="emoji-picker">Chargement...</emoji-picker>
+
+  <!-- Zone d'upload des images d'illustration -->
+  <div class="product-info">
+    <!-- Zone d'affichage des images d'illustration -->
+    <div class="product-image">
+      <p class="text">Images d'illustration</p>
+    </div>
+    <!-- Champ pour le lien Markdown + bouton pour copier -->
+    <div class="illustration-link">
+      <input
+        type="text"
+        id="link-image"
+        readonly="true"
+        value=""
+        placeholder="Le lien Markdown s'affichera ici"
+      />
+      <button type="button" id="copy-link-btn">Copier</button>
+    </div>
+    <!-- upload images -->
+    <div class="upload-image-sec">
+      <p class="text"><img src="../img/camera.png" alt="" />Upload images</p>
+      <div class="upload-catalouge">
+        <div class="upload-wrapper" data-tempid="temp-illust-1">
+          <input
+            type="file"
+            class="fileupload"
+            id="first-file-upload-btn"
+            hidden
+            accept="image/png, image/jpeg"
+            name="illustrationImages"
+          />
+          <label for="first-file-upload-btn" class="upload-image">
+            <button class="delete-image" data-index="0" hidden>
+              <img src="../img/close.png" alt="" />
+            </button>
+          </label>
+        </div>
+
+        <div class="upload-wrapper" data-tempid="temp-illust-2">
+          <input
+            type="file"
+            class="fileupload"
+            id="second-file-upload-btn"
+            hidden
+            accept="image/png, image/jpeg"
+            name="illustrationImages"
+          />
+          <label for="second-file-upload-btn" class="upload-image">
+            <button class="delete-image" data-index="1" hidden>
+              <img src="../img/close.png" alt="" />
+            </button>
+          </label>
+        </div>
+
+        <div class="upload-wrapper" data-tempid="temp-illust-3">
+          <input
+            type="file"
+            class="fileupload"
+            id="third-file-upload-btn"
+            hidden
+            accept="image/png, image/jpeg"
+            name="illustrationImages"
+          />
+          <label for="third-file-upload-btn" class="upload-image">
+            <button class="delete-image" data-index="2" hidden>
+              <img src="../img/close.png" alt="" />
+            </button>
+          </label>
+        </div>
+
+        <div class="upload-wrapper" data-tempid="temp-illust-4">
+          <input
+            type="file"
+            class="fileupload"
+            id="fourth-file-upload-btn"
+            hidden
+            accept="image/png, image/jpeg"
+            name="illustrationImages"
+          />
+          <label for="fourth-file-upload-btn" class="upload-image">
+            <button class="delete-image" data-index="3" hidden>
+              <img src="../img/close.png" alt="" />
+            </button>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <p>Choisir un fichier au .jpg ou .png , Ratio 2/1</p>
   <!-- l'image est chargée dans '<div class="div-banner" ... >' par 'editor.js' de 'admin.ejs'. -->
   <div class="div-banner" id="banner-edit">

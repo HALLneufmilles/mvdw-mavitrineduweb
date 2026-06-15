@@ -19,7 +19,7 @@
     <!-- Google tag -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- "Title" s'affiche dans l'onglet du navigateur. -->
+    <!-- "Title" s'affiche dans l'onglet du navigateur.  -->
     <title><%= locals.title %></title>
     <meta name="description" content="<%= locals.description %>" />
 
@@ -36,6 +36,8 @@
 
     <link rel="stylesheet" href="/css/markdown.css" />
     <link rel="stylesheet" href="/css/styleBlog.css" />
+    <link rel="stylesheet" href="/css/illustreimg.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/vs2015.min.css"
@@ -55,20 +57,21 @@
   </head>
   <body>
     <!-- prettier-ignore -->
+
     <div class="container">
       <%- include('../partials/header_admin.ejs') %>
-        <main class="main">
-          <div class="mainAdmin">
+      <main class="main">
+        <div class="mainAdmin">
           <!-- 'body' réceptionne les rendus des vues (situées dans le dossiers "views") et ses données envoyés par les fonctions render(), elles même situées dans les fichiers du dossier "routes" .  -->
-          <%- body %> 
-          </div>
-
-        </main>
+          <%- body %>
+        </div>
+      </main>
     </div>
     <%- include('../partials/footer.ejs') %>
     <script
       type="module"
       src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"
     ></script>
+    <!-- Expose les données du post au client -->
   </body>
 </html>

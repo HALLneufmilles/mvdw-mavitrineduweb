@@ -1,11 +1,20 @@
 import express from "express";
+import mongoose from "mongoose";
 import Post from "../models/Post.js";
+import { createUniqueSlug } from "../utils/slug.js";
 // app.use((req, res, next) => {
 //   res.locals.data = res.locals.data || null; // S'assurer que data existe
 //   next();
 // });
 
 const router = express.Router();
+
+function publicPostQuery(extraQuery = {}) {
+  return {
+    ...extraQuery,
+    $or: [{ status: "published" }, { status: { $exists: false } }]
+  };
+}
 /* Lorsque tu appelles res.render("search", { locals, data, currentRoute: '/' }), cela implique plusieurs choses, surtout dans le contexte de l'utilisation d'un layout :
 
 1- Layout par défaut : Si tu ne spécifies pas explicitement un autre layout dans la méthode res.render(), Express va utiliser le layout par défaut défini dans server.js avec app.set("layout", "./layouts/main").
@@ -40,7 +49,7 @@ router.get("/", async (req, res) => {
       .exec(); */
 
     // Utilisez `find()` avec le tri
-    const data = await Post.find({})
+    const data = await Post.find(publicPostQuery())
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
@@ -50,7 +59,7 @@ router.get("/", async (req, res) => {
     // Count is deprecated - please use countDocuments
     // const count = await Post.count();
     //Cette ligne permet de compter tous les documents présents dans la collection Post. {} signifie qu'il n'y a pas de conditions particulières, donc tous les documents sont comptés.
-    const count = await Post.countDocuments({});
+    const count = await Post.countDocuments(publicPostQuery());
     // Convertit la variable page en un entier (base 10 par défaut)
     const nextPage = parseInt(page) + 1;
     // Cette ligne détermine s'il y a une page suivante.
@@ -106,22 +115,41 @@ router.get("/", async (req, res) => {
  * GET /
  * acéder à un post en fonction de son :id
  */
-router.get("/post/:id", async (req, res) => {
+router.get("/post/:slug", async (req, res) => {
   try {
     // "slug" est le numéro de l'id de l'article.
     // Comme dans 'index.ejs' on choisi d'afficher l'artcle par son id placé en paramètre de l'url(voir index.ejs), onutilise 'req.params'.
-    let slug = req.params.id;
+    const slug = req.params.slug;
+    let data = null;
     // On récupère l'article avec son ID
-    const data = await Post.findById({ _id: slug });
+    if (mongoose.Types.ObjectId.isValid(slug)) {
+      data = await Post.findOne(publicPostQuery({ _id: slug }));
+
+      if (data) {
+        if (!data.slug) {
+          data.slug = await createUniqueSlug(Post, data.title, data._id);
+          await data.save();
+        }
+
+        return res.redirect(301, `/blog/post/${data.slug}`);
+      }
+    } else {
+      data = await Post.findOne(publicPostQuery({ slug }));
+    }
+
+    if (!data) return res.status(404).send("Article introuvable");
     // On crée 'locals' qui sera toujours utilisé dans la balise <head> de 'main.ejs'.
     // Il est préférable de mettre 'const locals' après 'const data'.
     // "title" représente maintenant le titre de l'article. Il s'affichera dans l'onglet du navigateur.
-    const random3Posts = await Post.aggregate([{ $sample: { size: 3 } }]);
+    const random3Posts = await Post.aggregate([
+      { $match: publicPostQuery({ _id: { $ne: data._id } }) },
+      { $sample: { size: 3 } }
+    ]);
     // console.log("data post :", data);
 
     const locals = {
-      title: data.title,
-      description: "Simple Blog created with NodeJs, Express & MongoDb."
+      title: data.seoTitle || data.title,
+      description: data.seoDescription || data.description
     };
     // render() stipule les données et la vue du dossier "views" à insérer dans l'élément "body" du layout. Sans layout indiqué dans l'objet de données, le layout par défaut dans 'server.js' sera utilisé. Dans 'admin.js' tu remarqueras qu'on stipule le layout avec 'layout: adminLayout'. Les fichiers à la racine du dossier "views" sont fait pour être utilisé avec le layout par convention. c'est la raison pour laquelle il n'est pas nécessaire de stipuler le layout par défaut lorqu'on utilise ces vues.
     // Demade au server d'insérer les données et sa vue 'post.ejs' située à la racine du dossier "views" dans l'élément "body" du layout. Pas de layout indiqué en second argument donc le layaout par defaut indiqué dans 'server.js' sera utilisé.
@@ -131,7 +159,7 @@ router.get("/post/:id", async (req, res) => {
       random3Posts,
       // currentRoute est envoyée dans la vue pour être comparée à la vue spécifiée dans le lien du fichier 'header.ejs'.
       // https://chatgpt.com/share/672e0389-1c94-800d-b388-659e73d9334c
-      currentRoute: `/post/${slug}`
+      currentRoute: `/post/${data.slug}`
     });
   } catch (error) {
     console.log(error);
@@ -155,6 +183,9 @@ router.post("/search", async (req, res) => {
     const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
     // demande au server de rechercher dans la base de données le mot tapé (searchTerm) dans le formulaire :
     const data = await Post.find({
+      $and: [
+        publicPostQuery(),
+        {
       // $or est un opérateur MongoDB utilisé pour effectuer une recherche conditionnelle. Il signifie "si au moins une des conditions suivantes est vraie".
       // Ici, cela signifie que l'on cherche des documents où soit le title ou le body correspond au terme de recherche.
       $or: [
@@ -162,6 +193,8 @@ router.post("/search", async (req, res) => {
         { title: { $regex: new RegExp(searchNoSpecialChar, "i") } },
         // Cette condition signifie : chercher dans le champ body les documents où le contenu contient la chaîne searchNoSpecialChar (insensible à la casse: i).
         { body: { $regex: new RegExp(searchNoSpecialChar, "i") } }
+      ]
+        }
       ]
     });
     //render() stipule les données et la vue du dossier "views" à insérer dans l'élément "body" du layout. Sans layout indiqué dans l'objet de données, le layout par défaut dans 'server.js' sera utilisé. Dans 'admin.js' tu remarqueras qu'on stipule le layout avec 'layout: adminLayout'. Les fichiers à la racine du dossier "views" sont fait pour être utilisé avec le layout par convention. c'est la raison pour laquelle il n'est pas nécessaire de stipuler le layout par défaut lorqu'on utilise ces vues.

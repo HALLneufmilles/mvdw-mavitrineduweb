@@ -3,22 +3,86 @@
   <a href="/blog/add-post" class="button">+ Add New</a>
 </div>
 
-<ul class="admin-posts">
-  <% data.forEach(post => { %>
+<% const activeStatusFilter = typeof statusFilter !== "undefined" ? statusFilter : "all"; %>
 
-  <li>
-    <a href="/blog/post/<%= post._id %>"> <%= post.title %> &nearr; </a>
-    <div class="admin-post-controls">
-      <a href="/blog/edit-post/<%= post._id %>" class="btn">Edit</a>
+<form class="admin-filter" action="/blog/dashboard" method="GET">
+  <label for="status-filter">Status</label>
+  <select id="status-filter" name="status">
+    <option value="all" <%= activeStatusFilter === "all" ? "selected" : "" %>>Tous</option>
+    <option value="published" <%= activeStatusFilter === "published" ? "selected" : "" %>>Publié</option>
+    <option value="draft" <%= activeStatusFilter === "draft" ? "selected" : "" %>>Brouillon</option>
+    <option value="archived" <%= activeStatusFilter === "archived" ? "selected" : "" %>>Archivé</option>
+  </select>
+</form>
 
-      <form
-        action="/blog/delete-post/<%= post._id %>?_method=DELETE"
-        method="POST"
-      >
-        <input type="submit" value="Delete" class="btn-delete btn" />
-      </form>
-    </div>
-  </li>
+<table class="admin-posts-table">
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.forEach(post => { %>
+    <% const isPublished = post.status === "published" || !post.status; %>
+    <% const postStatus = post.status || "published"; %>
+    <tr data-status="<%= postStatus %>">
+      <td>
+        <a
+          href="<%= isPublished ? '/blog/post/' + (post.slug || post._id) : '/blog/edit-post/' + post._id %>"
+        >
+          <%= post.title %> <%= isPublished ? '&nearr;' : '' %>
+        </a>
+      </td>
+      <td>
+        <span class="admin-status admin-status--<%= postStatus %>"><%= postStatus %></span>
+      </td>
+      <td>
+        <div class="admin-post-controls">
+          <a href="/blog/edit-post/<%= post._id %>" class="btn">Edit</a>
 
-  <% }) %>
-</ul>
+          <form
+            action="/blog/delete-post/<%= post._id %>?_method=DELETE"
+            method="POST"
+          >
+            <input type="submit" value="Delete" class="btn-delete btn" />
+          </form>
+        </div>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<script>
+  (() => {
+    const statusSelect = document.querySelector("#status-filter");
+    const rows = document.querySelectorAll("[data-status]");
+    const params = new URLSearchParams(window.location.search);
+    const activeStatus = params.get("status") || "all";
+
+    if (statusSelect) {
+      statusSelect.value = activeStatus;
+    }
+
+    rows.forEach((row) => {
+      const shouldShow =
+        activeStatus === "all" || row.dataset.status === activeStatus;
+      row.hidden = !shouldShow;
+    });
+
+    statusSelect?.addEventListener("change", () => {
+      const nextStatus = statusSelect.value;
+      const nextUrl = new URL(window.location.href);
+
+      if (nextStatus === "all") {
+        nextUrl.searchParams.delete("status");
+      } else {
+        nextUrl.searchParams.set("status", nextStatus);
+      }
+
+      window.location.href = nextUrl.toString();
+    });
+  })();
+</script>

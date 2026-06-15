@@ -75,3 +75,31 @@ export async function processImage(bannerFile) {
     smallImgConvert: `/uploads/${bannerImageName}-300x100.webp`
   };
 }
+
+export async function processIllustrationImage(file) {
+  if (!file) {
+    throw new Error("Aucune image fournie pour le traitement.");
+  }
+
+  function cleanFileName(name) {
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9.-]/g, "");
+  }
+
+  const tempDir = path.join(process.cwd(), "public/temp/");
+  if (!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir, { recursive: true });
+  }
+
+  const date = new Date();
+  const originalName = cleanFileName(path.parse(file.name).name);
+  const uniqueName = `${date.getDate()}${date.getTime()}-${originalName}`;
+  const filePath = path.join(tempDir, `${uniqueName}.webp`);
+
+  // Conversion en WebP
+  await sharp(file.data).toFormat("webp").toFile(filePath);
+
+  return `/temp/${uniqueName}.webp`;
+}

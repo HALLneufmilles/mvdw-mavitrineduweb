@@ -5,7 +5,8 @@
     <input type="submit" value="Delete" class="btn-delete btn" />
   </form>
 </div>
-
+<!-- Dans edit-post.ejs, où `data` est passé depuis res.render(...) -->
+<pre><%= JSON.stringify(data, null, 2) %></pre>
 <form
   action="/blog/edit-post/<%= data._id %>?_method=PUT"
   method="POST"
@@ -20,6 +21,7 @@
   />
 
   <label for="description"><b>Description</b></label>
+  <!-- Fermer la balise <textarea> sur la même ligne -->
   <textarea
     id="textarea-description"
     name="description"
@@ -30,13 +32,161 @@
 <%= data.description || "" %></textarea
   >
 
+  <label for="seo-title"><b>SEO title</b></label>
+  <input
+    type="text"
+    id="seo-title"
+    name="seoTitle"
+    value="<%= data.seoTitle || "" %>"
+    placeholder="Titre SEO, sinon le titre de l'article sera utilisé"
+  />
+
+  <label for="seo-description"><b>SEO description</b></label>
+  <textarea
+    id="seo-description"
+    name="seoDescription"
+    cols="50"
+    rows="3"
+    placeholder="Description SEO, sinon la description courte sera utilisée"
+  >
+<%= data.seoDescription || "" %></textarea
+  >
+
+  <label for="banner-alt"><b>Texte alternatif de l'image principale</b></label>
+  <input
+    type="text"
+    id="banner-alt"
+    name="bannerAlt"
+    value="<%= data.bannerAlt || "" %>"
+    placeholder="Texte descriptif de l'image principale"
+  />
+
+  <label for="author-name"><b>Rédacteur</b></label>
+  <input
+    type="text"
+    id="author-name"
+    name="authorName"
+    value="<%= data.authorName || 'Deckard' %>"
+  />
+
+  <label for="category"><b>Catégorie</b></label>
+  <input
+    type="text"
+    id="category"
+    name="category"
+    value="<%= data.category || "" %>"
+    placeholder="SEO, Création site web, Open source..."
+  />
+
+  <label for="tags"><b>Tags</b></label>
+  <input
+    type="text"
+    id="tags"
+    name="tags"
+    value="<%= Array.isArray(data.tags) ? data.tags.join(', ') : '' %>"
+    placeholder="seo-local, site-vitrine, la-rochelle"
+  />
+
+  <label for="status"><b>Statut</b></label>
+  <select id="status" name="status">
+    <option value="published" <%= data.status === "published" || !data.status ? "selected" : "" %>>Publié</option>
+    <option value="draft" <%= data.status === "draft" ? "selected" : "" %>>Brouillon</option>
+    <option value="archived" <%= data.status === "archived" ? "selected" : "" %>>Archivé</option>
+  </select>
+
+  <label for="canonical-url"><b>Canonical URL personnalisée</b></label>
+  <input
+    type="url"
+    id="canonical-url"
+    name="canonicalUrl"
+    value="<%= data.canonicalUrl || "" %>"
+    placeholder="Laisser vide sauf cas particulier"
+  />
+
   <label for="body"><b>Content</b></label>
   <textarea name="body" id="textarea-body" cols="50" rows="10">
 <%= data.body %></textarea
   >
+
   <emoji-picker id="emoji-picker">Chargement...</emoji-picker>
+
+  <!-- Zone d'upload des images d'illustration -->
+  <div class="product-info">
+    <!-- Zone d'affichage des images d'illustration -->
+    <div class="product-image">
+      <p class="text">Images d'illustration</p>
+    </div>
+
+    <!-- Champ pour le lien Markdown + bouton pour copier -->
+    <div class="illustration-link">
+      <input
+        type="text"
+        id="link-image"
+        readonly="true"
+        value=""
+        placeholder="Le lien Markdown s'affichera ici"
+      />
+      <button type="button" id="copy-link-btn">Copier</button>
+    </div>
+
+    <!-- upload section -->
+    <div class="upload-image-sec">
+      <p class="text"><img src="../img/camera.png" alt="" />Upload image</p>
+      <div class="upload-catalouge">
+        <!-- Boucle sur data.illustrationImages -->
+        <% let existingCount = data.illustrationImages ?
+        data.illustrationImages.length : 0; %>
+        <!-- Boucle pour chaque image existante -->
+        <% for (let i = 0; i < existingCount; i++) { %>
+        <div class="upload-wrapper" data-tempid="temp-illust-<%= i+1 %>">
+          <input
+            type="file"
+            class="fileupload"
+            hidden
+            accept="image/png, image/jpeg"
+            name="illustrationImages"
+            id="file-upload-<%= i+1 %>"
+          />
+          <label
+            for="file-upload-<%= i+1 %>"
+            class="upload-image <%= (i === 0) ? 'active' : '' %>"
+            style="
+              background-image: url(&quot;<%= data.illustrationImages[i] %>&quot;);
+            "
+          >
+            <!--  NEW : on **retire** l’attribut hidden pour que le bouton -->
+            <button class="delete-image" data-index="<%= i %>">
+              <img src="../img/close.png" alt="delete" />
+            </button>
+          </label>
+        </div>
+        <% } %>
+
+        <!-- Ajouter 4 wrappers vides -->
+        <% const extraWrappers = 4; %> <% for (let j = 0; j < extraWrappers;
+        j++) { let index = existingCount + j; %>
+        <div class="upload-wrapper" data-tempid="temp-illust-<%= index+1 %>">
+          <input
+            type="file"
+            class="fileupload"
+            hidden
+            accept="image/png, image/jpeg"
+            name="illustrationImages"
+            id="file-upload-<%= index+1 %>"
+          />
+          <label for="file-upload-<%= index+1 %>" class="upload-image">
+            <button class="delete-image" hidden>
+              <img src="../img/close.png" alt="delete" />
+            </button>
+          </label>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
   <p>Choisir un fichier au .jpg ou .png , Ratio 2/1</p>
-  <!-- prettier-ignore-start -->
+
   <div class="div-banner" id="banner-edit">
     <input
       type="file"
@@ -49,11 +199,13 @@
       <img src="/img/upload.png" alt="upload banner" />
     </label>
   </div>
+
   <div class="old-img">
-    <img src="<%=data.bannerImages.ImgBase%>" alt="ancienne image" />
+    <img src="<%= data.bannerImages.ImgBase %>" alt="ancienne image" />
   </div>
-  <!-- prettier-ignore-end -->
+
   <input type="submit" value="Update" class="btn" />
+
   <!-- Bouton Preview -->
   <button
     formaction="/blog/preview-post/<%= data._id %>"
@@ -62,6 +214,7 @@
   >
     Preview
   </button>
+
   <!-- <button class="btn btn-close" onclick="window.history.back()">Cancel</button> -->
   <a href="/blog/dashboard" class="btn">Cancel</a>
 </form>

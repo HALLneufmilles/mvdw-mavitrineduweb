@@ -1,411 +1,275 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   const bannerImage = document.querySelector("#banner-upload");
-//   const bannerDiv = document.querySelector("#banner-edit"); // Sélection de la div banner
+/**
+ *  editor.js  – bannière + illustrations  (add-post & edit-post)
+ *  -----------------------------------------------------------------
+ *  🆕 2025-05-17
+ *      • ctrl/⌘+clic        = aperçu sans ouverture d’explorateur
+ *      • remplacement img   = supprime l’ancienne (temp | uploads)
+ *  -----------------------------------------------------------------
+ */
 
-//   const cardImage = document.querySelector("#card-upload");
-//   const cardDiv = document.querySelector("#card-edit");
-//   console.log(cardDiv);
-
-//   let bannerPath;
-//   // Déclenche l'envoie de l'image dans le server et Affiche l'image dans la vue :
-
-//   bannerImage.addEventListener("change", () => {
-//     uploadImage(bannerImage, "img-banner");
-//   });
-
-//   cardImage.addEventListener("change", () => {
-//     uploadImage(cardImage, "img-card");
-//   });
-
-//   const uploadImage = (uploadFile, uploadDiv) => {
-//     const [file] = uploadFile.files;
-//     console.log("file :", file);
-//     if (file && file.type.includes("image")) {
-//       // FormData pour l'upload de l'image
-//       const formdata = new FormData();
-//       formdata.append("image", file);
-
-//       // Effectuer la requête fetch vers `/upload` pour sauvegarder l'image
-//       fetch("/upload", {
-//         method: "POST",
-//         body: formdata
-//       })
-//         .then((res) => res.json())
-//         .then((data) => {
-//           console.log("data :", data);
-
-//           if (uploadDiv == "img-banner") {
-//             bannerPath = `${location.origin}/${data}`;
-//             console.log("location.origin : ", location.origin);
-
-//             bannerDiv.style.backgroundImage = `url("${bannerPath}")`;
-//             // Mettre à jour le champ caché pour envoyer le chemin de l'image à la base de données lors de la soumission du formulaire
-//             // document.querySelector("#banner-image-path").value = data;
-//           } else {
-//             bannerPath = `${location.origin}/${data}`;
-//             cardDiv.style.backgroundImage = `url("${bannerPath}")`;
-//           }
-//         })
-//         .catch((error) => {
-//           console.error(
-//             "Erreur lors du chargement de l'image dans la vue:",
-//             error
-//           );
-//         });
-//     } else {
-//       alert("Veuillez sélectionner un fichier image.");
-//     }
-//   };
-// });
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  const bannerImage = document.querySelector("#banner-upload");
-  const bannerDiv = document.querySelector("#banner-edit"); // Sélection de la div banner
-
-  // Déclenche l'envoi de l'image et affiche l'image dans la vue :
-
-  if (bannerImage) {
-    bannerImage.addEventListener("change", () => {
-      displayImage(bannerImage, bannerDiv);
-    });
-  }
-
-  const displayImage = (uploadFile, uploadDiv) => {
-    const [file] = uploadFile.files;
-    if (file && file.type.includes("image")) {
-      // création d'une URL temporaire générée par le navigateur
-      const objectURL = URL.createObjectURL(file);
-      console.log("objectURL: ", objectURL);
-
-      uploadDiv.style.backgroundImage = `url("${objectURL}")`;
-    }
-  };
-}); */
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const bannerDiv = document.querySelector("#banner-edit");
-//   const bannerUpload = document.querySelector("#banner-upload");
-//   const previewButton = document.querySelector(".btn-preview");
-//   const savedImage = sessionStorage.getItem("tempBannerImage");
-//   console.log("savedImage :", savedImage);
-
-//   // Restaurer l'image temporaire au retour de preview-post.ejs
-//   if (bannerDiv && savedImage) {
-//     console.log("savedImage in if :", savedImage);
-
-//     bannerDiv.style.backgroundImage = `url("${savedImage}")`;
-//   }
-
-//   // Mettre à jour l'image lorsqu'un fichier est sélectionné
-//   if (bannerUpload) {
-//     bannerUpload.addEventListener("change", () => {
-//       if (savedImage) {
-
-//       } else {
-//         const [file] = bannerUpload.files;
-//         if (file && file.type.includes("image")) {
-//           const objectURL = URL.createObjectURL(file);
-//           bannerDiv.style.backgroundImage = `url("${objectURL}")`;
-
-//           // Mettre à jour immédiatement dans sessionStorage
-//           sessionStorage.setItem("tempBannerImage", objectURL);
-//         }
-//       }
-//     });
-//   }
-// });
-/* console.log("editor.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
+  // ================================================================
+  // 1.  BANNIÈRE (déjà existante)
+  // ================================================================
   const bannerDiv = document.querySelector("#banner-edit");
   const bannerUpload = document.querySelector("#banner-upload");
   const savedImage = sessionStorage.getItem("tempBannerImage");
-  console.log("DOM fully loaded and parsed");
-  console.log("savedImage :", savedImage);
+  const currentUrl = window.location.pathname;
+  const pageType = currentUrl.includes("edit-post") ? "edit-post" : "add-post";
 
-  // Restaurer l'image temporaire au retour de preview-post.ejs
-  if (bannerDiv && savedImage) {
-    console.log("savedImage in if :", savedImage);
+  if (savedImage && bannerDiv)
     bannerDiv.style.backgroundImage = `url("${savedImage}")`;
-    return;
-  }
 
-  // Mettre à jour l'image lorsqu'un fichier est sélectionné
   if (bannerUpload) {
     bannerUpload.addEventListener("change", () => {
       const [file] = bannerUpload.files;
-      if (file && file.type.includes("image")) {
-        // Supprimer l'ancien tempBannerImage si existant
-        const previousImage = sessionStorage.getItem("tempBannerImage");
-        if (previousImage) {
-          console.log("Supprimer previousImage :", previousImage);
-          URL.revokeObjectURL(previousImage); // Libérer l'URL temporaire
-          sessionStorage.removeItem("tempBannerImage"); // Supprimer de sessionStorage
+      if (!file || !file.type.includes("image")) return;
+
+      const fr = new FileReader();
+      fr.onload = (e) => {
+        const base64 = e.target.result;
+        sessionStorage.setItem("tempBannerImage", base64);
+        bannerDiv.style.backgroundImage = `url("${base64}")`;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
+
+  // ================================================================
+  // 2.  ILLUSTRATIONS
+  // ================================================================
+  // Upload images
+  const uploadWrappers = [...document.querySelectorAll(".upload-wrapper")];
+  // Image d'illustration
+  const previewDiv = document.querySelector(".product-image");
+  // lien markdown
+  const linkImageInput = document.getElementById("link-image");
+  const copyLinkBtn = document.getElementById("copy-link-btn");
+
+  /* Bouton « Copier » lien Markdown */
+  if (copyLinkBtn && linkImageInput) {
+    copyLinkBtn.addEventListener("click", () => {
+      navigator.clipboard
+        .writeText(linkImageInput.value)
+        .then(() => alert("Lien copié !"));
+    });
+  }
+
+  /* ----- sessionStorage utils ------------------------------------ */
+  const getStoredIllustrations = () =>
+    JSON.parse(sessionStorage.getItem("illustrations")) || [];
+
+  const setStoredIllustrations = (arr) =>
+    sessionStorage.setItem("illustrations", JSON.stringify(arr));
+
+  function updateIllustration(uid, url, filename) {
+    const list = getStoredIllustrations();
+    const itm = list.find((o) => o.uid === uid);
+    itm
+      ? Object.assign(itm, { url, filename })
+      : list.push({ uid, url, filename });
+    setStoredIllustrations(list);
+  }
+
+  /* 2-A. Pré-remplissage storage (edit-post) ----------------------- */
+  // if (pageType === "edit-post" && !sessionStorage.getItem("illustrations")) {
+  if (pageType === "edit-post") {
+    // ⇦ on force le reset
+    sessionStorage.removeItem("illustrations"); // vide les anciens essais
+    // … puis on peut pré-remplir proprement
+    if (!sessionStorage.getItem("illustrations")) {
+      const initial = [];
+      uploadWrappers.forEach((w) => {
+        const lbl = w.querySelector(".upload-image");
+        const del = w.querySelector(".delete-image");
+        if (!lbl) return;
+        const m = lbl.style.backgroundImage.match(/url\("(.*)"\)/);
+        if (!m) return;
+        initial.push({ uid: w.dataset.tempid, url: m[1], filename: "" });
+        if (del) {
+          del.hidden = false;
+          del.style.display = "block";
         }
-
-        // Créer une nouvelle URL temporaire et mettre à jour sessionStorage
-        const objectURL = URL.createObjectURL(file);
-        console.log("Nouvelle image sauvegardée :", objectURL);
-        sessionStorage.setItem("tempBannerImage", objectURL);
-
-        // Mettre à jour l'image de la bannière
-        bannerDiv.style.backgroundImage = `url("${objectURL}")`;
-      }
-    });
+      });
+      setStoredIllustrations(initial);
+    }
   }
-}); */
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  const bannerDiv = document.querySelector("#banner-edit");
-  const bannerUpload = document.querySelector("#banner-upload");
-  const savedImage = sessionStorage.getItem("tempBannerImage");
-  console.log("savedImage :", savedImage);
-
-  // Restaurer l'image temporaire au retour de preview-post.ejs
-  if (bannerDiv && savedImage) {
-    console.log("Restoring image from Base64:", savedImage);
-    bannerDiv.style.backgroundImage = `url("${savedImage}")`;
-  }
-
-  // Mettre à jour l'image lorsqu'un fichier est sélectionné
-  if (bannerUpload) {
-    bannerUpload.addEventListener("change", () => {
-      const [file] = bannerUpload.files;
-      if (file && file.type.includes("image")) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const base64Image = e.target.result;
-
-          // Stocker l'image en Base64 dans sessionStorage
-          sessionStorage.setItem("tempBannerImage", base64Image);
-          console.log("Nouvelle image sauvegardée en Base64 :", base64Image);
-
-          // Mettre à jour l'image de la bannière
-          bannerDiv.style.backgroundImage = `url("${base64Image}")`;
-        };
-        reader.readAsDataURL(file); // Convertir le fichier en Base64
-      }
-    });
-  }
-}); */
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  const bannerDiv = document.querySelector("#banner-edit");
-  const bannerUpload = document.querySelector("#banner-upload");
-  const savedImage = sessionStorage.getItem("tempBannerImage");
-  console.log("savedImage :", savedImage);
-
-  // Restaurer l'image temporaire au retour de preview-post.ejs
-  if (bannerDiv && savedImage) {
-    console.log("Restoring saved image:", savedImage);
-    bannerDiv.style.backgroundImage = `url("${savedImage}")`;
-
-    // Injecter l'image temporaire dans l'input file
-    fetch(savedImage)
-      .then((res) => res.blob())
-      .then((blob) => {
-        const file = new File([blob], "tempImage.jpg", { type: blob.type });
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        bannerUpload.files = dataTransfer.files;
-        console.log("Temp image re-injected into file input");
-      })
-      .catch((err) => console.error("Error reinjecting temp image:", err));
-  }
-
-  // Mettre à jour l'image lorsqu'un fichier est sélectionné
-  if (bannerUpload) {
-    bannerUpload.addEventListener("change", () => {
-      const [file] = bannerUpload.files;
-      if (file && file.type.includes("image")) {
-        // Supprimer l'ancien tempBannerImage si existant
-        const previousImage = sessionStorage.getItem("tempBannerImage");
-        if (previousImage) {
-          console.log("Supprimer previousImage :", previousImage);
-          URL.revokeObjectURL(previousImage); // Libérer l'URL temporaire
-          sessionStorage.removeItem("tempBannerImage"); // Supprimer de sessionStorage
-        }
-
-        // Créer une nouvelle URL temporaire et mettre à jour sessionStorage
-        const objectURL = URL.createObjectURL(file);
-        console.log("Nouvelle image sauvegardée :", objectURL);
-        sessionStorage.setItem("tempBannerImage", objectURL);
-
-        // Mettre à jour l'image de la bannière
-        bannerDiv.style.backgroundImage = `url("${objectURL}")`;
-      }
-    });
-  }
-}); */
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  const bannerDiv = document.querySelector("#banner-edit");
-  const bannerUpload = document.querySelector("#banner-upload");
-  const savedImage = sessionStorage.getItem("tempBannerImage");
-  console.log("savedImage :", savedImage);
-
-  // Restaurer l'image temporaire au retour de preview-post.ejs
-  if (bannerDiv && savedImage) {
-    console.log("Restoring saved image in Base64:", savedImage);
-    bannerDiv.style.backgroundImage = `url("${savedImage}")`;
-  }
-
-  // Mettre à jour l'image lorsqu'un fichier est sélectionné
-  if (bannerUpload) {
-    bannerUpload.addEventListener("change", () => {
-      const [file] = bannerUpload.files;
-      if (file && file.type.includes("image")) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const base64Image = e.target.result;
-
-          // Supprimer l'ancien tempBannerImage si existant
-          const previousImage = sessionStorage.getItem("tempBannerImage");
-          if (previousImage) {
-            console.log("Supprimer previousImage :", previousImage);
-            sessionStorage.removeItem("tempBannerImage");
-          }
-
-          // Stocker l'image en Base64 dans sessionStorage
-          sessionStorage.setItem("tempBannerImage", base64Image);
-          console.log("Nouvelle image sauvegardée en Base64 :", base64Image);
-
-          // Mettre à jour l'image de la bannière
-          bannerDiv.style.backgroundImage = `url("${base64Image}")`;
-        };
-        reader.readAsDataURL(file); // Convertir le fichier en Base64
-      }
-    });
-  }
-  window.addEventListener("beforeunload", () => {
-    const tempImage = sessionStorage.getItem("tempBannerImage");
-    if (tempImage) {
-      URL.revokeObjectURL(tempImage); // Révoquer l'URL blob
-      console.log("Temp banner image revoked on page unload:", tempImage);
+  /* 2-B. Restauration visuelle ------------------------------------ */
+  // On lance la fonction contenue dans la constatnte getStoredIllustrations.
+  // C'est la raison pour laquelle on ajoute les ().
+  getStoredIllustrations().forEach(({ uid, url }) => {
+    const wrap = document.querySelector(
+      `.upload-wrapper[data-tempid="${uid}"]`
+    );
+    if (!wrap) return;
+    const lbl = wrap.querySelector(".upload-image");
+    const btn = wrap.querySelector(".delete-image");
+    if (lbl) lbl.style.backgroundImage = `url("${url}")`;
+    if (btn) {
+      btn.hidden = false;
+      btn.style.display = "block";
     }
   });
-}); */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const bannerDiv = document.querySelector("#banner-edit");
-  const bannerUpload = document.querySelector("#banner-upload");
-  const savedImage = sessionStorage.getItem("tempBannerImage");
-  console.log("Current tempBannerImage in sessionStorage:", savedImage);
-  const currentUrl = window.location.pathname;
-  console.log("currentUrl:", currentUrl);
-
-  // Fonction pour restaurer une image sauvegardée
-  const restoreSavedImage = () => {
-    if (savedImage) {
-      if (bannerDiv) {
-        console.log("Restoring saved image in Base64:", savedImage);
-        bannerDiv.style.backgroundImage = `url("${savedImage}")`;
-      }
-    } else {
-      console.log("No image found in sessionStorage to restore.");
+  /* 2-C. Première image active ------------------------------------ */
+  (function ensureFirstActive() {
+    let curr = document.querySelector(".upload-image.active");
+    if (!curr) {
+      curr = uploadWrappers
+        .map((w) => w.querySelector(".upload-image"))
+        .find(
+          (l) =>
+            l && l.style.backgroundImage && l.style.backgroundImage !== "none"
+        );
+      if (curr) curr.classList.add("active");
     }
-  };
+    if (curr && previewDiv)
+      previewDiv.style.backgroundImage = curr.style.backgroundImage;
+  })();
 
-  // Appeler la fonction de restauration au chargement
-  restoreSavedImage();
+  // ================================================================
+  // 3.  Boucle wrapper
+  // ================================================================
+  uploadWrappers.forEach((wrapper) => {
+    const input = wrapper.querySelector(".fileupload");
+    const label = wrapper.querySelector(".upload-image");
+    const deleteBtn = wrapper.querySelector(".delete-image");
+    const tempId = wrapper.dataset.tempid;
 
-  // Écouteur pour la mise à jour de l'image
-  if (bannerUpload) {
-    bannerUpload.addEventListener("change", () => {
-      const [file] = bannerUpload.files;
-      if (file && file.type.includes("image")) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const base64Image = e.target.result;
+    /* 3-A. UPLOAD -------------------------------------------------- */
+    if (input) {
+      input.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file || !file.type.includes("image"))
+          return alert("Veuillez sélectionner une image.");
 
-          // Supprimer l'ancien tempBannerImage si existant
-          const previousImage = sessionStorage.getItem("tempBannerImage");
-          if (previousImage) {
-            console.log("Removing previous image:", previousImage);
-            sessionStorage.removeItem("tempBannerImage");
-          }
+        // 🔄 retrouver l’éventuelle image précédente (temp ou uploads)
+        const previous = getStoredIllustrations().find((o) => o.uid === tempId);
 
-          // Stocker l'image en Base64 dans sessionStorage
-          sessionStorage.setItem("tempBannerImage", base64Image);
-          console.log("New image saved in Base64:", base64Image);
+        const fd = new FormData();
+        fd.append("image", file);
+        fetch("/blog/upload-illustration", { method: "POST", body: fd })
+          .then((r) => r.json())
+          .then(async ({ success, imageUrl }) => {
+            if (!success) return alert("Erreur lors de l'upload.");
 
-          // Mettre à jour l'image de la bannière
-          if (bannerDiv) {
-            bannerDiv.style.backgroundImage = `url("${base64Image}")`;
-          }
-        };
-        reader.readAsDataURL(file); // Convertir le fichier en Base64
-      }
-    });
-  }
+            /* 🔄 suppression éventuelle de l’ancienne image
+               (temp OU uploads) */
+            if (previous && previous.url) {
+              try {
+                await fetch("/blog/delete-image", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ url: previous.url })
+                });
+              } catch (err) {
+                console.warn("Suppression ancienne image :", err);
+              }
+            }
 
-  // Gestionnaire de soumission pour éviter de nettoyer sessionStorage lors de la prévisualisation
+            const fullUrl = `${window.location.origin}${imageUrl}`;
+            const mdLink = `![${file.name}](${fullUrl})`;
+
+            label.style.backgroundImage = `url("${fullUrl}")`;
+            if (deleteBtn) {
+              deleteBtn.hidden = false;
+              deleteBtn.style.display = "block";
+            }
+            if (previewDiv)
+              previewDiv.style.backgroundImage = `url("${fullUrl}")`;
+            if (linkImageInput) linkImageInput.value = mdLink;
+
+            updateIllustration(tempId, fullUrl, file.name);
+          })
+          .catch((err) => console.error("Erreur d'upload :", err));
+      });
+    }
+
+    /* 3-B. CLICK label  (aperçu + raccourci) ----------------------- */
+    if (label) {
+      label.addEventListener("click", function (e) {
+        if (
+          !label.style.backgroundImage ||
+          label.style.backgroundImage === "none"
+        )
+          return; // wrapper vide
+
+        const previewOnly = e.ctrlKey || e.metaKey;
+        const alreadyActive = this.classList.contains("active");
+
+        if (previewOnly || (pageType === "add-post" && alreadyActive))
+          e.preventDefault(); // bloque l’explorateur
+
+        let item = getStoredIllustrations().find((o) => o.uid === tempId);
+        if (!item) {
+          // fallback depuis style
+          const m = label.style.backgroundImage.match(/url\("(.*)"\)/);
+          if (m) item = { url: m[1], filename: "" };
+        }
+        if (item) {
+          if (previewDiv)
+            previewDiv.style.backgroundImage = `url("${item.url}")`;
+          if (linkImageInput)
+            linkImageInput.value = `![${item.filename}](${item.url})`;
+        }
+
+        document
+          .querySelectorAll(".upload-image.active")
+          .forEach((l) => l.classList.remove("active"));
+        this.classList.add("active");
+      });
+    }
+
+    /* 3-C. DELETE -------------------------------------------------- */
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        // 🔄 suppression côté serveur (temp ou uploads)
+        const match = label.style.backgroundImage.match(/url\("(.*)"\)/);
+        if (match) {
+          fetch("/blog/delete-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: match[1] })
+          }).catch(() => {});
+        }
+
+        label.style.backgroundImage = "none";
+        deleteBtn.hidden = true;
+
+        setStoredIllustrations(
+          getStoredIllustrations().filter((o) => o.uid !== tempId)
+        );
+
+        if (label.classList.contains("active")) {
+          label.classList.remove("active");
+          if (previewDiv) previewDiv.style.backgroundImage = "none";
+          if (linkImageInput) linkImageInput.value = "";
+        }
+      });
+    }
+  });
+
+  // ================================================================
+  // 4.  SUBMIT : nettoyage (hors Preview)
+  // ================================================================
   const form = document.querySelector("form");
   if (form) {
-    form.addEventListener("submit", (event) => {
-      const previewButton = document.querySelector(".btn-preview");
-      if (event.submitter === previewButton) {
-        console.log(
-          "Preview button clicked, skipping sessionStorage cleanup..."
-        );
-        return; // Ne pas nettoyer `sessionStorage`
-      }
-
-      console.log("Form submitted, clearing sessionStorage...");
+    form.addEventListener("submit", (evt) => {
+      if (evt.submitter === document.querySelector(".btn-preview")) return;
       sessionStorage.removeItem("tempBannerImage");
+      sessionStorage.removeItem("illustrations");
     });
   }
 
-  // Fonction pour nettoyer sessionStorage et l'image de la bannière
-  const cleanupBanner = () => {
-    if (savedImage) {
-      // Si une image est sauvegardée dans sessionStorage
-      console.log(
-        "Cleaning up sessionStorage as we're leaving the edit page..."
-      );
-      sessionStorage.removeItem("tempBannerImage");
-
-      // Supprimer l'image de la bannière si elle existe
-      if (bannerDiv) {
-        console.log("Clearing banner image from the DOM.");
-        bannerDiv.style.backgroundImage = ""; // Réinitialiser le fond
-      }
-    }
-  };
-
-  // Nettoyage au rafraîchissement de 'add-post.ejs'
-  // if (currentUrl.includes("add-post") && savedImage) {
-  //   console.log(
-  //     "Cleaning up sessionStorage and banner image on page refresh..."
-  //   );
-  //   cleanupBanner();
-  // }
-
+  // ================================================================
+  // 5.  Nettoyage bannière au retour dashboard
+  // ================================================================
+  // if (currentUrl.includes("dashboard") && savedImage && bannerDiv) {
   if (currentUrl.includes("dashboard")) {
-    console.log(
-      "Cleaning up sessionStorage and banner image on page refresh..."
-    );
-    cleanupBanner();
+    sessionStorage.removeItem("tempBannerImage");
+    sessionStorage.removeItem("illustrations");
+    bannerDiv.style.backgroundImage = "";
   }
-  // Ajouter un écouteur pour 'beforeunload' pour nettoyer avant que l'utilisateur quitte 'add-post.ejs'
-  /*   window.addEventListener("beforeunload", () => {
-    if (currentUrl.includes("add-post")) {
-      console.log("Cleaning up sessionStorage before leaving add-post.ejs...");
-      cleanupBanner();
-    }
-  }); */
-
-  // Ajouter un écouteur pour 'pageshow' afin de gérer les pages restaurées depuis le cache
-  /*   window.addEventListener("pageshow", (event) => {
-    console.log("event ;", event);
-
-    // Vérifie si la page est restaurée depuis le cache
-    console.log("Page restored from cache, cleaning sessionStorage...");
-    cleanupBanner();
-  });
- */
-  // Ajouter un écouteur pour 'popstate' afin de détecter la navigation en arrière
-  /*   window.addEventListener("popstate", () => {
-    console.log("Navigating with popstate, cleaning sessionStorage...");
-    cleanupBanner();
-  }); */
 });

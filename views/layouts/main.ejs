@@ -1,4 +1,4 @@
-<!-- main.ejs' est le Template layout principal de l'application. -->
+﻿<!-- main.ejs' est le Template layout principal de l'application. -->
 
 <!doctype html>
 <html lang="fr">
@@ -30,14 +30,18 @@
       content="black-translucent"
     />
     <meta name="theme-color" content="#000000" />
+    <% const isBlogPost = typeof data === "object" && data !== null && !Array.isArray(data); %>
+    <% const blogPostPath = isBlogPost ? "/blog/post/" + (data.slug || data._id) : ""; %>
+    <% const blogPostUrl = isBlogPost ? "https://mavitrineduweb.fr" + blogPostPath : ""; %>
+    <% const blogPostCanonical = isBlogPost && data.canonicalUrl ? data.canonicalUrl : blogPostUrl; %>
+    <% const blogPostTitle = isBlogPost ? (data.seoTitle || data.title) : ""; %>
+    <% const blogPostDescription = isBlogPost ? (data.seoDescription || data.description) : ""; %>
 
     <!-- ✅ Icônes et favicons -->
     <link rel="icon" type="image/svg+xml" href="/img/favicone/favicone.svg" />
     <link rel="apple-touch-icon" href="/img/favicone/favicone-180.png" />
 
     <!-- ✅ Gestion dynamique du titre et de la description -->
-
-    <!-- Si data est un tableau alors la page d'accueil blog est affichée et data représente un tableau regroupant tous les articles -->
     <% if (Array.isArray(data)) { %>
     <!-- Page d'accueil du blog -->
     <title>Page d'accueil du Blog de MaVitrineDuWeb.fr</title>
@@ -46,15 +50,13 @@
       content="Découvrez notre blog et tous ses articles sur la création de sites web professionnels à moindre coût et sans compromis sur la qualité."
     />
     <link rel="canonical" href="https://mavitrineduweb.fr/blog" />
-
-    <!-- Sinon si data est un objet alors l'objet représente un article dons on est sur la page d'un article : -->
     <% } else if (typeof data === "object" && data !== null) { %>
     <!-- Page d'un article -->
-    <title><%= data.title %> - Article du blog maVitrineDuWeb.fr</title>
-    <meta name="description" content="<%= data.description %>" />
+    <title><%= blogPostTitle %> - Le Blog MVDW</title>
+    <meta name="description" content="<%= blogPostDescription %>" />
     <link
       rel="canonical"
-      href="https://mavitrineduweb.fr/blog/post/<%= data._id %>"
+      href="<%= blogPostCanonical %>"
     />
     <% } %>
 
@@ -81,11 +83,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
     />
     <link rel="stylesheet" href="/css/markdown.css" />
-    <!-- <link rel="stylesheet" href="/css/styleBlog.css" /> -->
-    <link rel="stylesheet" href="/css/styleBlog.css?v=2" />
-
-    <!-- <link rel="stylesheet" href="/css/test.css" /> -->
-
+    <link rel="stylesheet" href="/css/styleBlog.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/vs2015.min.css"
@@ -97,8 +95,7 @@
     </script>
     <script type="text/javascript" defer src="/js/script.js"></script>
 
-    <!-- ✅ Open Graph (pour FaceBook et Insta) et X (twitter) -->
-    <!-- Si data est un tableau alors la page d'accueil blog est affichée et data représente un tableau regroupant tous les articles -->
+    <!-- ✅ Open Graph et Twitter Cards -->
     <% if (Array.isArray(data)) { %>
     <meta property="og:title" content="Le Blog MaVitrineDuWeb" />
     <meta
@@ -124,18 +121,23 @@
     />
     <meta name="twitter:url" content="https://mavitrineduweb.fr/blog" />
     <% } else if (typeof data === "object" && data !== null) { %>
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:title" content="<%= blogPostTitle %>" />
+    <meta property="og:description" content="<%= blogPostDescription %>" />
+    <meta property="og:image" content="<%= data.bannerImages.ImgConvert %>" />
     <meta
       property="og:url"
-      content="https://mavitrineduweb.fr/blog/post/<%= data._id %>"
+      content="<%= blogPostCanonical %>"
     />
-    <meta property="og:title" content="<%= data.title %>" />
-    <meta property="og:description" content="<%= data.description %>" />
-    <meta
-      property="og:image"
-      content="https://mavitrineduweb.fr<%= data.bannerImages.ImgConvert %>"
-    />
+    <meta property="og:type" content="article" />
 
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= blogPostTitle %>" />
+    <meta name="twitter:description" content="<%= blogPostDescription %>" />
+    <meta name="twitter:image" content="<%= data.bannerImages.ImgConvert %>" />
+    <meta
+      name="twitter:url"
+      content="<%= blogPostCanonical %>"
+    />
     <% } %>
 
     <!-- ✅ JSON-LD (uniquement pour les articles) -->
@@ -144,12 +146,12 @@
       <%- JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "headline": data.title,
-          "description": data.description,
+          "headline": data.seoTitle || data.title,
+          "description": data.seoDescription || data.description,
           "image": data.bannerImages.ImgConvert,
           "author": {
               "@type": "Person",
-              "name": "LE BÉCHENNEC Boris"
+              "name": data.authorName || "Deckard"
           },
           "publisher": {
               "@type": "Organization",
@@ -159,10 +161,11 @@
                   "url": "https://mavitrineduweb.fr/img/logo/logo-mavitrineduweb-112.png"
               }
           },
-          "datePublished": data.createdAt.toISOString(),
+          "datePublished": (data.publishedAt || data.createdAt).toISOString(),
+          "dateModified": data.updatedAt ? data.updatedAt.toISOString() : (data.publishedAt || data.createdAt).toISOString(),
           "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://mavitrineduweb.fr/blog/post/" + data._id
+              "@id": blogPostCanonical
           }
       }, null, 2) %>
     </script>

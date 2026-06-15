@@ -3,6 +3,8 @@ import { Router } from "express";
 import { create } from "xmlbuilder2"; // Pour générer le XML
 import Post from "../models/Post.js"; // Ton modèle Mongoose
 
+import { createUniqueSlug } from "../utils/slug.js";
+
 const router = Router();
 
 router.get("/sitemap.xml", async (req, res) => {
@@ -11,7 +13,17 @@ router.get("/sitemap.xml", async (req, res) => {
     //    On ne projette que _id et updatedAt, puisque nous utiliserons updatedAt pour lastmod
     //    (Tu peux ajouter createdAt également si tu en as un usage ; dans le sitemap standard,
     //     seul lastmod est réellement pris en compte par Google.)
-    const posts = await Post.find({}, { _id: 1, updatedAt: 1 }).lean();
+    const posts = await Post.find(
+      { $or: [{ status: "published" }, { status: { $exists: false } }] },
+      { _id: 1, title: 1, slug: 1, updatedAt: 1 }
+    );
+
+    for (const post of posts) {
+      if (!post.slug) {
+        post.slug = await createUniqueSlug(Post, post.title, post._id);
+        await post.save();
+      }
+    }
 
     // 2) URLs « statiques » (celles de ta partie Vite)
     const now = new Date().toISOString();
@@ -29,7 +41,7 @@ router.get("/sitemap.xml", async (req, res) => {
     // 3) URLs dynamiques pour tes articles de blog
     //    On prend _id pour composer l'URL /blog/:id (à adapter si tu gères un slug).
     const blogUrls = posts.map((post) => ({
-      loc: `/blog/post/${post._id}`,
+      loc: `/blog/post/${post.slug}`,
       // On se base sur updatedAt pour indiquer la dernière modif
       lastmod: post.updatedAt ? post.updatedAt.toISOString() : now,
       priority: 0.8,
