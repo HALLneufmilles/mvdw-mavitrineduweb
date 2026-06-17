@@ -44,12 +44,7 @@
   />
 
   <label for="author-name"><b>Rédacteur</b></label>
-  <input
-    type="text"
-    id="author-name"
-    name="authorName"
-    value="Deckard"
-  />
+  <input type="text" id="author-name" name="authorName" value="Deckard" />
 
   <label for="category"><b>Catégorie</b></label>
   <input
@@ -74,6 +69,23 @@
     <option value="archived">Archivé</option>
   </select>
 
+  <fieldset>
+    <legend><b>Publication automatique</b></legend>
+    <label for="publish-to-x">
+      <input type="checkbox" id="publish-to-x" name="publishToX" checked />
+      Publier sur X
+    </label>
+    <label for="publish-to-facebook">
+      <input
+        type="checkbox"
+        id="publish-to-facebook"
+        name="publishToFacebook"
+        disabled
+      />
+      Publier sur Facebook (indisponible)
+    </label>
+  </fieldset>
+
   <label for="canonical-url"><b>Canonical URL personnalisée</b></label>
   <input
     type="url"
@@ -95,7 +107,7 @@
 
   <!-- Zone d'upload des images d'illustration -->
   <div class="product-info">
-    <!-- Zone d'affichage des images d'illustration -->
+    <!-- Zone d'affichage en grand des images d'illustration sélectionnées -->
     <div class="product-image">
       <p class="text">Images d'illustration</p>
     </div>
@@ -112,7 +124,9 @@
     </div>
     <!-- upload images -->
     <div class="upload-image-sec">
-      <p class="text"><img src="../img/camera.png" alt="" />Upload images</p>
+      <p class="text">
+        <img src="../img/add-edit/camera.png" alt="" />Upload images
+      </p>
       <div class="upload-catalouge">
         <div class="upload-wrapper" data-tempid="temp-illust-1">
           <input

@@ -974,9 +974,11 @@ emoji-picker {
 /************************************/
 .div-banner {
   width: 50%;
-  height: 400px;
+  aspect-ratio: 2 / 1;
   position: relative;
   background: #e7e7e7;
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   margin-bottom: 20px;
 }

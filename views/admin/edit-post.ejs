@@ -94,6 +94,23 @@
     <option value="archived" <%= data.status === "archived" ? "selected" : "" %>>Archivé</option>
   </select>
 
+  <fieldset>
+    <legend><b>Publication automatique</b></legend>
+    <label for="publish-to-x">
+      <input type="checkbox" id="publish-to-x" name="publishToX" checked />
+      Publier sur X
+    </label>
+    <label for="publish-to-facebook">
+      <input
+        type="checkbox"
+        id="publish-to-facebook"
+        name="publishToFacebook"
+        disabled
+      />
+      Publier sur Facebook (indisponible)
+    </label>
+  </fieldset>
+
   <label for="canonical-url"><b>Canonical URL personnalisée</b></label>
   <input
     type="url"

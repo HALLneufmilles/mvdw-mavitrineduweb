@@ -13,7 +13,9 @@
   justify-content: center;
   align-items: center;
   background: #fff;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 10px;
   grid-row: span 2;
   text-shadow: 0 0 10px #fff;
@@ -28,6 +30,13 @@
 
 .text img {
   height: 20px;
+  margin-right: 10px;
+}
+
+.upload-image-sec .text img {
+  width: auto;
+  height: 20px;
+  max-width: none;
   margin-right: 10px;
 }
 
@@ -56,18 +65,35 @@
   background: #f5f5f5;
   cursor: pointer;
   background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.upload-image::before {
+  content: "+";
+  color: #272727;
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.upload-image.has-image {
+  cursor: default;
+}
+
+.upload-image.has-image::before {
+  content: "";
+}
+
 .upload-image:hover {
-  background: rgba(0, 0, 0, 0.2);
-  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .upload-image:hover .delete-image {
-  opacity: 0.8;
+  opacity: 1;
   pointer-events: all;
 }
 
@@ -81,7 +107,7 @@
   left: 5px;
   width: 30px;
   height: 30px;
-  display: none; /* Caché par défaut */
+  display: none; /* Cache par defaut */
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -95,6 +121,19 @@
   pointer-events: none;
 }
 
+.upload-image.has-image .delete-image {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.delete-image::before {
+  content: "\00d7";
+  color: #272727;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .delete-image img {
-  height: 15px;
+  display: none;
 }

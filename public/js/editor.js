@@ -1,275 +1,344 @@
 /**
- *  editor.js  – bannière + illustrations  (add-post & edit-post)
- *  -----------------------------------------------------------------
- *  🆕 2025-05-17
- *      • ctrl/⌘+clic        = aperçu sans ouverture d’explorateur
- *      • remplacement img   = supprime l’ancienne (temp | uploads)
- *  -----------------------------------------------------------------
+ * editor.js - banniere + selecteur d'images d'illustration
+ * Utilise par add-post.ejs et edit-post.ejs.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ================================================================
-  // 1.  BANNIÈRE (déjà existante)
-  // ================================================================
   const bannerDiv = document.querySelector("#banner-edit");
   const bannerUpload = document.querySelector("#banner-upload");
   const savedImage = sessionStorage.getItem("tempBannerImage");
   const currentUrl = window.location.pathname;
+  const isPostEditorPage =
+    currentUrl.includes("add-post") || currentUrl.includes("edit-post");
   const pageType = currentUrl.includes("edit-post") ? "edit-post" : "add-post";
+  let shouldCleanupTemporaryImages = true;
 
-  if (savedImage && bannerDiv)
+  if (savedImage && bannerDiv) {
     bannerDiv.style.backgroundImage = `url("${savedImage}")`;
+  }
 
-  if (bannerUpload) {
+  if (bannerUpload && bannerDiv) {
     bannerUpload.addEventListener("change", () => {
       const [file] = bannerUpload.files;
       if (!file || !file.type.includes("image")) return;
 
-      const fr = new FileReader();
-      fr.onload = (e) => {
-        const base64 = e.target.result;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target.result;
         sessionStorage.setItem("tempBannerImage", base64);
         bannerDiv.style.backgroundImage = `url("${base64}")`;
       };
-      fr.readAsDataURL(file);
+      reader.readAsDataURL(file);
     });
   }
 
-  // ================================================================
-  // 2.  ILLUSTRATIONS
-  // ================================================================
-  // Upload images
   const uploadWrappers = [...document.querySelectorAll(".upload-wrapper")];
-  // Image d'illustration
   const previewDiv = document.querySelector(".product-image");
-  // lien markdown
   const linkImageInput = document.getElementById("link-image");
   const copyLinkBtn = document.getElementById("copy-link-btn");
 
-  /* Bouton « Copier » lien Markdown */
   if (copyLinkBtn && linkImageInput) {
     copyLinkBtn.addEventListener("click", () => {
       navigator.clipboard
         .writeText(linkImageInput.value)
-        .then(() => alert("Lien copié !"));
+        .then(() => alert("Lien copie !"));
     });
   }
 
-  /* ----- sessionStorage utils ------------------------------------ */
   const getStoredIllustrations = () =>
     JSON.parse(sessionStorage.getItem("illustrations")) || [];
 
-  const setStoredIllustrations = (arr) =>
-    sessionStorage.setItem("illustrations", JSON.stringify(arr));
+  const setStoredIllustrations = (illustrations) => {
+    sessionStorage.setItem("illustrations", JSON.stringify(illustrations));
+  };
+
+  function getBackgroundImageUrl(element) {
+    if (!element || !element.style.backgroundImage) return "";
+    const match = element.style.backgroundImage.match(/^url\(["']?(.*?)["']?\)$/);
+    return match ? match[1] : "";
+  }
+
+  function setDeleteButtonVisible(button, isVisible) {
+    if (!button) return;
+    button.hidden = !isVisible;
+    button.style.display = isVisible ? "flex" : "none";
+  }
+
+  function setIllustrationVisualState(label, deleteButton, url = "") {
+    if (!label) return;
+
+    const hasImage = Boolean(url);
+    label.style.backgroundImage = hasImage ? `url("${url}")` : "none";
+    label.classList.toggle("has-image", hasImage);
+    setDeleteButtonVisible(deleteButton, hasImage);
+  }
+
+  function isTemporaryImageUrl(url) {
+    if (!url) return false;
+
+    try {
+      return new URL(url, window.location.origin).pathname.startsWith("/temp/");
+    } catch {
+      return url.startsWith("/temp/") || url.includes("/temp/");
+    }
+  }
+
+  function getImagePath(url) {
+    if (!url) return "";
+
+    try {
+      return new URL(url, window.location.origin).pathname;
+    } catch {
+      return url.startsWith("/") ? url : `/${url}`;
+    }
+  }
+
+  function deleteImage(url, keepalive = false) {
+    return fetch("/blog/delete-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+      keepalive
+    });
+  }
+
+  function cleanupTemporaryIllustrations() {
+    getStoredIllustrations()
+      .filter((item) => isTemporaryImageUrl(item.url))
+      .forEach((item) => {
+        deleteImage(item.url, true).catch(() => {});
+      });
+
+    sessionStorage.removeItem("illustrations");
+  }
+
+  function cleanupUnreferencedTemporaryIllustrations() {
+    const bodyInput = document.getElementById("textarea-body");
+    const body = bodyInput ? bodyInput.value : "";
+
+    getStoredIllustrations()
+      .filter((item) => {
+        if (!isTemporaryImageUrl(item.url)) return false;
+        const imagePath = getImagePath(item.url);
+        return imagePath && !body.includes(imagePath);
+      })
+      .forEach((item) => {
+        deleteImage(item.url, true).catch(() => {});
+      });
+  }
 
   function updateIllustration(uid, url, filename) {
-    const list = getStoredIllustrations();
-    const itm = list.find((o) => o.uid === uid);
-    itm
-      ? Object.assign(itm, { url, filename })
-      : list.push({ uid, url, filename });
-    setStoredIllustrations(list);
+    const illustrations = getStoredIllustrations();
+    const existing = illustrations.find((item) => item.uid === uid);
+
+    if (existing) {
+      Object.assign(existing, { url, filename });
+    } else {
+      illustrations.push({ uid, url, filename });
+    }
+
+    setStoredIllustrations(illustrations);
   }
 
-  /* 2-A. Pré-remplissage storage (edit-post) ----------------------- */
-  // if (pageType === "edit-post" && !sessionStorage.getItem("illustrations")) {
-  if (pageType === "edit-post") {
-    // ⇦ on force le reset
-    sessionStorage.removeItem("illustrations"); // vide les anciens essais
-    // … puis on peut pré-remplir proprement
-    if (!sessionStorage.getItem("illustrations")) {
-      const initial = [];
-      uploadWrappers.forEach((w) => {
-        const lbl = w.querySelector(".upload-image");
-        const del = w.querySelector(".delete-image");
-        if (!lbl) return;
-        const m = lbl.style.backgroundImage.match(/url\("(.*)"\)/);
-        if (!m) return;
-        initial.push({ uid: w.dataset.tempid, url: m[1], filename: "" });
-        if (del) {
-          del.hidden = false;
-          del.style.display = "block";
-        }
-      });
-      setStoredIllustrations(initial);
+  function removeIllustration(uid) {
+    setStoredIllustrations(
+      getStoredIllustrations().filter((item) => item.uid !== uid)
+    );
+  }
+
+  function findIllustrationByLabel(label, uid) {
+    const stored = getStoredIllustrations().find((item) => item.uid === uid);
+    if (stored) return stored;
+
+    const url = getBackgroundImageUrl(label);
+    return url ? { uid, url, filename: "" } : null;
+  }
+
+  function setActiveIllustration(label, item) {
+    if (!label || !item) return;
+
+    document
+      .querySelectorAll(".upload-image.active")
+      .forEach((activeLabel) => activeLabel.classList.remove("active"));
+
+    label.classList.add("active");
+
+    if (previewDiv) {
+      previewDiv.style.backgroundImage = `url("${item.url}")`;
+    }
+
+    if (linkImageInput) {
+      linkImageInput.value = `![${item.filename || ""}](${item.url})`;
     }
   }
-  /* 2-B. Restauration visuelle ------------------------------------ */
-  // On lance la fonction contenue dans la constatnte getStoredIllustrations.
-  // C'est la raison pour laquelle on ajoute les ().
+
+  function clearActivePreviewIfNeeded(label) {
+    if (!label.classList.contains("active")) return;
+
+    label.classList.remove("active");
+    if (previewDiv) previewDiv.style.backgroundImage = "none";
+    if (linkImageInput) linkImageInput.value = "";
+
+    const nextWrapper = uploadWrappers.find((wrapper) => {
+      const candidate = wrapper.querySelector(".upload-image");
+      return candidate && candidate.classList.contains("has-image");
+    });
+
+    if (!nextWrapper) return;
+
+    const nextLabel = nextWrapper.querySelector(".upload-image");
+    const nextItem = findIllustrationByLabel(nextLabel, nextWrapper.dataset.tempid);
+    setActiveIllustration(nextLabel, nextItem);
+  }
+
+  if (pageType === "edit-post") {
+    sessionStorage.removeItem("illustrations");
+
+    const initialIllustrations = [];
+    uploadWrappers.forEach((wrapper) => {
+      const label = wrapper.querySelector(".upload-image");
+      const deleteButton = wrapper.querySelector(".delete-image");
+      const url = getBackgroundImageUrl(label);
+
+      if (!url) {
+        setIllustrationVisualState(label, deleteButton);
+        return;
+      }
+
+      setIllustrationVisualState(label, deleteButton, url);
+      initialIllustrations.push({
+        uid: wrapper.dataset.tempid,
+        url,
+        filename: ""
+      });
+    });
+
+    setStoredIllustrations(initialIllustrations);
+  }
+
   getStoredIllustrations().forEach(({ uid, url }) => {
-    const wrap = document.querySelector(
-      `.upload-wrapper[data-tempid="${uid}"]`
+    const wrapper = document.querySelector(`.upload-wrapper[data-tempid="${uid}"]`);
+    if (!wrapper) return;
+
+    setIllustrationVisualState(
+      wrapper.querySelector(".upload-image"),
+      wrapper.querySelector(".delete-image"),
+      url
     );
-    if (!wrap) return;
-    const lbl = wrap.querySelector(".upload-image");
-    const btn = wrap.querySelector(".delete-image");
-    if (lbl) lbl.style.backgroundImage = `url("${url}")`;
-    if (btn) {
-      btn.hidden = false;
-      btn.style.display = "block";
-    }
   });
 
-  /* 2-C. Première image active ------------------------------------ */
-  (function ensureFirstActive() {
-    let curr = document.querySelector(".upload-image.active");
-    if (!curr) {
-      curr = uploadWrappers
-        .map((w) => w.querySelector(".upload-image"))
-        .find(
-          (l) =>
-            l && l.style.backgroundImage && l.style.backgroundImage !== "none"
-        );
-      if (curr) curr.classList.add("active");
-    }
-    if (curr && previewDiv)
-      previewDiv.style.backgroundImage = curr.style.backgroundImage;
-  })();
+  const initialActiveWrapper =
+    uploadWrappers.find((wrapper) =>
+      wrapper.querySelector(".upload-image.active.has-image")
+    ) ||
+    uploadWrappers.find((wrapper) =>
+      wrapper.querySelector(".upload-image.has-image")
+    );
 
-  // ================================================================
-  // 3.  Boucle wrapper
-  // ================================================================
+  if (initialActiveWrapper) {
+    const label = initialActiveWrapper.querySelector(".upload-image");
+    const item = findIllustrationByLabel(label, initialActiveWrapper.dataset.tempid);
+    setActiveIllustration(label, item);
+  }
+
   uploadWrappers.forEach((wrapper) => {
     const input = wrapper.querySelector(".fileupload");
     const label = wrapper.querySelector(".upload-image");
-    const deleteBtn = wrapper.querySelector(".delete-image");
+    const deleteButton = wrapper.querySelector(".delete-image");
     const tempId = wrapper.dataset.tempid;
 
-    /* 3-A. UPLOAD -------------------------------------------------- */
-    if (input) {
+    if (input && label) {
       input.addEventListener("change", function () {
         const file = this.files[0];
-        if (!file || !file.type.includes("image"))
-          return alert("Veuillez sélectionner une image.");
+        if (!file || !file.type.includes("image")) {
+          alert("Veuillez selectionner une image.");
+          return;
+        }
 
-        // 🔄 retrouver l’éventuelle image précédente (temp ou uploads)
-        const previous = getStoredIllustrations().find((o) => o.uid === tempId);
+        const previous = getStoredIllustrations().find(
+          (item) => item.uid === tempId
+        );
 
-        const fd = new FormData();
-        fd.append("image", file);
-        fetch("/blog/upload-illustration", { method: "POST", body: fd })
-          .then((r) => r.json())
+        const formData = new FormData();
+        formData.append("image", file);
+
+        fetch("/blog/upload-illustration", {
+          method: "POST",
+          body: formData
+        })
+          .then((response) => response.json())
           .then(async ({ success, imageUrl }) => {
-            if (!success) return alert("Erreur lors de l'upload.");
+            if (!success) {
+              alert("Erreur lors de l'upload.");
+              return;
+            }
 
-            /* 🔄 suppression éventuelle de l’ancienne image
-               (temp OU uploads) */
-            if (previous && previous.url) {
+            if (previous && isTemporaryImageUrl(previous.url)) {
               try {
-                await fetch("/blog/delete-image", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ url: previous.url })
-                });
-              } catch (err) {
-                console.warn("Suppression ancienne image :", err);
+                await deleteImage(previous.url);
+              } catch (error) {
+                console.warn("Suppression ancienne image :", error);
               }
             }
 
             const fullUrl = `${window.location.origin}${imageUrl}`;
-            const mdLink = `![${file.name}](${fullUrl})`;
+            const item = { uid: tempId, url: fullUrl, filename: file.name };
 
-            label.style.backgroundImage = `url("${fullUrl}")`;
-            if (deleteBtn) {
-              deleteBtn.hidden = false;
-              deleteBtn.style.display = "block";
-            }
-            if (previewDiv)
-              previewDiv.style.backgroundImage = `url("${fullUrl}")`;
-            if (linkImageInput) linkImageInput.value = mdLink;
-
+            setIllustrationVisualState(label, deleteButton, fullUrl);
             updateIllustration(tempId, fullUrl, file.name);
+            setActiveIllustration(label, item);
+            input.value = "";
           })
-          .catch((err) => console.error("Erreur d'upload :", err));
+          .catch((error) => console.error("Erreur d'upload :", error));
       });
     }
 
-    /* 3-B. CLICK label  (aperçu + raccourci) ----------------------- */
     if (label) {
-      label.addEventListener("click", function (e) {
-        if (
-          !label.style.backgroundImage ||
-          label.style.backgroundImage === "none"
-        )
-          return; // wrapper vide
+      label.addEventListener("click", function (event) {
+        if (!label.classList.contains("has-image")) return;
 
-        const previewOnly = e.ctrlKey || e.metaKey;
-        const alreadyActive = this.classList.contains("active");
-
-        if (previewOnly || (pageType === "add-post" && alreadyActive))
-          e.preventDefault(); // bloque l’explorateur
-
-        let item = getStoredIllustrations().find((o) => o.uid === tempId);
-        if (!item) {
-          // fallback depuis style
-          const m = label.style.backgroundImage.match(/url\("(.*)"\)/);
-          if (m) item = { url: m[1], filename: "" };
-        }
-        if (item) {
-          if (previewDiv)
-            previewDiv.style.backgroundImage = `url("${item.url}")`;
-          if (linkImageInput)
-            linkImageInput.value = `![${item.filename}](${item.url})`;
-        }
-
-        document
-          .querySelectorAll(".upload-image.active")
-          .forEach((l) => l.classList.remove("active"));
-        this.classList.add("active");
+        event.preventDefault();
+        const item = findIllustrationByLabel(label, tempId);
+        setActiveIllustration(label, item);
       });
     }
 
-    /* 3-C. DELETE -------------------------------------------------- */
-    if (deleteBtn) {
-      deleteBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+    if (deleteButton && label) {
+      deleteButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-        // 🔄 suppression côté serveur (temp ou uploads)
-        const match = label.style.backgroundImage.match(/url\("(.*)"\)/);
-        if (match) {
-          fetch("/blog/delete-image", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url: match[1] })
-          }).catch(() => {});
+        const url = getBackgroundImageUrl(label);
+        if (isTemporaryImageUrl(url)) {
+          deleteImage(url).catch(() => {});
         }
 
-        label.style.backgroundImage = "none";
-        deleteBtn.hidden = true;
-
-        setStoredIllustrations(
-          getStoredIllustrations().filter((o) => o.uid !== tempId)
-        );
-
-        if (label.classList.contains("active")) {
-          label.classList.remove("active");
-          if (previewDiv) previewDiv.style.backgroundImage = "none";
-          if (linkImageInput) linkImageInput.value = "";
-        }
+        setIllustrationVisualState(label, deleteButton);
+        removeIllustration(tempId);
+        clearActivePreviewIfNeeded(label);
       });
     }
   });
 
-  // ================================================================
-  // 4.  SUBMIT : nettoyage (hors Preview)
-  // ================================================================
   const form = document.querySelector("form");
   if (form) {
-    form.addEventListener("submit", (evt) => {
-      if (evt.submitter === document.querySelector(".btn-preview")) return;
+    form.addEventListener("submit", (event) => {
+      shouldCleanupTemporaryImages = false;
+      if (event.submitter === document.querySelector(".btn-preview")) return;
+      cleanupUnreferencedTemporaryIllustrations();
       sessionStorage.removeItem("tempBannerImage");
       sessionStorage.removeItem("illustrations");
     });
   }
 
-  // ================================================================
-  // 5.  Nettoyage bannière au retour dashboard
-  // ================================================================
-  // if (currentUrl.includes("dashboard") && savedImage && bannerDiv) {
+  window.addEventListener("pagehide", () => {
+    if (!isPostEditorPage || !shouldCleanupTemporaryImages) return;
+    cleanupTemporaryIllustrations();
+  });
+
   if (currentUrl.includes("dashboard")) {
     sessionStorage.removeItem("tempBannerImage");
     sessionStorage.removeItem("illustrations");
-    bannerDiv.style.backgroundImage = "";
+    if (bannerDiv) bannerDiv.style.backgroundImage = "";
   }
 });
