@@ -5,8 +5,6 @@ const router = express.Router();
 import Post from "../models/Post.js";
 import User from "../models/User.js";
 import dotenv from "dotenv";
-// Importer les fonctions de publication sociale
-import { publishArticleToSelectedSocials } from "../helpers/sociaux.js";
 dotenv.config();
 // bcrypt est une bibliothèque utilisée pour sécuriser les mots de passe en les hachant avant de les stocker dans une base de données.
 // Les mots de passe ne doivent jamais être stockés en texte brut dans une base de données, car cela représente un énorme risque de sécurité si la base est compromise.
@@ -353,10 +351,6 @@ router.get("/add-post", authMiddleware, async (req, res) => {
 
 router.post("/add-post", authMiddleware, async (req, res) => {
   try {
-    const publishOptions = {
-      publishToX: req.body.publishToX === "on"
-    };
-
     // 1) Vérifier l'image de bannière obligatoire
     if (!req.files || !req.files.bannerImage) {
       return res
@@ -436,7 +430,6 @@ router.post("/add-post", authMiddleware, async (req, res) => {
 
     await newPost.save();
     console.log("newPost.save :", newPost);
-    await publishArticleToSelectedSocials(newPost, publishOptions);
 
     // 6) PING Google pour signaler la mise à jour du sitemap
     // try {
@@ -577,10 +570,6 @@ router.get("/edit-post/:id", authMiddleware, async (req, res) => {
  * ---------------------------------------------------------------- */
 router.put("/edit-post/:id", authMiddleware, async (req, res) => {
   try {
-    const publishOptions = {
-      publishToX: req.body.publishToX === "on"
-    };
-
     /* --------------------------------------------------------------
      * 1.  Charger le post existant
      * ------------------------------------------------------------- */
@@ -652,8 +641,6 @@ router.put("/edit-post/:id", authMiddleware, async (req, res) => {
       (imagePath) => !keptIllustrations.has(imagePath)
     );
     await Promise.all(removedIllustrations.map(deletePublicImageIfExists));
-
-    await publishArticleToSelectedSocials(post, publishOptions);
 
     /* --------------------------------------------------------------
      * 6.  Fin — on revient au dashboard

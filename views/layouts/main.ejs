@@ -36,6 +36,11 @@
     <% const blogPostCanonical = isBlogPost && data.canonicalUrl ? data.canonicalUrl : blogPostUrl; %>
     <% const blogPostTitle = isBlogPost ? (data.seoTitle || data.title) : ""; %>
     <% const blogPostDescription = isBlogPost ? (data.seoDescription || data.description) : ""; %>
+    <% const blogPostImage = isBlogPost && data.bannerImages && data.bannerImages.ImgConvert
+      ? (/^https?:\/\//i.test(data.bannerImages.ImgConvert)
+        ? data.bannerImages.ImgConvert
+        : "https://mavitrineduweb.fr" + (data.bannerImages.ImgConvert.startsWith("/") ? "" : "/") + data.bannerImages.ImgConvert)
+      : ""; %>
 
     <!-- ✅ Icônes et favicons -->
     <link rel="icon" type="image/svg+xml" href="/img/favicone/favicone.svg" />
@@ -104,7 +109,7 @@
     />
     <meta
       property="og:image"
-      content="https://mavitrineduweb.fr/img/accueil/Accueil-1200x630.webp"
+      content="https://mavitrineduweb.fr/img/social/og-image-blog.webp"
     />
     <meta property="og:url" content="https://mavitrineduweb.fr/blog" />
     <meta property="og:type" content="website" />
@@ -117,13 +122,13 @@
     />
     <meta
       name="twitter:image"
-      content="https://mavitrineduweb.fr/img/accueil/Accueil-1200x630.jpg"
+      content="https://mavitrineduweb.fr/img/social/og-image-blog.webp"
     />
     <meta name="twitter:url" content="https://mavitrineduweb.fr/blog" />
     <% } else if (typeof data === "object" && data !== null) { %>
     <meta property="og:title" content="<%= blogPostTitle %>" />
     <meta property="og:description" content="<%= blogPostDescription %>" />
-    <meta property="og:image" content="<%= data.bannerImages.ImgConvert %>" />
+    <meta property="og:image" content="<%= blogPostImage %>" />
     <meta
       property="og:url"
       content="<%= blogPostCanonical %>"
@@ -133,7 +138,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="<%= blogPostTitle %>" />
     <meta name="twitter:description" content="<%= blogPostDescription %>" />
-    <meta name="twitter:image" content="<%= data.bannerImages.ImgConvert %>" />
+    <meta name="twitter:image" content="<%= blogPostImage %>" />
     <meta
       name="twitter:url"
       content="<%= blogPostCanonical %>"
@@ -148,7 +153,7 @@
           "@type": "BlogPosting",
           "headline": data.seoTitle || data.title,
           "description": data.seoDescription || data.description,
-          "image": data.bannerImages.ImgConvert,
+          "image": blogPostImage,
           "author": {
               "@type": "Person",
               "name": data.authorName || "Deckard"

@@ -70,10 +70,10 @@
   </select>
 
   <fieldset>
-    <legend><b>Publication automatique</b></legend>
+    <legend><b>Publication automatique (indisponible)</b></legend>
     <label for="publish-to-x">
-      <input type="checkbox" id="publish-to-x" name="publishToX" checked />
-      Publier sur X
+      <input type="checkbox" id="publish-to-x" name="publishToX" disabled />
+      Publier sur X (indisponible)
     </label>
     <label for="publish-to-facebook">
       <input
@@ -93,8 +93,9 @@
     name="canonicalUrl"
     placeholder="Laisser vide sauf cas particulier"
   />
+  <small>Exemple : https://mavitrineduweb.fr/blog/post/mon-article</small>
 
-  <label for="textarea-body"><b>Content</b></label>
+  <label for="textarea-body" class="content-label"><b>Content</b></label>
   <textarea
     id="textarea-body"
     name="body"

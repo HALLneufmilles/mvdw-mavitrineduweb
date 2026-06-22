@@ -75,6 +75,13 @@ textarea {
   margin-bottom: 1rem;
 }
 
+.content-label {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  text-align: left;
+}
+
 .btn {
   background-color: var(--black);
   border: none;
