@@ -36,10 +36,15 @@
     <% const blogPostCanonical = isBlogPost && data.canonicalUrl ? data.canonicalUrl : blogPostUrl; %>
     <% const blogPostTitle = isBlogPost ? (data.seoTitle || data.title) : ""; %>
     <% const blogPostDescription = isBlogPost ? (data.seoDescription || data.description) : ""; %>
-    <% const blogPostImage = isBlogPost && data.bannerImages && data.bannerImages.ImgConvert
-      ? (/^https?:\/\//i.test(data.bannerImages.ImgConvert)
-        ? data.bannerImages.ImgConvert
-        : "https://mavitrineduweb.fr" + (data.bannerImages.ImgConvert.startsWith("/") ? "" : "/") + data.bannerImages.ImgConvert)
+    <% const blogPostImage = isBlogPost && data.bannerImages
+      ? (() => {
+          const imagePath = data.bannerImages.ImgBase || data.bannerImages.ImgConvert;
+          return imagePath
+            ? (/^https?:\/\//i.test(imagePath)
+              ? imagePath
+              : "https://mavitrineduweb.fr" + (imagePath.startsWith("/") ? "" : "/") + imagePath)
+            : "";
+        })()
       : ""; %>
 
     <!-- ✅ Icônes et favicons -->
