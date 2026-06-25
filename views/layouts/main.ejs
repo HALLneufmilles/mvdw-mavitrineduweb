@@ -30,22 +30,18 @@
       content="black-translucent"
     />
     <meta name="theme-color" content="#000000" />
-    <% const isBlogPost = typeof data === "object" && data !== null && !Array.isArray(data); %>
-    <% const blogPostPath = isBlogPost ? "/blog/post/" + (data.slug || data._id) : ""; %>
-    <% const blogPostUrl = isBlogPost ? "https://mavitrineduweb.fr" + blogPostPath : ""; %>
-    <% const blogPostCanonical = isBlogPost && data.canonicalUrl ? data.canonicalUrl : blogPostUrl; %>
-    <% const blogPostTitle = isBlogPost ? (data.seoTitle || data.title) : ""; %>
-    <% const blogPostDescription = isBlogPost ? (data.seoDescription || data.description) : ""; %>
-    <% const blogPostImage = isBlogPost && data.bannerImages
-      ? (() => {
-          const imagePath = data.bannerImages.ImgBase || data.bannerImages.ImgConvert;
-          return imagePath
-            ? (/^https?:\/\//i.test(imagePath)
-              ? imagePath
-              : "https://mavitrineduweb.fr" + (imagePath.startsWith("/") ? "" : "/") + imagePath)
-            : "";
-        })()
-      : ""; %>
+    <% const isBlogPost = typeof data === "object" && data !== null &&
+    !Array.isArray(data); %> <% const blogPostPath = isBlogPost ? "/blog/post/"
+    + (data.slug || data._id) : ""; %> <% const blogPostUrl = isBlogPost ?
+    "https://mavitrineduweb.fr" + blogPostPath : ""; %> <% const
+    blogPostCanonical = isBlogPost && data.canonicalUrl ? data.canonicalUrl :
+    blogPostUrl; %> <% const blogPostTitle = isBlogPost ? (data.seoTitle ||
+    data.title) : ""; %> <% const blogPostDescription = isBlogPost ?
+    (data.seoDescription || data.description) : ""; %> <% const blogPostImage =
+    isBlogPost && data.bannerImages ? (() => { const imagePath =
+    data.bannerImages.ImgBase || data.bannerImages.ImgConvert; return imagePath
+    ? (/^https?:\/\//i.test(imagePath) ? imagePath : "https://mavitrineduweb.fr"
+    + (imagePath.startsWith("/") ? "" : "/") + imagePath) : ""; })() : ""; %>
 
     <!-- ✅ Icônes et favicons -->
     <link rel="icon" type="image/svg+xml" href="/img/favicone/favicone.svg" />
@@ -64,10 +60,7 @@
     <!-- Page d'un article -->
     <title><%= blogPostTitle %> - Le Blog MVDW</title>
     <meta name="description" content="<%= blogPostDescription %>" />
-    <link
-      rel="canonical"
-      href="<%= blogPostCanonical %>"
-    />
+    <link rel="canonical" href="<%= blogPostCanonical %>" />
     <% } %>
 
     <!-- ✅ Préchargement des polices -->
@@ -129,25 +122,22 @@
       name="twitter:image"
       content="https://mavitrineduweb.fr/img/social/og-image-blog.webp"
     />
+    <meta property="og:image:width" content="700" />
+    <meta property="og:image:height" content="400" />
+    <meta property="og:image:type" content="image/png" />
     <meta name="twitter:url" content="https://mavitrineduweb.fr/blog" />
     <% } else if (typeof data === "object" && data !== null) { %>
     <meta property="og:title" content="<%= blogPostTitle %>" />
     <meta property="og:description" content="<%= blogPostDescription %>" />
     <meta property="og:image" content="<%= blogPostImage %>" />
-    <meta
-      property="og:url"
-      content="<%= blogPostCanonical %>"
-    />
+    <meta property="og:url" content="<%= blogPostCanonical %>" />
     <meta property="og:type" content="article" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="<%= blogPostTitle %>" />
     <meta name="twitter:description" content="<%= blogPostDescription %>" />
     <meta name="twitter:image" content="<%= blogPostImage %>" />
-    <meta
-      name="twitter:url"
-      content="<%= blogPostCanonical %>"
-    />
+    <meta name="twitter:url" content="<%= blogPostCanonical %>" />
     <% } %>
 
     <!-- ✅ JSON-LD (uniquement pour les articles) -->
