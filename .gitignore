@@ -12,6 +12,15 @@ dist/
 
 *.local
 
+
+# Ignore tous les fichiers dans public/uploads
+public/uploads/*
+
+# Mais garde public/uploads/.gitkeep
+!public/uploads/.gitkeep
+
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
