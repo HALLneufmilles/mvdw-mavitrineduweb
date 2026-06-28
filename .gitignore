@@ -12,7 +12,7 @@ dist/
 
 *.local
 
-#test
+#test2
 # Ignore tous les fichiers dans public/uploads
 public/uploads/*
 
