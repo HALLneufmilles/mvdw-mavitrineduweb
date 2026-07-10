@@ -968,7 +968,8 @@ html {
   color: #f3f3f3;
   text-decoration: none;
   text-transform: capitalize;
-  font-size: 1em;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .footer-links:hover {
@@ -1070,7 +1071,7 @@ html {
   }
 
   .footer-links {
-    font-size: 1.5em;
+    font-size: 1.2rem;
   }
 }
 

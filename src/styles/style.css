@@ -746,7 +746,7 @@ section {
   white-space: nowrap;
   top: 0;
   background-color: var(--background-color);
-  color: #e7e7e7;
+  color: var(--primary-text-color);
 }
 
 .messagedefilant div span {
@@ -858,9 +858,11 @@ section {
 
 .container-services {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 20px;
-  padding: 10px;
+  padding: 8px;
+  align-items: stretch;
 
   /* 👉 on supprime le centrage Grid */
   justify-items: stretch;
@@ -890,16 +892,17 @@ section {
 
 .card {
   background-color: var(--background-color);
-  padding: 20px;
-  text-align: center;
+  padding: 14px 10px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
   align-items: center;
+  gap: 12px;
 
   width: 100%;
-  min-height: 400px;
+  min-width: 0;
   border: solid 1px rgb(194, 194, 194);
   border-radius: 8px;
   height: 100%;
@@ -907,8 +910,10 @@ section {
 }
 
 .card h2 {
-  margin: 20px 0 20px 0;
-  font-size: 1.6rem;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .service-name {
@@ -921,10 +926,10 @@ section {
 }
 .div-img-service {
   background-color: var(--text-paragraphe);
-  padding: 10px;
+  padding: 8px;
   border-radius: 50%;
-  width: 100px;
-  height: 100px; /* Assurez-vous que la hauteur et la largeur sont égales pour un cercle parfait */
+  width: 72px;
+  height: 72px; /* Assurez-vous que la hauteur et la largeur sont égales pour un cercle parfait */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -935,21 +940,37 @@ section {
   max-width: 90%;
   max-height: 90%;
   object-fit: cover; /* Pour s'assurer que l'image couvre bien l'espace disponible */
+  transition: filter 1s ease;
 }
 
-/* @media (min-width: 430px) {
+.root-inverted .div-img-service img {
+  filter: invert(1) contrast(1.08);
+}
 
-
-/* @media (min-width: 768px) {
-} */
-
-@media (min-width: 800px) {
+@media (max-width: 359px) {
   .container-services {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Crée deux colonnes de taille égale */
-    gap: 20px; /* Ajoute un espace uniforme entre les cartes */
-    align-items: start; /* Aligne les cartes en haut pour éviter les problèmes de hauteur variable */
-    justify-items: center; /* Centre chaque carte horizontalement dans sa colonne */
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 520px) {
+  .card {
+    padding: 18px 16px;
+  }
+
+  .card h2 {
+    font-size: 1.25rem;
+  }
+
+  .div-img-service {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+@media (min-width: 740px) {
+  .container-services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -966,6 +987,18 @@ section {
   .services-flex {
     padding: 0 0 40px 0;
   }
+  .card {
+    padding: 20px;
+  }
+
+  .card h2 {
+    font-size: 1.6rem;
+  }
+
+  .div-img-service {
+    width: 100px;
+    height: 100px;
+  }
   /* .container-services {
     margin: 0px 40px;
   } */
@@ -977,13 +1010,17 @@ section {
 
 @media (min-width: 1200px) {
   .container-services {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* @media (min-width: 1920px) {
+@media (min-width: 1920px) {
+  .container-services {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
+/*
 @media (min-width: 2048px) {
 }
 
@@ -1307,6 +1344,7 @@ section {
   align-items: center;
   /* padding: 20px 25px; */
   background-color: var(--background-pricing-div);
+  border-radius: 8px;
 }
 
 /* .pricing-headline {
@@ -1357,6 +1395,13 @@ section {
     padding-left: 65px;
     padding-right: 16vw;
     max-width: none;
+  }
+}
+
+@media (max-width: 755px) {
+  .pricing-headline h2 {
+    margin-top: 15px;
+    text-align: center;
   }
 }
 
@@ -1871,12 +1916,12 @@ textarea::placeholder {
   border: none;
   border-bottom: 1px solid var(--primary-text-color);
   color: #e7e6e6;
-  margin: 30px 0;
+  margin: 15px 0;
 }
 
 .contact-form form textarea {
-  margin-top: 5vh;
-  margin-bottom: 3vh;
+  margin-top: 15px;
+  margin-bottom: 15px;
   height: 100px;
 }
 
@@ -2125,7 +2170,8 @@ footer p:nth-of-type(3) {
   padding: 1rem 0.5vw;
   /* padding: 1rem 1rem; */
   text-transform: capitalize;
-  font-size: 1em;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .footer-links:hover {
@@ -2146,7 +2192,7 @@ footer p:nth-of-type(3) {
     font-size: 1em;
   }
   .footer-links {
-    font-size: 1.5em;
+    font-size: 1.2rem;
   }
 }
 

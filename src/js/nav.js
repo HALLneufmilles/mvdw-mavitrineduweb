@@ -108,6 +108,10 @@ export function initNav() {
     requestAnimationFrame(animation);
   }
 
+  function smoothScrollToTop() {
+    smoothScrollTo(document.body);
+  }
+
   // ---------------------------------------------
 
   togglebtn.addEventListener("click", () => {
@@ -124,6 +128,11 @@ export function initNav() {
     link.addEventListener("click", (event) => {
       const hrefAttr = link.getAttribute("href") || "";
       const isHashLink = hrefAttr.startsWith("#");
+      const linkUrl = new URL(hrefAttr || "#", window.location.href);
+      const isSamePageLink =
+        linkUrl.origin === window.location.origin &&
+        linkUrl.pathname === window.location.pathname &&
+        !linkUrl.hash;
 
       // ✅ si ancre, on sélectionne le lien
       if (isHashLink) setSelectedLink(link);
@@ -131,12 +140,23 @@ export function initNav() {
       // Toujours fermer le menu (UX)
       closeMenu();
 
+      if (isSamePageLink) {
+        event.preventDefault();
+        smoothScrollToTop();
+        return;
+      }
+
       // Si ce n’est pas une ancre, on laisse le navigateur gérer
       if (!isHashLink) return;
 
       event.preventDefault();
 
       const targetId = hrefAttr.slice(1);
+      if (!targetId) {
+        smoothScrollToTop();
+        return;
+      }
+
       const targetElement = document.getElementById(targetId);
       if (targetElement) smoothScrollTo(targetElement);
     });
