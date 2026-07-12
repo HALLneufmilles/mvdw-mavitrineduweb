@@ -531,13 +531,13 @@ html {
 */
 .services-hero-title {
   margin: 0 0 18px;
-  font-size: clamp(1.8rem, 4.5vw, 3.9rem);
-  line-height: 0.9;
-  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  font-weight: 750;
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #f7f7f7;
-  max-width: 7ch;
+  max-width: 11ch;
 }
 
 /*
@@ -546,10 +546,11 @@ html {
 
 .services-hero-text {
   margin: 0 0 26px;
-  max-width: clamp(24ch, 42vw, 28ch);
-  font-size: clamp(0.95rem, 1.6vw, 1.18rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.82);
+  max-width: clamp(26ch, 42vw, 32ch);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.86);
 }
 /* .services-hero-text {
   margin: 0 0 26px;
@@ -566,10 +567,10 @@ html {
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 28px;
-  width: fit-content;
-  margin-left: auto;
+  width: 100%;
+  margin-left: 0;
 }
 
 /*
@@ -615,6 +616,28 @@ html {
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
+@media (orientation: portrait) {
+  .services-hero {
+    min-height: auto;
+    align-items: flex-start;
+    padding-top: clamp(42svh, 46svh, 50svh);
+    padding-bottom: clamp(38px, 6svh, 76px);
+  }
+
+  .services-hero-inner {
+    max-width: min(100%, 430px);
+  }
+
+  .services-hero-title {
+    font-size: clamp(1.7rem, 8vw, 3.15rem);
+    line-height: 1.02;
+  }
+
+  .btn-hero {
+    width: min(100%, 340px);
+  }
+}
+
 /* ========================================================= */
 /* 5) TITRES DE SECTION */
 /* ========================================================= */
@@ -626,6 +649,10 @@ html {
   position: relative;
   margin-bottom: 34px;
   text-align: center;
+}
+
+.section-heading--first {
+  padding-top: clamp(58px, 13vw, 96px);
 }
 
 .section-heading::before {
@@ -646,7 +673,8 @@ html {
 }
 
 .section-heading--first::before {
-  transform: translate(-50%, -430%);
+  top: 0;
+  transform: translate(-50%, 0);
   font-size: clamp(2.8rem, 12vw, 5.2rem);
 }
 
@@ -685,6 +713,8 @@ html {
 .services-intro-content p {
   margin-bottom: 18px;
   color: var(--text-paragraphe);
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  font-weight: 400;
   line-height: 1.7;
 }
 
@@ -972,8 +1002,11 @@ html {
   font-weight: 500;
 }
 
-.footer-links:hover {
-  opacity: 0.5;
+.footer-links:hover,
+.footer-links:focus-visible {
+  color: #00a3ff;
+  text-decoration: none;
+  opacity: 1;
 }
 
 .copyright {
@@ -1046,6 +1079,7 @@ html {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: center;
     gap: 14px;
   }
 
@@ -1142,8 +1176,8 @@ html {
   } */
 
   .services-hero-title {
-    font-size: clamp(2.5rem, 4.4vw, 4.2rem);
-    max-width: 8ch;
+    font-size: clamp(2.25rem, 3.8vw, 3.6rem);
+    max-width: 11ch;
   }
   /* .services-hero-title {
     font-size: clamp(3.7rem, 5vw, 5.4rem);
@@ -1159,6 +1193,7 @@ html {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: center;
     gap: 14px;
   }
 

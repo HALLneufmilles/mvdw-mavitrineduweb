@@ -15,6 +15,7 @@
   --background-cards: #1a1a1a;
   --background-bar-themes: #2e3033;
   --background-pricing-box: #eeeeee;
+  --background-pricing-div: #303336;
   --pricing-border-h6: #5f5f5f; /* Boîtes de pricing en gris foncé */
 }
 
@@ -27,7 +28,7 @@
   --background-cards: #f9f9f9; /* Cartes en gris clair inversées */
   --background-bar-themes: #d1d1d1; /* Barres de thème plus claires */
   --background-pricing-box: #1a1a1a; /* Boîtes de pricing en gris foncé */
-  --background-pricing-div: #c4c4c4; /* Boîtes de pricing en gris foncé */
+  --background-pricing-div: #303336; /* Bande pricing anthracite */
   --background-pricing-btn: #ffffff; /* Boîtes de pricing en gris foncé */
   --border-pricing-btn: #f8f8f8; /* Boîtes de pricing en gris foncé */
   --background-pricing-h6: #eaeaea; /* Boîtes de pricing en gris foncé */
@@ -63,8 +64,8 @@ body {
 
 body * {
   transition:
-    background-color 1s ease,
-    color 0.2s ease;
+    background-color 120ms ease,
+    color 120ms ease;
 }
 
 #accueil {
@@ -570,7 +571,19 @@ section {
   margin-bottom: 0px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 95vw;
+  max-width: min(95vw, 820px);
+}
+
+.presentation2 a.hye-propos {
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+  transition: color 120ms ease;
+}
+
+.presentation2 a.hye-propos:hover {
+  color: #00a3ff;
 }
 
 .hye-title {
@@ -584,12 +597,14 @@ section {
 
 .hye-title2 {
   margin: 0;
-  padding: 0 1vw 2vh 1vw;
+  padding: 0 1vw 1.4rem 1vw;
   color: #fff;
-  font-size: 1rem;
-  font-style: italic;
-  line-height: 1.45;
-  opacity: 0.9;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-style: normal;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: 0;
+  opacity: 0.94;
 }
 
 .hye-title::after {
@@ -609,7 +624,9 @@ section {
   /* padding: 2vh 1vw; */
   /* line-height: 3.5vh; */
   color: var(--primary-text-color);
-  font-size: 1rem;
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  font-weight: 400;
+  line-height: 1.7;
   margin-bottom: 20px;
   margin-top: 10px;
 }
@@ -645,19 +662,16 @@ section {
     margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto;
-    max-width: 70vw;
+    max-width: min(70vw, 860px);
   }
   .hye-title2 {
-    font-size: 0.9rem;
-    padding: 0 1vw 2vh 1vw;
-    opacity: 0.9;
+    padding: 0 1vw 1.4rem 1vw;
+    opacity: 0.94;
     color: #fff;
-    font-style: italic;
   }
   .hye-propos {
     /* line-height: 3vh; */
-    padding: 2vh 1vw;
-    font-size: 0.9rem;
+    padding: 1.2rem 1vw;
   }
 }
 
@@ -696,7 +710,7 @@ section {
     /* transform: translate(-50%, -48%); */
   }
   .presentation2 {
-    max-width: 55vw;
+    max-width: min(55vw, 940px);
   }
 }
 
@@ -953,6 +967,17 @@ section {
   }
 }
 
+@media (max-width: 360px) {
+  .container-services {
+    gap: 8px;
+    padding: 4px;
+  }
+
+  .card {
+    padding: 12px 6px;
+  }
+}
+
 @media (min-width: 520px) {
   .card {
     padding: 18px 16px;
@@ -1157,16 +1182,48 @@ section {
 
 .pricing-boxes {
   display: flex;
-  gap: 2vw;
+  column-gap: 2vw;
+  row-gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 20px;
+}
+
+.pricing-boxes-title {
+  display: flex;
+  align-items: center;
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: none;
+  min-height: clamp(86px, 9vw, 130px);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-pricing-div);
+  color: var(--primary-text-color);
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 650;
+  line-height: 1.35;
+  text-align: left;
+  border-radius: 8px 8px 0 0;
+}
+
+.pricing-boxes-title span {
+  display: block;
+  width: 100%;
+  max-width: min(95vw, 860px);
+  margin: 0 auto;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .pricing-box {
   width: 95%;
   max-width: 350px;
   padding: 20px 20px;
+  border: 1px solid transparent;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -1180,6 +1237,10 @@ section {
 .formule {
   color: var(--black-text-color);
   background-color: var(--background-pricing-box);
+}
+
+.root-inverted .pricing-box {
+  border-color: #fff;
 }
 
 .pricing-box-title {
@@ -1342,7 +1403,7 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 20px 25px; */
+  padding-bottom: clamp(64.5px, 6.75vw, 97.5px);
   background-color: var(--background-pricing-div);
   border-radius: 8px;
 }
@@ -1353,13 +1414,26 @@ section {
 .pricing-headline {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   text-align: left;
-  margin-bottom: 30px;
+  min-height: clamp(86px, 9vw, 130px);
+  margin-bottom: 0;
 }
 
 /* marges propres et cohérentes */
 .pricing-headline h2 {
-  margin: 0 0 15px 0;
+  margin: 0;
+}
+
+.pricing-headline h2 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.pricing-headline h2 a:hover,
+.pricing-headline h2 a:focus-visible {
+  color: #fff;
+  text-decoration: none;
 }
 
 /* ton paragraphe : largeur + espace + lisibilité */
@@ -1396,11 +1470,22 @@ section {
     padding-right: 16vw;
     max-width: none;
   }
+
+  .pricing-boxes-title {
+    padding: 0;
+    max-width: none;
+  }
+
+  .pricing-boxes-title span {
+    padding-left: 65px;
+    padding-right: 16vw;
+    max-width: none;
+  }
 }
 
 @media (max-width: 755px) {
   .pricing-headline h2 {
-    margin-top: 15px;
+    margin-top: 0;
     text-align: center;
   }
 }
@@ -1411,6 +1496,17 @@ section {
     padding-left: 5vw;
     padding-right: 5px;
     max-width: 70vw;
+  }
+
+  .pricing-boxes-title {
+    padding: 0;
+    max-width: none;
+  }
+
+  .pricing-boxes-title span {
+    padding-left: 5vw;
+    padding-right: 5px;
+    max-width: min(70vw, 860px);
   }
 }
 
@@ -2174,8 +2270,11 @@ footer p:nth-of-type(3) {
   font-weight: 500;
 }
 
-.footer-links:hover {
-  opacity: 0.5;
+.footer-links:hover,
+.footer-links:focus-visible {
+  color: #00a3ff;
+  text-decoration: none;
+  opacity: 1;
 }
 
 /* @media (min-width: 430px) {*/
@@ -2344,6 +2443,18 @@ footer p:nth-of-type(3) {
 /* Réutilise .presentation mais ajuste les espacements */
 .pricing-page-intro {
   margin-top: 60px; /* évite le chevauchement avec la nav fixe */
+}
+
+.pricing-page-intro .presentation {
+  max-width: 860px;
+}
+
+@media (min-width: 1280px) {
+  .pricing-page-intro .presentation,
+  .pricing-boxes-title span {
+    padding-left: clamp(24px, 2vw, 72px);
+    padding-right: clamp(24px, 2vw, 72px);
+  }
 }
 
 /* ---------- SECTION "INCLUS DANS TOUTES LES FORMULES" ---------- */
