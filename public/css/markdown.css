@@ -18,6 +18,11 @@
   margin: 0 auto;
   margin-top: 7rem;
 }
+@media (max-width: 767px) {
+  .markdown {
+    margin-top: 3.5rem;
+  }
+}
 @media (min-width: 768px) {
   .markdown {
     line-height: 1.4;

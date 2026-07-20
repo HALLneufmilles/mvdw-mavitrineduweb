@@ -5,6 +5,8 @@ if ("scrollRestoration" in history) {
 }
 
 window.addEventListener("load", () => {
+  if (window.location.hash) return;
+
   window.scrollTo({ top: 0, behavior: "auto" });
 });
 

@@ -868,6 +868,7 @@ section {
   top: -10%;
   /* transform: translate(-50%, -85%); */
   opacity: 0.3;
+  pointer-events: none;
 }
 
 .container-services {
@@ -904,9 +905,26 @@ section {
 /* margin: 0 auto; */
 /* } */
 
+@property --card-border-progress {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .card {
+  position: relative;
+  isolation: isolate;
   background-color: var(--background-color);
   padding: 14px 10px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  --card-border-progress: 0deg;
+  border-color: rgb(194, 194, 194);
+  transition:
+    transform 280ms ease,
+    --card-border-progress 900ms linear,
+    box-shadow 280ms ease;
 
   display: flex;
   flex-direction: column;
@@ -921,6 +939,62 @@ section {
   border-radius: 8px;
   height: 100%;
   margin: 0;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from -90deg,
+    rgba(255, 255, 255, 0.12) 0deg var(--card-border-progress),
+    #ffffff var(--card-border-progress)
+      calc(var(--card-border-progress) + 1deg),
+    transparent calc(var(--card-border-progress) + 1deg) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  will-change: background;
+  transition: opacity 180ms ease;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover,
+.card:focus-visible {
+  --card-border-progress: 360deg;
+  transform: scale(1.05);
+}
+
+.card:hover::before,
+.card:focus-visible::before {
+  opacity: 1;
+  animation: card-border-draw 1600ms linear forwards;
+}
+
+@keyframes card-border-draw {
+  from {
+    --card-border-progress: 0deg;
+  }
+  to {
+    --card-border-progress: 360deg;
+  }
+}
+
+.container-services .card:hover,
+.container-services .card:focus-visible {
+  transform: translateY(0) scale(1.04);
 }
 
 .card h2 {
@@ -948,6 +1022,7 @@ section {
   align-items: center;
   justify-content: center;
   overflow: hidden; /* Pour s'assurer que l'image ne dépasse pas du cercle */
+  pointer-events: none;
 }
 
 .div-img-service img {
@@ -955,6 +1030,7 @@ section {
   max-height: 90%;
   object-fit: cover; /* Pour s'assurer que l'image couvre bien l'espace disponible */
   transition: filter 1s ease;
+  pointer-events: none;
 }
 
 .root-inverted .div-img-service img {
@@ -1405,7 +1481,7 @@ section {
   align-items: center;
   padding-bottom: clamp(64.5px, 6.75vw, 97.5px);
   background-color: var(--background-pricing-div);
-  border-radius: 8px;
+  border-radius: 16px;
 }
 
 /* .pricing-headline {
