@@ -1,0 +1,24 @@
+# Dépendances installées sur Windows
+node_modules
+
+# Fichiers générés
+dist
+
+# Dépôt Git
+.git
+.gitignore
+
+# Variables privées
+.env
+.env.*
+!.env.example
+
+# Journaux et fichiers temporaires
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Configuration des éditeurs
+.vscode
+.idea

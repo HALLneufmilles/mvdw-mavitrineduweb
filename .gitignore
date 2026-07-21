@@ -35,5 +35,5 @@ public/uploads/*
 .env
 .vscode
 .log
-
+.env.docker
 

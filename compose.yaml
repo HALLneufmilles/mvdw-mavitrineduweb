@@ -1,0 +1,23 @@
+services:
+  mvdw:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: mvdw-local
+
+    env_file:
+      - .env.docker
+
+    ports:
+      - "5001:5001"
+      - "5173:5173"
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    command: npm run start
