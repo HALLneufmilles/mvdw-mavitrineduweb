@@ -44,10 +44,13 @@
 }
 
 html {
+  --page-max-width: 1920px;
+  --page-gutter: max(0px, calc((100vw - var(--page-max-width)) / 2));
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
   font-family: "Montserrat", system-ui, sans-serif;
+  background-color: var(--background-color);
 }
 
 .no-scroll {
@@ -56,7 +59,8 @@ html {
 
 body {
   width: 100%;
-  max-width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
   overflow-x: hidden;
   background-color: var(--background-color);
   font-size: 1rem;
@@ -180,7 +184,7 @@ section {
   overflow-y: auto;
   will-change: transform;
   backface-visibility: hidden;
-  background-color: #000 !important;
+  background-color: rgba(0, 0, 0, 0.62) !important;
   list-style: none;
   display: block;
   box-sizing: inherit;
@@ -189,6 +193,62 @@ section {
 
 .nav-barre.active {
   left: 0;
+}
+
+@media (min-width: 1920px) {
+  .nav-barre {
+    left: var(--page-gutter);
+  }
+
+  .nav-barre.active {
+    left: var(--page-gutter);
+  }
+
+  .side-nav {
+    box-sizing: border-box;
+    width: clamp(300px, 18vw, 420px);
+    height: auto;
+    max-height: 100vh;
+    padding-bottom: 100px;
+    border-bottom: 0;
+    transform: translateY(-100%);
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: transform 0.8s ease-in-out;
+  }
+
+  .user-view {
+    width: 100%;
+    height: auto;
+    margin-bottom: clamp(60px, 4vw, 90px);
+  }
+
+  .nav-container-links a {
+    min-height: clamp(48px, 3vw, 64px);
+    height: auto;
+    padding: 0 clamp(52px, 3vw, 72px) 0 clamp(32px, 2vw, 48px);
+    font-size: clamp(1rem, 0.75vw, 1.25rem);
+  }
+
+  .nav-container-links {
+    overflow-x: hidden;
+  }
+
+  .nav-container-links li a img {
+    width: clamp(24px, 1.4vw, 34px);
+    height: auto;
+    margin-right: clamp(30px, 2vw, 44px);
+  }
+
+  .toggle-btn {
+    width: clamp(48px, 2.8vw, 62px);
+    height: clamp(48px, 2.8vw, 62px);
+    left: calc(var(--page-gutter) + clamp(20px, 1.5vw, 32px));
+  }
+
+  .nav-barre.active .side-nav {
+    transform: translateY(0);
+  }
 }
 
 #overlay-menu {
@@ -296,13 +356,9 @@ section {
 .toggle-btn {
   width: 48px;
   height: 48px;
-  margin-left: 40px;
-  margin-top: 20px;
   position: fixed;
-  top: 0px;
-  right: 20px;
-  right: max(20px, env(safe-area-inset-right));
-  left: auto;
+  top: 20px;
+  left: calc(var(--page-gutter) + 20px);
   transition: 0.5s;
   cursor: pointer;
   /* background-color: #000000; */
@@ -360,17 +416,15 @@ section {
 
 @media (min-width: 750px) {
   .toggle-btn {
-    position: relative;
+    position: fixed;
   }
 }
 
 @media (hover: none), (pointer: coarse) {
   .toggle-btn {
     position: fixed;
-    top: 0px;
-    right: 20px;
-    right: max(20px, env(safe-area-inset-right));
-    left: auto;
+    top: 20px;
+    left: calc(var(--page-gutter) + 20px);
   }
 }
 
@@ -951,8 +1005,7 @@ section {
   background: conic-gradient(
     from -90deg,
     rgba(255, 255, 255, 0.12) 0deg var(--card-border-progress),
-    #ffffff var(--card-border-progress)
-      calc(var(--card-border-progress) + 1deg),
+    #ffffff var(--card-border-progress) calc(var(--card-border-progress) + 1deg),
     transparent calc(var(--card-border-progress) + 1deg) 360deg
   );
   -webkit-mask:
@@ -1308,6 +1361,10 @@ section {
   overflow: hidden;
   z-index: 11;
   margin: 5px 0;
+  box-shadow:
+    rgba(255, 254, 254, 0.25) 0px 14px 28px,
+    rgba(250, 249, 249, 0.22) 0px 10px 10px;
+  /* box-shadow: -12px 12px 24px rgba(255, 255, 255, 0.22); */
 }
 
 .formule {
@@ -2517,6 +2574,115 @@ footer p:nth-of-type(3) {
 
 /* ---------- INTRO / HERO TARIFS ---------- */
 /* Réutilise .presentation mais ajuste les espacements */
+.tarifs-body {
+  --tarifs-panel-bg: rgba(0, 0, 0, 0.28);
+  min-height: 100vh;
+  color: var(--primary-text-color);
+  background-image: url("/img/tarifs/tarifs-bg-mobile-bouee-oiseau.webp");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  background-color: var(--background-color);
+  background-attachment: scroll;
+}
+
+.tarifs-body main,
+.tarifs-body section {
+  background-color: transparent;
+}
+
+.tarifs-body .pricing {
+  background-color: var(--tarifs-panel-bg);
+}
+
+.tarifs-body .pricing-boxes {
+  background-color: var(--tarifs-panel-bg);
+  border-radius: 16px;
+}
+
+.tarifs-body .pricing-boxes-title {
+  background-color: transparent;
+  min-height: 0;
+  padding-block: clamp(10px, 2vw, 18px);
+}
+
+.tarifs-body .hye-propos {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+}
+
+.tarifs-body .pricing-box {
+  background-color: rgba(238, 238, 238, 0.86);
+}
+
+.tarifs-body .pricing-page-included .services-flex,
+.tarifs-body .pricing-page-options .stape-card {
+  background-color: var(--tarifs-panel-bg);
+}
+
+.tarifs-body .pricing-page-options .stape-section {
+  background-color: transparent;
+}
+
+.tarifs-body .faq .content,
+.tarifs-body .faq .wrapper {
+  background-color: var(--tarifs-panel-bg);
+  color: var(--primary-text-color);
+}
+
+.tarifs-body .faq .accordion:target {
+  background-color: var(--tarifs-panel-bg);
+  opacity: 1;
+  color: var(--primary-text-color);
+}
+
+.tarifs-body .faq .accordion:target .content,
+.tarifs-body .faq .accordion:target .wrapper {
+  background-color: var(--tarifs-panel-bg);
+}
+
+.tarifs-body .faq .accordion::before,
+.tarifs-body .faq .accordion::after {
+  display: none;
+}
+
+.tarifs-body .pricing-page-included .services-title {
+  isolation: isolate;
+  margin-top: clamp(82px, 24vw, 132px);
+}
+
+.tarifs-body .pricing-page-included .services-title::after {
+  left: 50%;
+  top: 0;
+  width: min(100vw, 100%);
+  font-size: clamp(4.2rem, 28vw, 10rem);
+  line-height: 1;
+  text-align: center;
+  transform: translate(-50%, -72%);
+  z-index: -1;
+}
+
+@media (min-width: 1024px) {
+  .tarifs-body {
+    background-image: url("/img/tarifs/tarifs-bg-desktop-bouee-oiseau.webp");
+  }
+
+  .tarifs-body .pricing-page-included .services-title {
+    margin-top: 50px;
+  }
+
+  .tarifs-body .pricing-page-included .services-title::after {
+    font-size: clamp(7rem, 12vw, 10rem);
+    transform: translate(-50%, -42%);
+  }
+}
+
+@media (orientation: portrait) and (max-width: 767px) {
+  .tarifs-body .pricing-page-included .services-title::after {
+    font-size: clamp(3.4rem, 22vw, 7rem);
+    transform: translate(-50%, -122%);
+  }
+}
+
 .pricing-page-intro {
   margin-top: 60px; /* évite le chevauchement avec la nav fixe */
 }
@@ -2636,6 +2802,7 @@ body {
   max-width: 900px;
   /* max-width: 56ch; */
   margin: 0 auto; /* centre le bloc */
+  margin-bottom: 100px;
   padding: 0 1rem; /* respirer sur mobile */
 }
 
@@ -2720,6 +2887,10 @@ body {
 .faq :last-child,
 .content :last-child {
   margin-bottom: 0;
+}
+
+.tarifs-body .faq .faq-div {
+  margin-bottom: 100px;
 }
 
 .title-question a {
@@ -2822,6 +2993,31 @@ body {
 .accordion:target .title-question a {
   background-color: #2b2b2b;
   color: white;
+}
+
+.tarifs-body .faq .accordion {
+  background-color: transparent;
+}
+
+.tarifs-body .faq .accordion::before,
+.tarifs-body .faq .accordion::after {
+  display: none;
+}
+
+.tarifs-body .faq .title-question a {
+  background-color: rgba(238, 238, 238, 0.92);
+  color: #000;
+}
+
+.tarifs-body .faq .accordion:target .title-question a {
+  background-color: rgba(0, 0, 0, 0.37);
+  color: var(--primary-text-color);
+}
+
+.tarifs-body .faq .content,
+.tarifs-body .faq .wrapper {
+  background-color: var(--tarifs-panel-bg);
+  color: var(--primary-text-color);
 }
 
 /* --------------------------------- */

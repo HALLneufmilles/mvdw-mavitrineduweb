@@ -26,16 +26,15 @@ router.get("/sitemap.xml", async (req, res) => {
     }
 
     // 2) URLs « statiques » (celles de ta partie Vite)
-    const now = new Date().toISOString();
     const staticUrls = [
-      { loc: "/", lastmod: now, priority: 1.0 },
+      { loc: "/", priority: 1.0 },
 
       // ✔ nouvelle page MS
-      { loc: "/tarifs.html", lastmod: now, priority: 0.9 },
-      { loc: "/services.html", lastmod: now, priority: 0.9 },
+      { loc: "/tarifs.html", priority: 0.9 },
+      { loc: "/services.html", priority: 0.9 },
 
       // ✔ page blog
-      { loc: "/blog", lastmod: now, priority: 0.9 },
+      { loc: "/blog", priority: 0.9 },
     ];
 
     // 3) URLs dynamiques pour tes articles de blog
@@ -43,7 +42,7 @@ router.get("/sitemap.xml", async (req, res) => {
     const blogUrls = posts.map((post) => ({
       loc: `/blog/post/${post.slug}`,
       // On se base sur updatedAt pour indiquer la dernière modif
-      lastmod: post.updatedAt ? post.updatedAt.toISOString() : now,
+      lastmod: post.updatedAt ? post.updatedAt.toISOString() : undefined,
       priority: 0.8,
     }));
 
@@ -55,7 +54,7 @@ router.get("/sitemap.xml", async (req, res) => {
         url: [...staticUrls, ...blogUrls].map((url) => ({
           // Remplace ci-dessous par ton domaine réel si différent
           loc: `https://mavitrineduweb.fr${url.loc}`,
-          lastmod: url.lastmod,
+          ...(url.lastmod ? { lastmod: url.lastmod } : {}),
           priority: url.priority,
         })),
       },

@@ -503,7 +503,10 @@ function initRevealOnScroll() {
         }
       });
     },
-    { threshold: 0.15 },
+    {
+      rootMargin: "0px 0px 25% 0px",
+      threshold: 0.01,
+    },
   );
 
   items.forEach((el) => obs.observe(el));

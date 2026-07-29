@@ -28,16 +28,19 @@
 */
 
 html {
+  --page-max-width: 1920px;
+  --page-gutter: max(0px, calc((100vw - var(--page-max-width)) / 2));
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  background-color: #050505;
 }
 
 .services-body {
   width: 100%;
-  max-width: 100%;
+  max-width: var(--page-max-width);
   min-height: 100vh;
-  margin: 0;
+  margin: 0 auto;
   position: relative;
   overflow-x: hidden;
   color: var(--primary-text-color);
@@ -113,6 +116,62 @@ html {
 
 .nav-barre.active {
   left: 0;
+}
+
+@media (min-width: 1920px) {
+  .nav-barre {
+    left: var(--page-gutter);
+  }
+
+  .nav-barre.active {
+    left: var(--page-gutter);
+  }
+
+  .side-nav {
+    box-sizing: border-box;
+    width: clamp(300px, 18vw, 420px);
+    height: auto;
+    max-height: 100vh;
+    padding-bottom: 100px;
+    border-bottom: 0;
+    transform: translateY(-100%);
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: transform 0.8s ease-in-out;
+  }
+
+  .user-view {
+    width: 100%;
+    height: auto;
+    margin-bottom: clamp(60px, 4vw, 90px);
+  }
+
+  .nav-container-links a {
+    min-height: clamp(48px, 3vw, 64px);
+    height: auto;
+    padding: 0 clamp(52px, 3vw, 72px) 0 clamp(32px, 2vw, 48px);
+    font-size: clamp(1rem, 0.75vw, 1.25rem);
+  }
+
+  .nav-container-links {
+    overflow-x: hidden;
+  }
+
+  .nav-container-links li a img {
+    width: clamp(24px, 1.4vw, 34px);
+    height: auto;
+    margin-right: clamp(30px, 2vw, 44px);
+  }
+
+  .toggle-btn {
+    width: clamp(48px, 2.8vw, 62px);
+    height: clamp(48px, 2.8vw, 62px);
+    left: calc(var(--page-gutter) + clamp(20px, 1.5vw, 32px));
+  }
+
+  .nav-barre.active .side-nav {
+    transform: translateY(0);
+  }
 }
 
 #overlay-menu {
@@ -220,13 +279,9 @@ html {
 .toggle-btn {
   width: 48px;
   height: 48px;
-  margin-left: 40px;
-  margin-top: 20px;
   position: fixed;
-  top: 0px;
-  right: 20px;
-  right: max(20px, env(safe-area-inset-right));
-  left: auto;
+  top: 20px;
+  left: calc(var(--page-gutter) + 20px);
   transition: 0.5s;
   cursor: pointer;
   /* background-color: #000000; */
@@ -284,17 +339,15 @@ html {
 
 @media (min-width: 750px) {
   .toggle-btn {
-    position: relative;
+    position: fixed;
   }
 }
 
 @media (hover: none), (pointer: coarse) {
   .toggle-btn {
     position: fixed;
-    top: 0px;
-    right: 20px;
-    right: max(20px, env(safe-area-inset-right));
-    left: auto;
+    top: 20px;
+    left: calc(var(--page-gutter) + 20px);
   }
 }
 
@@ -498,8 +551,7 @@ html {
   min-height: 100svh;
   display: flex;
   align-items: flex-start;
-  /* padding: 155px 20px 120px; */
-  padding: 155px clamp(20px, 5vw, 70px) 120px;
+  padding: 270px clamp(18px, 5vw, 70px) 120px;
 }
 
 /*
@@ -546,10 +598,13 @@ html {
 
 .services-hero-text {
   margin: 0 0 26px;
+  padding: 12px 14px 12px 0;
+  border-radius: 8px;
   max-width: clamp(26ch, 42vw, 32ch);
   font-size: clamp(1rem, 1.5vw, 1.12rem);
   font-weight: 400;
   line-height: 1.65;
+  background: rgba(10, 10, 10, 0.38);
   color: rgba(255, 255, 255, 0.86);
 }
 /* .services-hero-text {
@@ -565,19 +620,21 @@ html {
 */
 .services-hero-actions {
   max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(max-content, auto);
+  align-items: stretch;
+  justify-content: center;
   gap: 28px;
   width: 100%;
-  margin-left: 0;
+  margin-inline: auto;
 }
 
 /*
   Base commune des boutons du hero
 */
 .btn-hero {
-  width: 100%;
+  box-sizing: border-box;
+  width: 16.6em;
   min-height: 56px;
   padding: 0 24px;
   border-radius: 999px;
@@ -587,8 +644,10 @@ html {
   justify-content: center;
 
   text-decoration: none;
+  text-align: center;
   font-weight: 600;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 
   transition:
     transform 0.2s ease,
@@ -616,12 +675,10 @@ html {
     inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-width: 767px) {
   .services-hero {
     min-height: auto;
     align-items: flex-start;
-    padding-top: clamp(42svh, 46svh, 50svh);
-    padding-bottom: clamp(38px, 6svh, 76px);
   }
 
   .services-hero-inner {
@@ -634,7 +691,36 @@ html {
   }
 
   .btn-hero {
-    width: min(100%, 340px);
+    width: 16.6em;
+    min-width: 0;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .services-body {
+    background-position: center -125px;
+  }
+
+  .services-hero {
+    padding: 12px clamp(18px, 5vw, 70px) 120px
+      calc(clamp(18px, 5vw, 70px) + 27px);
+  }
+
+  .services-hero-inner {
+    max-width: clamp(290px, 92vw, 618px);
+  }
+
+  .services-hero-text {
+    margin: 0 0 7px;
+  }
+}
+
+@media (min-width: 720px) and (min-height: 501px) {
+  .services-hero {
+    box-sizing: border-box;
+    min-height: 0;
+    height: 100vh;
+    max-height: 100vh;
   }
 }
 
@@ -661,7 +747,7 @@ html {
   left: 50%;
   top: 50%;
   z-index: 0;
-  transform: translate(-50%, -90%);
+  transform: translate(-50%, -140%);
   font-size: clamp(2.8rem, 9vw, 5.2rem);
   font-weight: 800;
   line-height: 1;
@@ -672,9 +758,9 @@ html {
   pointer-events: none;
 }
 
-.section-heading--first::before {
+.services-body .section-heading--first::before {
   top: 0;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -200%);
   font-size: clamp(2.8rem, 12vw, 5.2rem);
 }
 
@@ -707,6 +793,13 @@ html {
 .services-intro-content {
   max-width: 760px;
   margin: 0 auto;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(10, 10, 10, 0.38);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.03),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   text-align: center;
 }
 
@@ -1062,7 +1155,7 @@ html {
 /* 13) TABLETTE */
 /* ========================================================= */
 
-@media (min-width: 768px) {
+@media (min-width: 720px) {
   .services-header {
     padding: 24px 28px 0;
   }
@@ -1076,15 +1169,15 @@ html {
   } */
 
   .services-hero-actions {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
     gap: 14px;
+    margin-inline: 0;
   }
 
   .btn-hero {
-    min-width: 190px;
+    width: 16.6em;
+    min-width: 0;
   }
 
   .services-grid {
@@ -1112,7 +1205,7 @@ html {
 /* ========================================================= */
 /* 14) DESKTOP */
 /* ========================================================= */
-@media (min-width: 900px) {
+@media (min-width: 900px) and (min-height: 501px) {
   /*
     Future image desktop :
     background-image: url("/img/services/services-bg-desktop.webp");
@@ -1164,6 +1257,11 @@ html {
     /* min-height: 100svh; */
     /* padding: 120px 70px 120px; */
     align-items: flex-start;
+    padding: clamp(120px, 7vh, 180px) clamp(70px, 6vw, 180px) 120px;
+  }
+
+  .services-hero-inner {
+    max-width: clamp(430px, 28vw, 820px);
   }
 
   /* .services-hero-inner {
@@ -1176,7 +1274,7 @@ html {
   } */
 
   .services-hero-title {
-    font-size: clamp(2.25rem, 3.8vw, 3.6rem);
+    font-size: clamp(2.25rem, 3vw, 6.4rem);
     max-width: 11ch;
   }
   /* .services-hero-title {
@@ -1184,22 +1282,25 @@ html {
     max-width: 8.5ch;
   } */
 
-  /* .services-hero-text {
-    font-size: 1.18rem;
-    max-width: 28ch;
-  } */
+  .services-hero-label {
+    font-size: clamp(0.78rem, 0.5vw, 1.05rem);
+  }
+
+  .services-hero-text {
+    max-width: clamp(26ch, 24vw, 36ch);
+    font-size: clamp(1rem, 0.82vw, 1.55rem);
+  }
 
   .services-hero-actions {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
+    gap: clamp(14px, 2vw, 56px);
+    margin-top: clamp(50px, 5vh, 110px);
   }
 
   .btn-hero {
-    min-width: 210px;
-    min-height: 58px;
+    width: 16.6em;
+    font-size: clamp(1rem, 0.62vw, 1.22rem);
+    min-width: 0;
+    min-height: clamp(58px, 3.6vw, 76px);
   }
 
   .services-grid {
@@ -1217,6 +1318,14 @@ html {
 
   .compagny-info {
     width: 30%;
+  }
+}
+
+@media (min-width: 2049px) {
+  .services-grid,
+  .process-grid {
+    width: min(100%, 1680px);
+    margin-inline: auto;
   }
 }
 /* ========================================================= */
