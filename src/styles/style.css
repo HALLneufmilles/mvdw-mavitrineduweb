@@ -925,6 +925,123 @@ section {
   pointer-events: none;
 }
 
+.tiser-vitrine {
+  position: relative;
+  isolation: isolate;
+  z-index: 12;
+  height: 244px;
+  margin: 92px 8px 28px 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 16px;
+  background-color: #050505;
+  background-image: url("/img/services/phare-vitrine-mobile.webp");
+  background-size: auto 100%;
+  background-position: right center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.tiser-vitrine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.56) 0%,
+    rgba(0, 0, 0, 0.28) 36%,
+    rgba(0, 0, 0, 0) 58%
+  );
+  pointer-events: none;
+}
+
+.tiser-vitrine__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100%;
+  width: min(56%, 340px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(14px, 4.2vw, 28px) 0 clamp(14px, 4.2vw, 28px)
+    clamp(16px, 5vw, 34px);
+}
+
+.tiser-vitrine__heading,
+.tiser-vitrine__details {
+  display: contents;
+}
+
+.tiser-vitrine__label {
+  margin: 0 0 6px 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(0.52rem, 1.15vw, 0.68rem);
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.tiser-vitrine__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.08rem, 2.7vw, 1.45rem);
+  font-weight: 900;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.tiser-vitrine__text {
+  margin: 8px 0 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(0.58rem, 1.35vw, 0.72rem);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.tiser-vitrine__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(100%, 230px);
+  min-height: 34px;
+  margin-top: 9px;
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #050505;
+  font-size: clamp(0.58rem, 1.3vw, 0.72rem);
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.tiser-vitrine__button span {
+  flex: 0 0 auto;
+  font-size: 1.45em;
+  line-height: 1;
+}
+
+.tiser-vitrine__button:hover,
+.tiser-vitrine__button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+}
+
+.tiser-vitrine__button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+}
+
 .container-services {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1097,6 +1214,22 @@ section {
 }
 
 @media (max-width: 360px) {
+  .tiser-vitrine {
+    margin-right: 4px;
+    margin-left: 4px;
+    background-position: right center;
+  }
+
+  .tiser-vitrine__content {
+    width: min(58%, 340px);
+    padding-left: 18px;
+  }
+
+  .tiser-vitrine__button {
+    min-height: 36px;
+    padding-inline: 16px;
+  }
+
   .container-services {
     gap: 8px;
     padding: 4px;
@@ -1141,6 +1274,51 @@ section {
   .services-flex {
     padding: 0 0 40px 0;
   }
+  .tiser-vitrine {
+    height: 216px;
+    margin-top: 104px;
+    margin-bottom: 32px;
+    border-radius: 14px;
+    background-image: url("/img/services/phare-marin-pc.webp");
+    background-size: auto 100%;
+    background-position: left center;
+  }
+
+  .tiser-vitrine::before {
+    background: none;
+  }
+
+  .tiser-vitrine__content {
+    width: min(48%, 310px);
+    margin-left: auto;
+    padding: 14px 24px 14px 0;
+  }
+
+  .tiser-vitrine__label {
+    margin-bottom: 6px;
+    font-size: clamp(0.52rem, 0.58vw, 0.66rem);
+  }
+
+  .tiser-vitrine__title {
+    font-size: clamp(1.08rem, 1.42vw, 1.5rem);
+    line-height: 1.08;
+  }
+
+  .tiser-vitrine__text {
+    max-width: 290px;
+    margin-top: 8px;
+    font-size: clamp(0.52rem, 0.65vw, 0.68rem);
+    line-height: 1.28;
+  }
+
+  .tiser-vitrine__button {
+    width: min(100%, 250px);
+    min-height: 34px;
+    margin-top: 10px;
+    padding: 7px 12px;
+    font-size: clamp(0.56rem, 0.68vw, 0.72rem);
+  }
+
   .card {
     padding: 20px;
   }
@@ -1168,7 +1346,47 @@ section {
   }
 }
 
+@media (min-width: 1440px) {
+  .tiser-vitrine__content {
+    width: 50%;
+    margin-left: auto;
+    padding: 14px 24px;
+    align-items: center;
+  }
+
+  .tiser-vitrine__heading,
+  .tiser-vitrine__details {
+    display: flex;
+    width: min(100%, 310px);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tiser-vitrine__text {
+    max-width: 100%;
+  }
+}
+
 @media (min-width: 1920px) {
+  .tiser-vitrine__content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 1.5vw, 30px);
+    align-items: stretch;
+    justify-content: normal;
+  }
+
+  .tiser-vitrine__heading,
+  .tiser-vitrine__details {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tiser-vitrine__button {
+    width: 100%;
+    max-width: none;
+  }
+
   .container-services {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1361,10 +1579,28 @@ section {
   overflow: hidden;
   z-index: 11;
   margin: 5px 0;
-  box-shadow:
-    rgba(255, 254, 254, 0.25) 0px 14px 28px,
-    rgba(250, 249, 249, 0.22) 0px 10px 10px;
-  /* box-shadow: -12px 12px 24px rgba(255, 255, 255, 0.22); */
+  box-shadow: none;
+}
+
+.pricing-box-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.pricing-box > div {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pricing-box .pricing-link,
+.pricing-box .btn-pricing {
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
 }
 
 .formule {
@@ -1537,7 +1773,7 @@ section {
   flex-direction: column;
   align-items: center;
   padding-bottom: clamp(64.5px, 6.75vw, 97.5px);
-  background-color: var(--background-pricing-div);
+  background-color: rgba(48, 51, 54, 0.2);
   border-radius: 16px;
 }
 

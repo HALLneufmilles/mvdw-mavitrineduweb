@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" role="img" aria-label="Proximité à La Rochelle">
+  <rect width="50" height="50" rx="8" fill="#000"/>
+  <g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M25 42s12-10.8 12-21A12 12 0 0 0 13 21c0 10.2 12 21 12 21z"/>
+    <circle cx="25" cy="21" r="4"/>
+  </g>
+</svg>
