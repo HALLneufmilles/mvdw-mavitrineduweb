@@ -1650,6 +1650,14 @@ Ancien CTA conserve en commentaire avec son HTML dans services.html.
   }
 }
 
+@media (min-width: 750px) {
+  .services-project-cta {
+    box-shadow:
+      rgba(255, 255, 255, 0.58) 0 0 6px 0,
+      rgba(255, 255, 255, 0.34) 0 0 22px 1px;
+  }
+}
+
 /* ========================================================= */
 /* 12) FOOTER */
 /* ========================================================= */

@@ -56,62 +56,26 @@ document.addEventListener("DOMContentLoaded", function () {
       );
   });
 
-  function revealBoxesAtScroll(threshold = 0.5) {
-    // threshold = 0.5 (milieu), 0.9 (bas), etc.
-    const boxes = document.querySelectorAll(".box");
+  function revealBoxesAtScroll() {
+    const boxes = document.querySelectorAll(".box-sticky");
 
-    // S’assurer qu’elles sont bien cachées au départ (au cas où)
-    boxes.forEach((b) => {
-      b.classList.add("hidden-box");
-      b.classList.remove("visible-box");
-    });
+    if (!boxes.length) return;
 
-    let ticking = false;
-
-    function pageProgress() {
-      const doc = document.documentElement;
-      const scrollTop = window.scrollY || doc.scrollTop || 0;
-      const viewportH = window.innerHeight || doc.clientHeight || 0;
-      const docH = doc.scrollHeight || 1; // éviter /0
-      return (scrollTop + viewportH) / docH;
-    }
-
-    function revealNow() {
-      boxes.forEach((b) => {
-        b.classList.remove("hidden-box");
-        b.classList.add("visible-box");
-      });
-    }
-
-    function checkAndReveal() {
-      if (pageProgress() >= threshold) {
-        revealNow();
-        // une fois révélé, on stoppe les écouteurs
-        window.removeEventListener("scroll", onScroll, passiveTrue);
-        window.removeEventListener("resize", onResize);
-      }
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          checkAndReveal();
-          ticking = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("visible-box", entry.isIntersecting);
+          entry.target.classList.toggle("hidden-box", !entry.isIntersecting);
         });
-        ticking = true;
-      }
-    }
+      },
+      { threshold: 0.1 },
+    );
 
-    function onResize() {
-      checkAndReveal();
-    }
-
-    const passiveTrue = { passive: true };
-    window.addEventListener("scroll", onScroll, passiveTrue);
-    window.addEventListener("resize", onResize);
-
-    // au cas où l’utilisateur arrive via un lien profond (#id) déjà bas dans la page
-    checkAndReveal();
+    boxes.forEach((box) => {
+      box.classList.add("hidden-box");
+      box.classList.remove("visible-box");
+      observer.observe(box);
+    });
   }
 
   function waitForParticlesJS(timeout = 4000) {
@@ -452,8 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch((error) => console.warn(error.message));
       initialize();
       handleColorInversion();
-      // showVoletBoxs();
-      revealBoxesAtScroll(0.5); // 0.5 = milieu ; mets 0.9 pour bas de page
+      revealBoxesAtScroll();
     })
     .catch((error) => {
       console.error("Une erreur s'est produite :", error);
