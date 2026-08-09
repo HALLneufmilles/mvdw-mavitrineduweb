@@ -926,7 +926,7 @@ html.services-reveal-ready .services-reveal.is-visible {
   aspect-ratio: 1370 / 422;
   min-height: 0;
   align-self: start;
-  background-image: url("/img/services/vieille-homme-services-mobile2.webp");
+  background-image: url("/img/services/moi-marin-profil-card-mobile.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -2019,7 +2019,7 @@ Ancien CTA conserve en commentaire avec son HTML dans services.html.
     align-self: center;
     border: 0;
     border-radius: 12px;
-    background-image: url("/img/services/vielle-homme.webp");
+    background-image: url("/img/services/moi-marin-profil-card-pc.webp");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -2238,7 +2238,7 @@ Ancien CTA conserve en commentaire avec son HTML dans services.html.
   }
 
   .moi-services-portrait {
-    background-image: url("/img/services/vieille-homme-services-mobile2.webp");
+    background-image: url("/img/services/moi-marin-profil-card-mobile.webp");
   }
 
   .site-vitrine-services-visual {
