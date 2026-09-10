@@ -1,9 +1,14 @@
 // server/routes/sitemapRoute.js
 import { Router } from "express";
-import { create } from "xmlbuilder2"; // Pour générer le XML
 import Post from "../models/Post.js"; // Ton modèle Mongoose
 
 import { createUniqueSlug } from "../utils/slug.js";
+import { getPageLastmodState } from "../utils/pageLastmod.js";
+import {
+  buildSitemapXml,
+  createPostUrls,
+  createStaticUrls
+} from "../utils/sitemap.js";
 
 const router = Router();
 
@@ -25,43 +30,15 @@ router.get("/sitemap.xml", async (req, res) => {
       }
     }
 
-    // 2) URLs « statiques » (celles de ta partie Vite)
-    const staticUrls = [
-      { loc: "/", priority: 1.0 },
+    // 2) Dates persistantes des présentations statiques, synchronisées au démarrage.
+    const pageLastmodState = await getPageLastmodState();
+    const staticUrls = createStaticUrls(pageLastmodState, posts);
 
-      // ✔ nouvelle page MS
-      { loc: "/tarifs.html", priority: 0.9 },
-      { loc: "/services.html", priority: 0.9 },
+    // 3) URLs dynamiques pour les articles, toujours composées avec leur slug.
+    const blogUrls = createPostUrls(posts);
 
-      // ✔ page blog
-      { loc: "/blog", priority: 0.9 },
-    ];
-
-    // 3) URLs dynamiques pour tes articles de blog
-    //    On prend _id pour composer l'URL /blog/:id (à adapter si tu gères un slug).
-    const blogUrls = posts.map((post) => ({
-      loc: `/blog/post/${post.slug}`,
-      // On se base sur updatedAt pour indiquer la dernière modif
-      lastmod: post.updatedAt ? post.updatedAt.toISOString() : undefined,
-      priority: 0.8,
-    }));
-
-    // 4) Construire l'objet urlset qui va générer le sitemap
-    //    Note : seul lastmod est officiellement pris en compte par la spec sitemap
-    const urlsetObj = {
-      urlset: {
-        "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-        url: [...staticUrls, ...blogUrls].map((url) => ({
-          // Remplace ci-dessous par ton domaine réel si différent
-          loc: `https://mavitrineduweb.fr${url.loc}`,
-          ...(url.lastmod ? { lastmod: url.lastmod } : {}),
-          priority: url.priority,
-        })),
-      },
-    };
-
-    // 5) Génère le XML avec xmlbuilder2
-    const sitemapXml = create(urlsetObj).end({ prettyPrint: true });
+    // 4) Génère le XML en conservant le domaine et les URLs existants.
+    const sitemapXml = buildSitemapXml([...staticUrls, ...blogUrls]);
 
     // 6) Envoie la réponse
     res.setHeader("Content-Type", "application/xml");

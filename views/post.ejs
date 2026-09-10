@@ -14,8 +14,9 @@
 </div>
 <div class="blog">
   <h1 class="title"><%= data.title %></h1>
+  <% const articleDate = getPostDateDisplay(data); %>
   <p class="published">
-    <span>published at - </span><%= (data.publishedAt || data.createdAt).toDateString() %>
+    <span><%= articleDate.label %> </span><%= articleDate.formattedDate %>
   </p>
   <div class="markdown"><%- data.sanitizedHtml %></div>
   <div class="author" itemscope itemtype="https://schema.org/Person">
@@ -52,11 +53,12 @@
               </picture>
             </div>
             <div class="card-content-wrapper">
+              <% const postDate = getPostDateDisplay(post); %>
               <h3 class="card-title"><%= post.title %></h3>
               <p class="card-text"><%= post.description %></p>
               <a href="/blog/post/<%= post.slug || post._id %>" class="btn dark">read</a>
               <span class="card-article-list__date">
-                <%= new Date(post.createdAt).toDateString() %>
+                <%= postDate.formattedDate %>
               </span>
             </div>
           </div>

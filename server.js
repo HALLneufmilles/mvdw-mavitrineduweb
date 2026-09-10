@@ -30,6 +30,8 @@ https://chatgpt.com/share/673e1cd8-ea44-800d-b7e7-a84618775dac
 import methodOverride from "method-override";
 
 import { isActiveRoute } from "./server/helpers/routeHelpers.js";
+import { getPostDateDisplay } from "./server/helpers/postDate.js";
+import { synchronizePageLastmods } from "./server/utils/pageLastmod.js";
 
 import fileupload from "express-fileupload";
 
@@ -42,8 +44,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to db
-connectDB();
 // PART 6 - Time 9.50
 // middlewares utilisés pour parser les données du formulaire ou autres sources.
 // express.urlencoded({ extended: true }) est le middleware qui parse les données sous forme de 'application/x-www-form-urlencodedpour' et les rendre accessibles via req.body.
@@ -109,6 +109,7 @@ app.use(fileupload());
 // isActiveRoute() impotée puis ajouté ici à 'app.locals' qui est un objet qui stocke des variables accessibles globalement dans toutes les vues rendues par Express.
 // https://chatgpt.com/share/672e0389-1c94-800d-b388-659e73d9334c
 app.locals.isActiveRoute = isActiveRoute;
+app.locals.getPostDateDisplay = getPostDateDisplay;
 // ajoute le préfixe "blog" aux routes du fichier 'mainroutes'.
 app.use("/blog", mainRoutes);
 // ajoute le préfixe "blog" aux routes du fichier 'mainroutes'.
@@ -119,6 +120,28 @@ app.use("/", sitemapRoutes);
 
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
-});
+async function startServer() {
+  try {
+    const synchronization = await synchronizePageLastmods();
+    console.log(
+      `[sitemap] Lastmod synchronisés dans ${synchronization.statePath}`
+    );
+  } catch (error) {
+    // L'état amorcé en mémoire reste disponible si le disque est momentanément
+    // inaccessible. Le serveur peut donc démarrer avec un message explicite.
+    console.error(
+      "[sitemap] Impossible de synchroniser les lastmod persistants :",
+      error
+    );
+  }
+
+  // Conserve le comportement existant : la connexion MongoDB démarre avant
+  // l'écoute HTTP, sans retarder la disponibilité du serveur.
+  connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`);
+  });
+}
+
+startServer();

@@ -8,10 +8,11 @@
   <ul class="article-ul">
     <% data.forEach(post => { %>
     <li>
+      <% const postDate = getPostDateDisplay(post); %>
       <a href="/blog/post/<%= post.slug || post._id %>">
         <span class="result"><%= post.title %></span>
         <span class="article-list__date"
-          ><%= post.createdAt.toDateString() %></span
+          ><%= postDate.formattedDate %></span
         >
       </a>
     </li>

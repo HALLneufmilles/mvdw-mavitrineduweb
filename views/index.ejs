@@ -83,11 +83,12 @@
         </picture>
       </div>
       <div class="card-content-wrapper">
+        <% const postDate = getPostDateDisplay(post); %>
         <h3 class="card-title"><%= post.title %></h3>
         <p class="card-text"><%- post.description %></p>
         <a href="/blog/post/<%= post.slug || post._id %>" class="btn dark">read</a>
         <span class="card-article-list__date"
-          ><%= post.createdAt.toDateString() %></span
+          ><%= postDate.formattedDate %></span
         >
       </div>
     </div>
