@@ -47,6 +47,41 @@ test("l'empreinte est déterministe et indépendante de l'ordre des chemins", as
   assert.equal(second, first);
 });
 
+test("l'empreinte normalise CRLF, LF et CR sans masquer un vrai changement", async (t) => {
+  const rootDir = await mkdtemp(path.join(os.tmpdir(), "mvdw-lastmod-eol-"));
+  t.after(() => rm(rootDir, { recursive: true, force: true }));
+  const variants = {
+    lf: "ligne 1\nligne 2\n",
+    crlf: "ligne 1\r\nligne 2\r\n",
+    cr: "ligne 1\rligne 2\r"
+  };
+
+  for (const [directory, content] of Object.entries(variants)) {
+    await mkdir(path.join(rootDir, directory), { recursive: true });
+    await writeFile(path.join(rootDir, directory, "sample.txt"), content);
+  }
+
+  const fingerprints = await Promise.all(
+    Object.keys(variants).map((directory) =>
+      createFilesFingerprint(["sample.txt"], {
+        rootDir: path.join(rootDir, directory)
+      })
+    )
+  );
+
+  assert.equal(fingerprints[0], fingerprints[1]);
+  assert.equal(fingerprints[0], fingerprints[2]);
+
+  await writeFile(
+    path.join(rootDir, "crlf", "sample.txt"),
+    "ligne 1 modifiée\r\nligne 2\r\n"
+  );
+  const changedFingerprint = await createFilesFingerprint(["sample.txt"], {
+    rootDir: path.join(rootDir, "crlf")
+  });
+  assert.notEqual(changedFingerprint, fingerprints[0]);
+});
+
 test("la synchronisation persiste, conserve puis actualise le lastmod", async (t) => {
   const rootDir = await createFixture(t);
   const statePath = getSitemapStatePath(rootDir);
@@ -138,6 +173,91 @@ test("un JSON invalide est reconstruit avec la date de synchronisation", async (
   );
   const recoveredState = await readFile(statePath, "utf8");
   assert.doesNotThrow(() => JSON.parse(recoveredState));
+});
+
+test("la migration v1 restaure les pages statiques et conserve le blog", async (t) => {
+  const rootDir = await createFixture(t);
+  const statePath = getSitemapStatePath(rootDir);
+  const trackedPages = {
+    "/": ["pages/page.html"],
+    "/tarifs.html": ["pages/page.html"],
+    "/services.html": ["pages/style.css"],
+    blogPresentation: ["pages/page.html", "pages/style.css"]
+  };
+  const fingerprints = Object.fromEntries(
+    await Promise.all(
+      Object.entries(trackedPages).map(async ([pageKey, files]) => [
+        pageKey,
+        await createFilesFingerprint(files, { rootDir })
+      ])
+    )
+  );
+  const incorrectLastmod = "2026-09-10T15:37:39.860Z";
+  const initialState = {
+    "/": {
+      fingerprint: fingerprints["/"],
+      lastmod: "2026-08-09T10:17:55.000Z"
+    },
+    "/tarifs.html": {
+      fingerprint: fingerprints["/tarifs.html"],
+      lastmod: "2026-08-09T10:17:55.000Z"
+    },
+    "/services.html": {
+      fingerprint: fingerprints["/services.html"],
+      lastmod: "2026-08-09T11:01:35.000Z"
+    },
+    blogPresentation: {
+      fingerprint: fingerprints.blogPresentation,
+      lastmod: incorrectLastmod
+    }
+  };
+  const versionOneState = {
+    version: 1,
+    pages: Object.fromEntries(
+      Object.entries(fingerprints).map(([pageKey, fingerprint]) => [
+        pageKey,
+        { fingerprint, lastmod: incorrectLastmod }
+      ])
+    )
+  };
+
+  await mkdir(path.dirname(statePath), { recursive: true });
+  await writeFile(statePath, `${JSON.stringify(versionOneState, null, 2)}\n`);
+
+  const migrated = await synchronizePageLastmods({
+    rootDir,
+    statePath,
+    trackedPages,
+    initialState,
+    now: () => new Date("2026-09-11T00:00:00.000Z")
+  });
+
+  assert.equal(migrated.state.version, 2);
+  assert.equal(migrated.state.pages["/"].lastmod, initialState["/"].lastmod);
+  assert.equal(
+    migrated.state.pages["/tarifs.html"].lastmod,
+    initialState["/tarifs.html"].lastmod
+  );
+  assert.equal(
+    migrated.state.pages["/services.html"].lastmod,
+    initialState["/services.html"].lastmod
+  );
+  assert.equal(
+    migrated.state.pages.blogPresentation.lastmod,
+    incorrectLastmod
+  );
+
+  const migratedJson = await readFile(statePath, "utf8");
+  const secondStart = await synchronizePageLastmods({
+    rootDir,
+    statePath,
+    trackedPages,
+    initialState,
+    now: () => new Date("2026-09-12T00:00:00.000Z")
+  });
+
+  assert.equal(secondStart.changed, false);
+  assert.equal(await readFile(statePath, "utf8"), migratedJson);
 });
 
 test("le sitemap garde updatedAt pour les articles et le maximum pour /blog", () => {

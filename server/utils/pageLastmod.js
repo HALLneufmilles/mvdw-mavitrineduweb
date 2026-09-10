@@ -10,7 +10,13 @@ import {
 } from "fs/promises";
 import path from "path";
 
-const STATE_VERSION = 1;
+const STATE_VERSION = 2;
+const V1_RENDER_BOOTSTRAP_LASTMOD = "2026-09-10T15:37:39.860Z";
+const V1_STATIC_PAGE_KEYS = new Set([
+  "/",
+  "/tarifs.html",
+  "/services.html"
+]);
 
 export const PAGE_LASTMOD_SOURCES = Object.freeze({
   "/": ["index.html", "src/styles/style.css"],
@@ -31,20 +37,20 @@ export const PAGE_LASTMOD_SOURCES = Object.freeze({
 // d'état. Git n'est jamais consulté au runtime.
 export const INITIAL_PAGE_LASTMOD_STATE = Object.freeze({
   "/": {
-    fingerprint: "c2471b328c16d778dcf77e4edc1881f5e2c4df5712678cb2536b86b6478fd212",
+    fingerprint: "04d7a9d80ca67504a468e75f80d1dcc3440f210c9984749d00b47b1f4cb3ef6a",
     lastmod: "2026-08-09T10:17:55.000Z"
   },
   "/tarifs.html": {
-    fingerprint: "8d38af7bed9e66abfb077dc38bd446c833d1ee72b84a153f703059601e73397f",
+    fingerprint: "fdde3f7dc134837d641784b3d3e4e94539e59938d606b8df94e2866bd4e89e57",
     lastmod: "2026-08-09T10:17:55.000Z"
   },
   "/services.html": {
-    fingerprint: "84955ff856786ba93e04b2463dfedeb151e39fd5f6181241ce597dda10ab5d26",
+    fingerprint: "29673bd67b27647e09b98e825da82e2d7bfd41b34fe99a7caa46233762f46157",
     lastmod: "2026-08-09T11:01:35.000Z"
   },
   blogPresentation: {
-    fingerprint: "3ed6b8879a96f2585fe8d3c867bbb60a8e4865a6253494726556c777b12bfaee",
-    lastmod: "2026-06-25T12:37:34.000Z"
+    fingerprint: "c03ae8884562cc4df72360b8be13fec3ce7babf9c32ec2e9fa66fce7b52e0aa2",
+    lastmod: V1_RENDER_BOOTSTRAP_LASTMOD
   }
 });
 
@@ -67,6 +73,13 @@ function normalizeRelativePath(filePath) {
   return filePath.split(path.sep).join("/");
 }
 
+function normalizeTextLineEndings(content) {
+  return Buffer.from(
+    content.toString("utf8").replace(/\r\n/g, "\n").replace(/\r/g, "\n"),
+    "utf8"
+  );
+}
+
 export async function createFilesFingerprint(
   filePaths,
   { rootDir = process.cwd() } = {}
@@ -82,7 +95,7 @@ export async function createFilesFingerprint(
 
   for (const filePath of sortedPaths) {
     const absolutePath = path.resolve(rootDir, filePath);
-    const content = await readFile(absolutePath);
+    const content = normalizeTextLineEndings(await readFile(absolutePath));
     const portablePath = normalizeRelativePath(path.relative(rootDir, absolutePath));
 
     // Les séparateurs et la taille empêchent les collisions par concaténation.
@@ -186,6 +199,25 @@ export async function synchronizePageLastmods({
     const fingerprint = await createFilesFingerprint(filePaths, { rootDir });
     const previousEntry = loaded.state.pages[pageKey];
     const baselineEntry = initialState[pageKey];
+
+    const shouldRestoreV1StaticBaseline =
+      loaded.state.version === 1 &&
+      V1_STATIC_PAGE_KEYS.has(pageKey) &&
+      isValidEntry(previousEntry) &&
+      previousEntry.fingerprint === fingerprint &&
+      new Date(previousEntry.lastmod).toISOString() ===
+        V1_RENDER_BOOTSTRAP_LASTMOD &&
+      isValidEntry(baselineEntry) &&
+      baselineEntry.fingerprint === fingerprint;
+
+    if (shouldRestoreV1StaticBaseline) {
+      pages[pageKey] = {
+        fingerprint,
+        lastmod: new Date(baselineEntry.lastmod).toISOString()
+      };
+      changed = true;
+      continue;
+    }
 
     if (
       isValidEntry(previousEntry) &&
