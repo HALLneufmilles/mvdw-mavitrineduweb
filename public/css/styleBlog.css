@@ -673,7 +673,7 @@ button > svg {
   overflow: hidden;
 }
 
-.card-title--ecommerce-cost-part-1 {
+.card-title--long {
   font-size: 1rem;
   height: calc(1.35rem * 1.3 * 2 + 10px);
 }
