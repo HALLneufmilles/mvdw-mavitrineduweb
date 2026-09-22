@@ -902,6 +902,10 @@ button > svg {
   padding: 10px;
 }
 
+h1.title {
+  margin: 10px 0;
+}
+
 .content {
   font-size: 1rem;
   line-height: 30px;

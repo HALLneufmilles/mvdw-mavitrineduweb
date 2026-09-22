@@ -1,4 +1,7 @@
 <!-- page qui affiche le post  -->
+<div class="blog">
+  <h1 class="title"><%= data.title %></h1>
+</div>
 <div class="banner2">
   <picture>
     <source srcset="<%= data.bannerImages.ImgConvert %>" type="image/webp" />
@@ -13,7 +16,6 @@
   </picture>
 </div>
 <div class="blog">
-  <h1 class="title"><%= data.title %></h1>
   <% const articleDate = getPostDateDisplay(data); %>
   <p class="published">
     <span><%= articleDate.label %> </span><%= articleDate.formattedDate %>
