@@ -42,23 +42,29 @@
   </div>
 </div>
 <picture>
+  <!-- À partir de 601 px : version desktop -->
   <source
-    srcset="/img/accueil-blog/accueil-mobile3.webp"
-    media="(max-width : 600px)"
+    id="blog-banner-desktop"
+    media="(min-width: 601px)"
     type="image/webp"
+    srcset="/img/accueil-blog/banner-blog-mvdw-claire.webp"
+    data-light="/img/accueil-blog/banner-blog-mvdw-claire.webp"
+    data-dark="/img/accueil-blog/banner-blog-mvdw-dark.webp"
   />
-  <source srcset="/img/accueil-blog/cover-1000.webp" type="image/webp" />
+
+  <!-- Par défaut : version mobile -->
   <img
-    src="/img/accueil-blog/cover-1000.jpeg"
-    alt="person looking out through window"
+    id="blog-banner"
+    src="/img/accueil-blog/banner-blog-mvdw-mobile-claire.webp"
+    data-light="/img/accueil-blog/banner-blog-mvdw-mobile-claire.webp"
+    data-dark="/img/accueil-blog/banner-blog-mvdw-mobile-dark.webp"
+    alt="Illustration maritime du blog MaVitrineDuWeb à La Rochelle"
     class="hero-image"
-    width="981"
-    height="528"
     loading="lazy"
-    importance="low"
-    fetchpriority="low"
+    decoding="async"
   />
 </picture>
+
 <section class="articles">
   <h2 class="articles__heading">DERNIERS POSTS :</h2>
   <!-- blog section -->
@@ -85,10 +91,14 @@
       <div class="card-content-wrapper">
         <% const postDate = getPostDateDisplay(post); %>
         <h3
-          class="card-title<%= post.title.length > 56 ? " card-title--long" : "" %>"
-        ><%= post.title %></h3>
+          class="card-title<%= post.title.length > 56 ? ' card-title--long' : '' %>"
+        >
+          <%= post.title %>
+        </h3>
         <p class="card-text"><%- post.description %></p>
-        <a href="/blog/post/<%= post.slug || post._id %>" class="btn dark">read</a>
+        <a href="/blog/post/<%= post.slug || post._id %>" class="btn dark"
+          >read</a
+        >
         <span class="card-article-list__date"
           ><%= postDate.formattedDate %></span
         >

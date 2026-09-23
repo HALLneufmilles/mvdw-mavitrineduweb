@@ -133,7 +133,7 @@ img {
   display: block;
   max-height: 528px;
   /* max-width: 1020px; */
-  filter: drop-shadow(0px 44px 34px rgba(0, 0, 0, 0.25));
+  /* filter: drop-shadow(0px 44px 34px rgba(0, 0, 0, 0.25)); */
   overflow: hidden;
   border-radius: var(--border-radius);
   object-fit: cover;
