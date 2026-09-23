@@ -368,23 +368,26 @@ button > svg {
 
 /* introduction - HomePage */
 .intro {
-  padding: 10px 0;
-  text-align: center;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 4rem)
+    clamp(2.5rem, 5vw, 5rem);
 }
 
-.intro p {
-  text-align: start;
-  margin: 0 1vw;
+.intro__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) 1px minmax(0, 1.05fr);
+  column-gap: clamp(0.9rem, 3.5vw, 4.5rem);
+  align-items: stretch;
 }
 
-.intro__heading {
-  margin-top: 10px;
-  margin-bottom: 5px;
+.intro__divider {
+  align-self: stretch;
+  margin-top: clamp(1.5rem, 3vw, 3rem);
+  background: color-mix(in srgb, var(--black) 45%, transparent);
 }
 
-.intro__body {
-  font-size: var(--font-size-md);
-  margin: 5px 0 40px 0;
+.intro__copy {
+  min-width: 0;
+  padding-top: clamp(1.5rem, 3vw, 3rem);
 }
 
 /* Home Article List */
@@ -622,55 +625,49 @@ button > svg {
 .hye-title {
   text-transform: uppercase;
   text-align: left;
-  margin: 10px 0;
-  font-size: 1.5rem;
-  padding: 0vh 1vw;
-  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: clamp(0.82rem, 4.1vw, 3.8rem);
+  line-height: 1.14;
 }
 
 .hye-title strong:first-child {
   display: inline-block;
   color: var(--gray);
-  margin-bottom: 10px;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(0.5rem, 1.5vw, 1.05rem);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.hye-title__main {
+  display: block;
+  font-weight: 800;
 }
 
 .presenting {
-  font-size: var(--font-size-md);
-  margin: 5px 0 0px 0;
-  overflow: hidden;
-  /* chaque ligne sera espacée de 1,5 fois la hauteur de la police */
-  /* line-height: 1.5; */
+  margin: 0;
+  font-size: clamp(0.84rem, 2.15vw, 1.65rem);
+  line-height: 1.42;
 }
 
 .collapsed {
-  max-height: 115px;
-  transition: all 0.3s ease-in-out;
-}
-
-@media (min-width: 627px) {
-  .collapsed {
-    max-height: 130px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .collapsed {
-    max-height: 115px;
-  }
+  max-height: none;
 }
 
 .read-actions {
-  text-align: right; /* Aligne les liens à droite du conteneur */
+  margin-top: clamp(1rem, 2.5vw, 2.5rem);
+  text-align: right;
 }
 
 .read-more,
 .read-less {
   display: inline-block;
-  margin-right: 3rem;
-  padding: 12px;
-  /* color: rgb(94, 94, 94); */
+  margin: 0;
+  padding: 0;
   color: rgb(0, 0, 0);
-  font-weight: 600;
+  font-size: clamp(0.78rem, 1.55vw, 1.25rem);
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
@@ -679,7 +676,17 @@ button > svg {
 .read-more:hover,
 .read-less:hover {
   color: rgb(94, 94, 94);
-  font-weight: 600;
+  font-weight: 500;
+}
+
+@media (min-width: 601px) {
+  .intro__layout {
+    grid-template-columns: minmax(0, 0.88fr) 1px minmax(0, 1.12fr);
+  }
+
+  .hye-title {
+    font-size: clamp(1.65rem, 4.35vw, 3.8rem);
+  }
 }
 
 .intro__heading-2 {
