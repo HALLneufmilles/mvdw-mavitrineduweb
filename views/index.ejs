@@ -7,7 +7,6 @@
     <br />personnalisés<br />
     A <strong>La Rochelle</strong> .
   </h1>
-  <h2 class="intro__heading-2" data-text="LE BLOG">LE BLOG</h2>
   <p class="presenting">
     <span class="collapsed">
       Ce blog est dédié à la <strong>Création de sites web</strong>
@@ -41,29 +40,46 @@
     <a href="#" class="read-less" style="display: none">... Réduire</a>
   </div>
 </div>
-<picture>
-  <!-- À partir de 601 px : version desktop -->
-  <source
-    id="blog-banner-desktop"
-    media="(min-width: 601px)"
-    type="image/webp"
-    srcset="/img/accueil-blog/banner-blog-mvdw-claire.webp"
-    data-light="/img/accueil-blog/banner-blog-mvdw-claire.webp"
-    data-dark="/img/accueil-blog/banner-blog-mvdw-dark.webp"
-  />
+<div class="blog-hero">
+  <picture class="blog-hero__picture">
+    <!-- À partir de 601 px : version desktop -->
+    <source
+      id="blog-banner-desktop"
+      media="(min-width: 601px)"
+      type="image/webp"
+      srcset="/img/accueil-blog/banner-blog-mvdw-claire.webp"
+      data-light="/img/accueil-blog/banner-blog-mvdw-claire.webp"
+      data-dark="/img/accueil-blog/banner-blog-mvdw-dark.webp"
+    />
 
-  <!-- Par défaut : version mobile -->
-  <img
-    id="blog-banner"
-    src="/img/accueil-blog/banner-blog-mvdw-mobile-claire.webp"
-    data-light="/img/accueil-blog/banner-blog-mvdw-mobile-claire.webp"
-    data-dark="/img/accueil-blog/banner-blog-mvdw-mobile-dark.webp"
-    alt="Illustration maritime du blog MaVitrineDuWeb à La Rochelle"
-    class="hero-image"
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+    <!-- Par défaut : version mobile -->
+    <img
+      id="blog-banner"
+      src="/img/accueil-blog/banner-blog-mvdw-mobile-claire.webp"
+      data-light="/img/accueil-blog/banner-blog-mvdw-mobile-claire.webp"
+      data-dark="/img/accueil-blog/banner-blog-mvdw-mobile-dark.webp"
+      alt="Illustration maritime du blog MaVitrineDuWeb à La Rochelle"
+      class="hero-image"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+
+  <div class="blog-hero__branding">
+    <h2 class="intro__heading-2" data-text="LE BLOG">
+      <span class="blog-hero__light-word">LE</span>
+      <strong class="blog-hero__strong-word">BLOG</strong>
+    </h2>
+    <div class="blog-hero__brand-row">
+      <span class="blog-hero__line" aria-hidden="true"></span>
+      <p class="blog-hero__initials">
+        <span>M</span><span>V</span><span>D</span><span>W</span>
+      </p>
+      <span class="blog-hero__line" aria-hidden="true"></span>
+    </div>
+    <p class="blog-hero__brand-name">MA VITRINE DU WEB</p>
+  </div>
+</div>
 
 <section class="articles">
   <h2 class="articles__heading">DERNIERS POSTS :</h2>
