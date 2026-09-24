@@ -61,6 +61,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!boxes.length) return;
 
+    const footer = document.querySelector("#footer");
+    if (footer) {
+      const startFooterGate = () => {
+        const updateFooterReached = () => {
+          document.body.classList.toggle(
+            "footer-reached",
+            footer.getBoundingClientRect().top <= window.innerHeight,
+          );
+        };
+
+        updateFooterReached();
+        window.addEventListener("scroll", updateFooterReached, { passive: true });
+      };
+
+      if (document.readyState === "complete") {
+        requestAnimationFrame(startFooterGate);
+      } else {
+        window.addEventListener("load", startFooterGate, { once: true });
+      }
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -101,19 +122,135 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Fonction pour initialiser Particles.js
+  // function initializeParticles() {
+  //   window.particlesJS("particles-js", {
+  //     particles: {
+  //       number: {
+  //         value: isSmartphone ? 100 : 65,
+  //         density: {
+  //           enable: true,
+  //           value_area: 800,
+  //         },
+  //       },
+  //       color: {
+  //         value: "#ffffff",
+  //       },
+  //       shape: {
+  //         type: "circle",
+  //         stroke: {
+  //           width: 0,
+  //           color: "#000000",
+  //         },
+  //         polygon: {
+  //           nb_sides: 5,
+  //         },
+  //         image: {
+  //           src: "img/github.svg",
+  //           width: 100,
+  //           height: 100,
+  //         },
+  //       },
+  //       opacity: {
+  //         value: 0.5,
+  //         random: false,
+  //         anim: {
+  //           enable: false,
+  //           speed: 1,
+  //           opacity_min: 0.1,
+  //           sync: false,
+  //         },
+  //       },
+  //       size: {
+  //         value: 3,
+  //         random: true,
+  //         anim: {
+  //           enable: false,
+  //           speed: 40,
+  //           size_min: 0.1,
+  //           sync: false,
+  //         },
+  //       },
+  //       line_linked: {
+  //         enable: true,
+  //         distance: 236.74429248968178,
+  //         color: "#ffffff",
+  //         opacity: 0.4,
+  //         width: isSmartphone ? 2 : 1,
+  //       },
+  //       move: {
+  //         enable: true,
+  //         speed: 5,
+  //         direction: "none",
+  //         random: false,
+  //         straight: false,
+  //         out_mode: "out",
+  //         bounce: false,
+  //         attract: {
+  //           enable: false,
+  //           rotateX: 600,
+  //           rotateY: 1200,
+  //         },
+  //       },
+  //     },
+  //     interactivity: {
+  //       detect_on: "canvas",
+  //       events: {
+  //         onhover: {
+  //           enable: true,
+  //           mode: "repulse",
+  //         },
+  //         onclick: {
+  //           enable: true,
+  //           mode: "push",
+  //         },
+  //         resize: true,
+  //       },
+  //       modes: {
+  //         grab: {
+  //           distance: 400,
+  //           line_linked: {
+  //             opacity: 1,
+  //           },
+  //         },
+  //         bubble: {
+  //           distance: 400,
+  //           size: 40,
+  //           duration: 2,
+  //           opacity: 8,
+  //           speed: 3,
+  //         },
+  //         repulse: {
+  //           distance: 200,
+  //           duration: 0.4,
+  //         },
+  //         push: {
+  //           particles_nb: 4,
+  //         },
+  //         remove: {
+  //           particles_nb: 2,
+  //         },
+  //       },
+  //     },
+  //     retina_detect: true,
+  //   });
+
+  //   window.setTimeout(stopParticlesAnimation, ANIMATION_MAX_DURATION);
+  // }
   function initializeParticles() {
     window.particlesJS("particles-js", {
       particles: {
         number: {
-          value: isSmartphone ? 100 : 65,
+          value: isSmartphone ? 85 : 58,
           density: {
             enable: true,
             value_area: 800,
           },
         },
+
         color: {
           value: "#ffffff",
         },
+
         shape: {
           type: "circle",
           stroke: {
@@ -129,8 +266,9 @@ document.addEventListener("DOMContentLoaded", function () {
             height: 100,
           },
         },
+
         opacity: {
-          value: 0.5,
+          value: 0.45,
           random: false,
           anim: {
             enable: false,
@@ -139,8 +277,9 @@ document.addEventListener("DOMContentLoaded", function () {
             sync: false,
           },
         },
+
         size: {
-          value: 3,
+          value: 2.8,
           random: true,
           anim: {
             enable: false,
@@ -149,16 +288,18 @@ document.addEventListener("DOMContentLoaded", function () {
             sync: false,
           },
         },
+
         line_linked: {
           enable: true,
-          distance: 236.74429248968178,
+          distance: 210,
           color: "#ffffff",
-          opacity: 0.4,
-          width: isSmartphone ? 2 : 1,
+          opacity: 0.28,
+          width: isSmartphone ? 1.5 : 1,
         },
+
         move: {
           enable: true,
-          speed: 5,
+          speed: 2.5,
           direction: "none",
           random: false,
           straight: false,
@@ -171,19 +312,24 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         },
       },
+
       interactivity: {
         detect_on: "canvas",
+
         events: {
           onhover: {
             enable: true,
             mode: "repulse",
           },
+
           onclick: {
             enable: true,
             mode: "push",
           },
+
           resize: true,
         },
+
         modes: {
           grab: {
             distance: 400,
@@ -191,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
               opacity: 1,
             },
           },
+
           bubble: {
             distance: 400,
             size: 40,
@@ -198,18 +345,22 @@ document.addEventListener("DOMContentLoaded", function () {
             opacity: 8,
             speed: 3,
           },
+
           repulse: {
             distance: 200,
             duration: 0.4,
           },
+
           push: {
             particles_nb: 4,
           },
+
           remove: {
             particles_nb: 2,
           },
         },
       },
+
       retina_detect: true,
     });
 

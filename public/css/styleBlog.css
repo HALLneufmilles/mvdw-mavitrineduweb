@@ -110,7 +110,7 @@ img {
 .container {
   /* max-width: 982px; */
   width: 100%;
-  max-width: 1500px;
+  max-width: 1200px;
   margin: 0 auto;
   /* padding: 0 10px; */
 }
@@ -681,7 +681,7 @@ button > svg {
 
 @media (min-width: 601px) {
   .intro__layout {
-    grid-template-columns: minmax(0, 0.88fr) 1px minmax(0, 1.12fr);
+    grid-template-columns: minmax(0, 1.08fr) 1px minmax(0, 0.92fr);
   }
 
   .hye-title {
