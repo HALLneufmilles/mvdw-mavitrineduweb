@@ -599,6 +599,28 @@ section {
   }
 }
 
+@media (max-width: 520px) and (orientation: portrait) {
+  #home .hye-title {
+    left: -24px;
+    top: -2px;
+  }
+
+  #home .hye-title::after {
+    left: calc(clamp(6.5rem, 21vw, 25rem) + 24px);
+    top: 2px;
+  }
+
+  .hero {
+    height: calc(100dvh - 228px);
+    background-size: cover, auto 75vh;
+    background-position: center, 26% top;
+  }
+
+  #hero-section {
+    --hero-group-top: calc(30vh - max(0px, calc(15.6vw - 93.6px)));
+  }
+}
+
 @media (min-width: 768px) and (max-width: 1200px) and (orientation: portrait) {
   .gauche {
     left: calc(
