@@ -72,7 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         updateFooterReached();
-        window.addEventListener("scroll", updateFooterReached, { passive: true });
+        window.addEventListener("scroll", updateFooterReached, {
+          passive: true,
+        });
       };
 
       if (document.readyState === "complete") {
@@ -419,25 +421,33 @@ document.addEventListener("DOMContentLoaded", function () {
       const oldText = this.el.innerText;
       const length = Math.max(oldText.length, newText.length);
       const promise = new Promise((resolve) => (this.resolve = resolve));
+
       this.queue = [];
+
       for (let i = 0; i < length; i++) {
         const from = oldText[i] || "";
         const to = newText[i] || "";
         const start = Math.floor(Math.random() * 80);
         const end = start + Math.floor(Math.random() * 80);
+
         this.queue.push({ from, to, start, end });
       }
+
       cancelAnimationFrame(this.frameRequest);
+
       this.frame = 0;
       this.update();
+
       return promise;
     }
 
     update() {
       let output = "";
       let complete = 0;
+
       for (let i = 0, n = this.queue.length; i < n; i++) {
         let { from, to, start, end, char } = this.queue[i];
+
         if (this.frame >= end) {
           complete++;
           output += to;
@@ -446,12 +456,15 @@ document.addEventListener("DOMContentLoaded", function () {
             char = this.randomChar();
             this.queue[i].char = char;
           }
+
           output += `<span class="dud">${char}</span>`;
         } else {
           output += from;
         }
       }
+
       this.el.innerHTML = output;
+
       if (complete === this.queue.length) {
         this.resolve();
       } else {
@@ -465,36 +478,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  const phrases1 = ["Développeur Web"]; // Valeur binaire initiale pour #text1
-  const phrases2 = ["A La Rochelle"]; // Valeur binaire initiale pour #text2
+  // Textes finaux lisibles
+  const phrases1 = ["Développeur Web"];
+  const phrases2 = ["A La Rochelle"];
 
-  // Phrase à afficher dynamiquement pour #text1
+  // Textes intermédiaires
   const binary1 = ["01000100 11000011 10101001"];
-  // Phrase à afficher dynamiquement pour #text2
   const binary2 = ["MaVitrineDuWeb.fr"];
 
-  const el1 = document.getElementById("text1"); // Élément avec id="text1"
-  const el2 = document.getElementById("text2"); // Élément avec id="text2"
+  const el1 = document.getElementById("text1");
+  const el2 = document.getElementById("text2");
 
-  const fx1 = new TextScramble(el1); // Instance pour le texte dans #text1
-  const fx2 = new TextScramble(el2); // Instance pour le texte dans #text2
+  const fx1 = new TextScramble(el1);
+  const fx2 = new TextScramble(el2);
 
-  // let counter1 = 0;
-  // let counter2 = 0;
-  let cycleCounter = 0; // Compteur pour limiter les cycles
+  let cycleCounter = 0;
+
+  // true uniquement lorsque l'animation du texte est définitivement terminée
   let textAnimationStopped = false;
+
+  // passe à true lorsque les 15 secondes sont atteintes.
+  // Le cycle en cours est alors autorisé à se terminer proprement.
+  let textStopRequested = false;
+
+  // permet de savoir si un cycle de transformation est actuellement en cours
+  let textCycleInProgress = false;
+
+  // timeout utilisé entre deux cycles
   let nextTextCycleTimeout = null;
 
   const cycleTexts = () => {
-    if (textAnimationStopped) return;
+    if (textAnimationStopped || textStopRequested) return;
 
-    console.log("lancemant cycleTexts()");
+    console.log("lancement cycleTexts()");
 
+    // Sur smartphone : un seul cycle complet
     if (isSmartphone && cycleCounter >= 1) {
       console.log("cycleCounter :", cycleCounter);
       console.log("isSmartphone :", isSmartphone);
-      return; // Arrêter l'animation après 1 cycle sur les smartphones
+
+      textAnimationStopped = true;
+      return;
     }
+
+    textCycleInProgress = true;
 
     fx1.setText(binary1[cycleCounter % binary1.length]).then(() => {
       setTimeout(() => {
@@ -503,9 +530,23 @@ document.addEventListener("DOMContentLoaded", function () {
             fx1.setText(phrases1[cycleCounter % phrases1.length]).then(() => {
               fx2.setText(phrases2[cycleCounter % phrases2.length]).then(() => {
                 cycleCounter++;
-                if (!textAnimationStopped) {
-                  nextTextCycleTimeout = setTimeout(cycleTexts, 900); // Délai avant de répéter le cycle
+                textCycleInProgress = false;
+
+                // Si les 15 secondes ont été atteintes pendant le cycle,
+                // on s'arrête ici, une fois les deux phrases entièrement lisibles.
+                if (textStopRequested) {
+                  textAnimationStopped = true;
+                  return;
                 }
+
+                // Sur smartphone, le premier cycle suffit.
+                if (isSmartphone && cycleCounter >= 1) {
+                  textAnimationStopped = true;
+                  return;
+                }
+
+                // Sinon, on prépare le cycle suivant.
+                nextTextCycleTimeout = setTimeout(cycleTexts, 900);
               });
             });
           }, 200); // Délai avant de réinitialiser avec les phrases
@@ -514,46 +555,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
-  // const initialize = () => {
-  //   // Afficher les valeurs binaires initiales directement (sans animation)
-  //   el1.innerText = binary1[0];
-  //   el2.innerText = binary2[0];
-
-  //   // Vérifier s'il s'agit d'un smartphone
-  //   if (isSmartphone) {
-  //     // Pour les smartphones, effectuer un seul cycle d'animation
-  //     setTimeout(() => {
-  //       fx1.setText(phrases1[0]).then(() => {
-  //         fx2.setText(phrases2[0]).then(() => {
-  //           setTimeout(cycleTexts, 500); // Démarrer le cycle après un délai
-  //           console.log("Animation pour smartphone");
-  //         });
-  //       });
-  //     }, 500); // Délai avant de démarrer l'animation
-  //   } else {
-  //     // Pour les autres appareils, continuer les cycles d'animation
-  //     setTimeout(() => {
-  //       fx1.setText(phrases1[0]).then(() => {
-  //         fx2.setText(phrases2[0]).then(() => {
-  //           setTimeout(cycleTexts, 500); // Démarrer le cycle après un délai
-  //         });
-  //       });
-  //     }, 500); // Délai avant de démarrer l'animation
-  //   }
-  // };
-
   const initialize = () => {
+    // État initial
     el1.innerText = binary1[0];
     el2.innerText = binary2[0];
+
+    // Premier cycle après 1,2 seconde
     nextTextCycleTimeout = setTimeout(() => cycleTexts(), 1200);
-    setTimeout(stopTextAnimation, ANIMATION_MAX_DURATION);
+
+    // Après la durée maximale, on DEMANDE l'arrêt.
+    // On ne coupe plus un TextScramble en plein milieu.
+    setTimeout(requestTextAnimationStop, ANIMATION_MAX_DURATION);
   };
 
-  function stopTextAnimation() {
-    textAnimationStopped = true;
-    if (nextTextCycleTimeout) clearTimeout(nextTextCycleTimeout);
-    cancelAnimationFrame(fx1.frameRequest);
-    cancelAnimationFrame(fx2.frameRequest);
+  function requestTextAnimationStop() {
+    textStopRequested = true;
+
+    // Si on est actuellement entre deux cycles,
+    // les phrases finales sont déjà entièrement affichées :
+    // on peut donc empêcher immédiatement le prochain cycle.
+    if (!textCycleInProgress) {
+      if (nextTextCycleTimeout) {
+        clearTimeout(nextTextCycleTimeout);
+        nextTextCycleTimeout = null;
+      }
+
+      textAnimationStopped = true;
+    }
+
+    // IMPORTANT :
+    // si un cycle est actuellement en cours, on ne fait PAS de
+    // cancelAnimationFrame(). Il se terminera naturellement sur :
+    //
+    // "Développeur Web"
+    // "A La Rochelle"
   }
 
   preloadImage
