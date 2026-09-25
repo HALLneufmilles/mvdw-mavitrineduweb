@@ -41,21 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo({ top: 0, behavior: "auto" });
   });
 
-  const preloadImage = new Promise((resolve, reject) => {
-    const img = new Image();
-
-    // Détecte la taille de l'écran et charge l'image correspondante
-    img.src = window.matchMedia("(min-width: 1024px)").matches
-      ? "/img/hero/20-fond-hero-section-1400.webp"
-      : "/img/hero/20-fond-hero-section-800.webp";
-
-    img.onload = () => resolve();
-    img.onerror = () =>
-      reject(
-        new Error("Erreur lors du chargement de l'image 20-fond-hero-section"),
-      );
-  });
-
   function revealBoxesAtScroll() {
     const boxes = document.querySelectorAll(".box-sticky");
 
@@ -591,22 +576,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // "A La Rochelle"
   }
 
-  preloadImage
-    .then(() => {
-      console.log(
-        "Image préchargée, initialisation des particules et inversion des couleurs",
-      );
-      initRevealOnScroll();
-      waitForParticlesJS()
-        .then(() => initializeParticles())
-        .catch((error) => console.warn(error.message));
-      initialize();
-      handleColorInversion();
-      revealBoxesAtScroll();
-    })
-    .catch((error) => {
-      console.error("Une erreur s'est produite :", error);
-    });
+  initRevealOnScroll();
+  waitForParticlesJS()
+    .then(() => initializeParticles())
+    .catch((error) => console.warn(error.message));
+  initialize();
+  handleColorInversion();
+  revealBoxesAtScroll();
 });
 
 // ---------- Scrollreveal -------------------
