@@ -611,13 +611,29 @@ section {
   }
 
   .hero {
-    height: calc(100dvh - 228px);
+    height: calc(
+      100dvh - clamp(7.5rem, 14vw, 9.5rem) - 10px - 5.75rem -
+        clamp(1.25rem, 3dvh, 2rem)
+    );
     background-size: cover, auto 75vh;
     background-position: center, 26% top;
   }
 
   #hero-section {
     --hero-group-top: calc(30vh - max(0px, calc(15.6vw - 93.6px)));
+  }
+}
+
+@media (min-width: 1024px) and (pointer: fine) {
+  .hero {
+    --hero-bottom-room: calc(
+      clamp(7.5rem, 14vw, 9.5rem) + 10px + 5.25rem +
+        clamp(1.25rem, 3dvh, 2rem)
+    );
+    --hero-trim: max(0px, calc(75vh - 100dvh + var(--hero-bottom-room)));
+    height: calc(75vh - var(--hero-trim));
+    background-size: cover, max(100%, 133.26vh) auto;
+    background-position: center, 26% calc(50% + var(--hero-trim) / 2);
   }
 }
 
