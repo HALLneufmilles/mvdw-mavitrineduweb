@@ -44,6 +44,44 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Journalisation temporaire SEO : permet de vérifier si les robots
+// demandent réellement les pages Services et Tarifs.
+app.use((req, res, next) => {
+  const monitoredPaths = ["/services.html", "/tarifs.html"];
+
+  if (!monitoredPaths.includes(req.path)) {
+    return next();
+  }
+
+  const startTime = Date.now();
+
+  res.on("finish", () => {
+    const forwardedFor = req.headers["x-forwarded-for"];
+
+    const ip =
+      req.headers["cf-connecting-ip"] ||
+      (typeof forwardedFor === "string"
+        ? forwardedFor.split(",")[0].trim()
+        : undefined) ||
+      req.ip;
+
+    console.log(
+      "[seo-crawl]",
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        method: req.method,
+        path: req.path,
+        status: res.statusCode,
+        userAgent: req.get("user-agent") || "",
+        ip,
+        durationMs: Date.now() - startTime,
+      }),
+    );
+  });
+
+  next();
+});
+
 // PART 6 - Time 9.50
 // middlewares utilisés pour parser les données du formulaire ou autres sources.
 // express.urlencoded({ extended: true }) est le middleware qui parse les données sous forme de 'application/x-www-form-urlencodedpour' et les rendre accessibles via req.body.
@@ -124,14 +162,14 @@ async function startServer() {
   try {
     const synchronization = await synchronizePageLastmods();
     console.log(
-      `[sitemap] Lastmod synchronisés dans ${synchronization.statePath}`
+      `[sitemap] Lastmod synchronisés dans ${synchronization.statePath}`,
     );
   } catch (error) {
     // L'état amorcé en mémoire reste disponible si le disque est momentanément
     // inaccessible. Le serveur peut donc démarrer avec un message explicite.
     console.error(
       "[sitemap] Impossible de synchroniser les lastmod persistants :",
-      error
+      error,
     );
   }
 
